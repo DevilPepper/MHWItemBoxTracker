@@ -58,7 +58,7 @@ jobs:
     #   run: dotnet test
 
     - name: Download HunterPie.Core
-      run: curl $Core_DLL -o HunterPie.Core.dll
+      run: curl -L $Core_DLL -o HunterPie.Core.dll
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the applications
