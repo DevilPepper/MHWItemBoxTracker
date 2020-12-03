@@ -1,0 +1,108 @@
+name: Item Tracker CI
+
+on:
+  push:
+    branches: [ master ]
+    tags:
+    # Push events to matching v*, i.e. v1.0, v20.15.10
+    - 'v*'
+    - latest
+  # pull_request:
+  #   branches: [ development ]
+
+env:
+  Project_Name: MHWItemBoxTracker
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    # For a list of available runner types, refer to
+    # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: windows-latest
+
+    env:
+      Core_DLL: https://github.com/ForksKnivesAndSpoons/HunterPie/releases/latest/download/HunterPie.Core.dll
+    outputs:
+      git_ref: ${{ steps.set_ref.outputs.git_ref }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - id: set_ref
+      run: echo "::set-output name=git_ref::${GITHUB_REF##*/}"
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    # # Execute all unit tests in the solution
+    # - name: Execute unit tests
+    #   run: dotnet test
+
+    - name: Download HunterPie.Core
+      run: curl $Core_DLL -o HunterPie.Core.dll
+
+    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    - name: Restore the applications
+      shell: pwsh
+      run: msbuild $env:Project_Name.sln -m /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    - name: Build the apps
+      shell: pwsh
+      run: msbuild $env:Project_Name.sln -m /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+  
+    # Upload the builds for next job and debugging
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        # Don't know if this should be unique to the tag/branch/PR
+        name: Item Tracker Plugin for Hunter Pie ${{ matrix.configuration }}
+        path: ./**/bin/*
+
+  release:
+    needs: build
+    runs-on: windows-latest
+    if: startsWith(needs.build.outputs.git_ref, 'v')
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: Item Tracker Plugin for Hunter Pie Release
+  
+    - name: Update release with binaries
+      # this is a workaround because actions/upload-release-asset isn't allowed multiple times
+      # https://hub.github.com/hub-release.1.html
+      run: |
+        hub release create $GIT_REF --message "Release $GIT_REF"
+        hub release edit   $GIT_REF -m "" -a ${Project_Name}/bin/Release/${Project_Name}.dll
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GIT_REF: ${{ needs.build.outputs.git_ref }}
