@@ -16,6 +16,7 @@ Come back later.
 - [.NET Framework >= 4.8](https://dotnet.microsoft.com/download/dotnet-framework/net48)
 
 ### Setup
+> **TODO: Actually link to module.json**
 
 1. [module.json]()
    - Drag this link into the Hunter Pie window
@@ -23,6 +24,8 @@ Come back later.
 2. Let Hunter Pie do its thing
 
 ## Build
+
+> **TODO: Update the dll url when main HP does releases with CI**
 
 Requires [HunterPie.Core.dll](https://github.com/ForksKnivesAndSpoons/HunterPie/releases/latest/download/HunterPie.Core.dll).
 You can download it or grab it from the HunterPie Libs directory (>= 1.0.3.99) and throw it in the project root. Even better, from the project root run:
