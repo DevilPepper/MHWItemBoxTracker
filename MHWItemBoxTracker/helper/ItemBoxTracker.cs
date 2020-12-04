@@ -1,5 +1,6 @@
 ﻿using System;
 using HunterPie.Core;
+using MHWItemBoxTracker.Config;
 using Debugger = HunterPie.Logger.Debugger;
 
 namespace MHWItemBoxTracker.helper
@@ -13,21 +14,12 @@ namespace MHWItemBoxTracker.helper
             this.player = player;
         }
 
-        internal void hookEvents()
-        {
-            player.OnVillageEnter += loadItemBox;
-            player.OnVillageLeave += unloadItemBox;
-        }
-
-        internal void unhookEvents()
-        {
-            player.OnVillageEnter -= loadItemBox;
-            player.OnVillageLeave -= unloadItemBox;
-        }
-
-        public void loadItemBox(object source, EventArgs e)
+        public void loadItemBox(object source = null, EventArgs e = null)
         {
             Debugger.Debug("Loading Box!!!");
+
+            var items = ConfigLoader.loadConfig().tracking;
+            //var box = player.Box;
         }
 
         public void unloadItemBox(object source, EventArgs e)

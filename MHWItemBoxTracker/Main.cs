@@ -1,9 +1,7 @@
-﻿using System.IO;
-using Newtonsoft.Json;
-using HunterPie.Core;
+﻿using HunterPie.Core;
 using HunterPie.Plugins;
 using MHWItemBoxTracker.helper;
-using System.Reflection;
+using MHWItemBoxTracker.Utils;
 
 namespace MHWItemBoxTracker
 {
@@ -15,21 +13,37 @@ namespace MHWItemBoxTracker
         private ItemBoxTracker tracker { get; set; }
         public void Initialize(Game context)
         {
-            var assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var modulePath = Path.Combine(assemblyFolder, "module.json");
-            var module = JsonConvert.DeserializeObject<PluginInformation>(File.ReadAllText(modulePath));
-            
+            var module = PathFinder.loadJson<PluginInformation>("module.json");
+
             Name = module.Name;
             Description = module.Description;
             Context = context;
 
             tracker = new ItemBoxTracker(context.Player);
-            tracker.hookEvents();
+            hookEvents();
         }
 
         public void Unload()
         {
-            tracker.unhookEvents();
+            unhookEvents();
+        }
+
+        internal void hookEvents()
+        {
+            var player = Context.Player;
+            player.OnVillageEnter += tracker.loadItemBox;
+            player.OnVillageLeave += tracker.unloadItemBox;
+
+            if (player.InHarvestZone)
+            {
+                tracker.loadItemBox();
+            }
+        }
+
+        internal void unhookEvents()
+        {
+            Context.Player.OnVillageEnter -= tracker.loadItemBox;
+            Context.Player.OnVillageLeave -= tracker.unloadItemBox;
         }
     }
 }
