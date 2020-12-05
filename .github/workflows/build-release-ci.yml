@@ -30,7 +30,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      Core_DLL: https://github.com/ForksKnivesAndSpoons/HunterPie/releases/latest/download/HunterPie.Core.dll
+      HunterPie_pkgs: https://nuget.pkg.github.com/ForksKnivesAndSpoons/index.json
     outputs:
       git_ref: ${{ steps.set_ref.outputs.git_ref }}
 
@@ -57,8 +57,11 @@ jobs:
     # - name: Execute unit tests
     #   run: dotnet test
 
-    - name: Download HunterPie.Core
-      run: curl -L $Core_DLL -o HunterPie.Core.dll
+    - name: Add HunterPie package repo to nuget
+      run: nuget sources add -name HunterPie -source $HunterPie_pkgs -UserName $GITHUB_REPOSITORY_OWNER -Password $GITHUB_TOKEN
+      env:
+        GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the applications
