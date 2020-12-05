@@ -16,7 +16,7 @@ namespace MHWItemBoxTracker.helper
 
         public void loadItemBox(object source = null, EventArgs e = null)
         {
-            Debugger.Debug("Loading Box!!!");
+            Debugger.Log("Loading Box!!!");
 
             var items = ConfigLoader.loadConfig().tracking;
             //var box = player.Box;
@@ -24,7 +24,7 @@ namespace MHWItemBoxTracker.helper
 
         public void unloadItemBox(object source, EventArgs e)
         {
-            Debugger.Debug("Hiding Box!!!");
+            Debugger.Log("Hiding Box!!!");
         }
     }
 }
