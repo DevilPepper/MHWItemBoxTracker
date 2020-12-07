@@ -29,8 +29,8 @@ jobs:
     # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
     runs-on: windows-latest
 
-    env:
-      HunterPie_pkgs: https://nuget.pkg.github.com/ForksKnivesAndSpoons/index.json
+    # env:
+    #   HunterPie_pkgs: https://nuget.pkg.github.com/ForksKnivesAndSpoons/index.json
     outputs:
       git_ref: ${{ steps.set_ref.outputs.git_ref }}
 
@@ -57,11 +57,11 @@ jobs:
     # - name: Execute unit tests
     #   run: dotnet test
 
-    - name: Add HunterPie package repo to nuget
-      run: nuget sources add -name HunterPie -source $HunterPie_pkgs -UserName $GITHUB_REPOSITORY_OWNER -Password $GITHUB_TOKEN
-      env:
-        GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Add HunterPie package repo to nuget
+    #   run: nuget sources add -name HunterPie -source $HunterPie_pkgs -UserName $GITHUB_REPOSITORY_OWNER -Password $GITHUB_TOKEN
+    #   env:
+    #     GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the applications
@@ -69,6 +69,8 @@ jobs:
       run: msbuild $env:Project_Name.sln -m /t:Restore /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
+        NUGET_USERNAME: ${{ github.repository_owner }}
+        NUGET_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build the apps
       shell: pwsh
