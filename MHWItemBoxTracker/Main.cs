@@ -33,17 +33,19 @@ namespace MHWItemBoxTracker
             var player = Context.Player;
             player.OnVillageEnter += tracker.loadItemBox;
             player.OnVillageLeave += tracker.unloadItemBox;
+            player.ItemBox.OnItemBoxUpdate += tracker.loadItemBox;
 
-            if (player.InHarvestZone)
-            {
-                tracker.loadItemBox();
-            }
+            tracker.loadItemBox();
         }
 
         internal void unhookEvents()
         {
-            Context.Player.OnVillageEnter -= tracker.loadItemBox;
-            Context.Player.OnVillageLeave -= tracker.unloadItemBox;
+            var player = Context.Player;
+            player.OnVillageEnter -= tracker.loadItemBox;
+            player.OnVillageLeave -= tracker.unloadItemBox;
+            player.ItemBox.OnItemBoxUpdate -= tracker.loadItemBox;
+
+            tracker.unloadItemBox();
         }
     }
 }
