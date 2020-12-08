@@ -4,11 +4,7 @@ on:
   push:
     branches: [ master ]
     tags:
-    # Push events to matching v*, i.e. v1.0, v20.15.10
     - 'v*'
-    - latest
-  # pull_request:
-  #   branches: [ development ]
 
 env:
   Project_Name: MHWItemBoxTracker
@@ -18,21 +14,23 @@ defaults:
     shell: bash
 
 jobs:
+  interrupt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
 
   build:
-
     strategy:
       matrix:
         configuration: [Debug, Release]
-
-    # For a list of available runner types, refer to
-    # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    # https://github.com/actions/virtual-environments
     runs-on: windows-latest
 
-    # env:
-    #   HunterPie_pkgs: https://nuget.pkg.github.com/ForksKnivesAndSpoons/index.json
     outputs:
-      git_ref: ${{ steps.set_ref.outputs.git_ref }}
+      git_tag: ${{ steps.set_vars.outputs.git_tag }}
 
     steps:
     - name: Checkout
@@ -40,28 +38,13 @@ jobs:
       with:
         fetch-depth: 0
 
-    - id: set_ref
-      run: echo "::set-output name=git_ref::${GITHUB_REF##*/}"
+    - id: set_vars
+      run: |
+        GIT_TAG=$(git describe --first-parent)
+        echo "::set-output name=git_tag::$GIT_TAG"
 
-    # Install the .NET Core workload
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.101
-
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
-
-    # # Execute all unit tests in the solution
-    # - name: Execute unit tests
-    #   run: dotnet test
-
-    # - name: Add HunterPie package repo to nuget
-    #   run: nuget sources add -name HunterPie -source $HunterPie_pkgs -UserName $GITHUB_REPOSITORY_OWNER -Password $GITHUB_TOKEN
-    #   env:
-    #     GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the applications
@@ -86,12 +69,11 @@ jobs:
         name: Item Tracker Plugin for Hunter Pie ${{ matrix.configuration }}
         path: ./**/bin/*
 
-  release:
+  publish:
     needs: build
-    runs-on: windows-latest
-    if: startsWith(needs.build.outputs.git_ref, 'v')
-    
+    runs-on: ubuntu-latest
     steps:
+
     - name: Checkout
       uses: actions/checkout@v2
       with:
@@ -102,12 +84,10 @@ jobs:
       with:
         name: Item Tracker Plugin for Hunter Pie Release
   
-    - name: Update release with binaries
-      # this is a workaround because actions/upload-release-asset isn't allowed multiple times
-      # https://hub.github.com/hub-release.1.html
+    - name: Create release with binaries
       run: |
-        hub release create $GIT_REF --message "Release $GIT_REF"
-        hub release edit   $GIT_REF -m "" -a ${Project_Name}/bin/Release/${Project_Name}.dll
+        gh release create $GIT_TAG -t "Release $GIT_TAG" \
+          ${Project_Name}/bin/Release/${Project_Name}.dll
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GIT_REF: ${{ needs.build.outputs.git_ref }}
+        GIT_TAG: ${{ needs.build.outputs.git_tag }}
