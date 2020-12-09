@@ -40,7 +40,8 @@ jobs:
 
     - id: set_vars
       run: |
-        GIT_TAG=$(git describe --first-parent --tags)
+        git fetch --tags
+        GIT_TAG=$(git describe --first-parent)
         echo "::set-output name=git_tag::$GIT_TAG"
 
     - name: Setup MSBuild.exe
