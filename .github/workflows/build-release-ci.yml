@@ -35,10 +35,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
     - id: set_vars
       run: |
-        GIT_TAG=$(git describe --first-parent)
+        GIT_TAG=$(git describe --first-parent --tags)
         echo "::set-output name=git_tag::$GIT_TAG"
 
     - name: Setup MSBuild.exe
