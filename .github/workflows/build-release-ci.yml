@@ -40,9 +40,9 @@ jobs:
 
     - id: set_vars
       run: |
-        git fetch --tags
-        GIT_TAG=$(git describe --first-parent)
-        echo "::set-output name=git_tag::$GIT_TAG"
+        GIT_TAG=$(git describe --first-parent --abbrev=0)
+        REV_COUNT=$(git rev-list $GIT_TAG..HEAD --count)
+        echo "::set-output name=git_tag::$GIT_TAG.$REV_COUNT"
 
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
