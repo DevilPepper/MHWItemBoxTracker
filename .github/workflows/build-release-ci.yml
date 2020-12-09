@@ -62,7 +62,6 @@ jobs:
       shell: pwsh
       run: |
         $version=$env:git_tag.substring(1)
-        echo $version
         msbuild $env:Project_Name.sln -m /p:Configuration=$env:Configuration,VersionNumber=$version
       env:
         Configuration: ${{ matrix.configuration }}
