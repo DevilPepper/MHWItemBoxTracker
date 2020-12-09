@@ -42,6 +42,8 @@ jobs:
       run: |
         GIT_TAG=$(git describe --first-parent --abbrev=0)
         REV_COUNT=$(git rev-list $GIT_TAG..HEAD --count)
+
+        echo "git_tag=$GIT_TAG.$REV_COUNT" >> $GITHUB_ENV
         echo "::set-output name=git_tag::$GIT_TAG.$REV_COUNT"
 
     - name: Setup MSBuild.exe
@@ -58,7 +60,10 @@ jobs:
 
     - name: Build the apps
       shell: pwsh
-      run: msbuild $env:Project_Name.sln -m /p:Configuration=$env:Configuration
+      run: |
+        $version=$env:git_tag.substring(1)
+        echo $version
+        msbuild $env:Project_Name.sln -m /p:Configuration=$env:Configuration,VersionNumber=$version
       env:
         Configuration: ${{ matrix.configuration }}
   
