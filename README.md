@@ -25,14 +25,15 @@ Come back later.
 
 ## Build
 
-> **TODO: Update the dll url when main HP does releases with CI**
+> **TODO: Update NuGet source when main HP pushes libs to NuGet with CI**
 
-Requires [HunterPie.Core.dll](https://github.com/ForksKnivesAndSpoons/HunterPie/releases/latest/download/HunterPie.Core.dll).
-You can download it or grab it from the HunterPie Libs directory (>= 1.0.3.99) and throw it in the project root. Even better, from the project root run:
+You'll need to add `ForksKnivesAndSpoons` to your NuGet sources one time:
 
 ```bash
-curl -L https://github.com/ForksKnivesAndSpoons/HunterPie/releases/latest/download/HunterPie.Core.dll -o HunterPie.Core.dll
+nuget sources add -name FKnS -source https://nuget.pkg.github.com/ForksKnivesAndSpoons/index.json -UserName $GITHUB_USERNAME -Password $GITHUB_PASSWORD
 ```
+
+> If you built HunterPie locally, you can also copy _HunterPie.Core.dll_ to the root of this project and it'll override the NuGet package.
 
 Then to build it:
 
