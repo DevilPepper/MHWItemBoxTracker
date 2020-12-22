@@ -64,7 +64,7 @@
 	  <Reference Include="..\HunterPie.Core.dll" Condition="Exists('..\HunterPie.Core.dll')" />
 	  <PackageReference Include="HunterPie.Core" Version="1.0.3-99r1" Condition="!Exists('..\HunterPie.Core.dll')" />
 	  <Reference Include="..\HunterPie.UI.dll" Condition="Exists('..\HunterPie.UI.dll')" />
-	  <PackageReference Include="HunterPie.UI" Version="1.0.3-99r1" Condition="!Exists('..\HunterPie.UI.dll')" />
+	  <PackageReference Include="HunterPie.UI" Version="1.0.3-99r5" Condition="!Exists('..\HunterPie.UI.dll')" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigLoader.cs" />
