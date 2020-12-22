@@ -40,9 +40,16 @@ jobs:
 
     - id: set_vars
       run: |
-        GIT_TAG=$(git describe --first-parent --abbrev=0)
-        REV_COUNT=$(git rev-list $GIT_TAG..HEAD --count)
+        # hacky workaround for the annotated tag push issue
+        GIT_REF=${GITHUB_REF##*/}
+        if [[ $GIT_REF == v* ]]
+        then
+          GIT_TAG=$GIT_REF
+        else
+          GIT_TAG=$(git describe --first-parent --abbrev=0)
+        fi
 
+        REV_COUNT=$(git rev-list $GIT_TAG..HEAD --count)
         echo "git_tag=$GIT_TAG.$REV_COUNT" >> $GITHUB_ENV
         echo "::set-output name=git_tag::$GIT_TAG.$REV_COUNT"
 
@@ -62,7 +69,7 @@ jobs:
       shell: pwsh
       run: |
         $version=$env:git_tag.substring(1)
-        msbuild $env:Project_Name.sln -m /p:Configuration=$env:Configuration,VersionNumber=$version
+        msbuild $env:Project_Name.sln -m /p:Configuration="$env:Configuration,VersionNumber=$version"
       env:
         Configuration: ${{ matrix.configuration }}
   
