@@ -22,6 +22,8 @@ Come back later.
    - Drag this link into the Hunter Pie window
    - OR download it to `HunterPie/Modules/ItemBoxTracker`
 2. Let Hunter Pie do its thing
+3. To config the tracker, you can go [here](https://json-editor.github.io/json-editor/) or [here](https://rjsf-team.github.io/react-jsonschema-form/) and copy and paste the contents of [config.schema.json](https://github.com/SupaStuff/MHWItemBoxTracker/releases/latest/download/config.schema.json) into the schema box. Then you can copy the output to _Modules/MHWItemBoxTracker/plugin.settings.json_
+   - They both have a bug where Overlay.Position are invalid if you leave them empty, so at least make both coordinates 0 or something.
 
 ## Build
 
