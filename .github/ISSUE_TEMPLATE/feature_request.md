@@ -2,19 +2,27 @@
 name: Feature request
 about: Suggest an idea for this project
 title: ''
-labels: ''
+labels: 'enhancement'
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+<!-- Straight up copied this: https://github.com/bchavez/RethinkDb.Driver/blob/master/.github/ISSUE_TEMPLATE/02_feature_request.md -->
+# Feature Request
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## Context
+<!-- What are you trying to do and how would you want to do it differently? Is it something you currently you cannot do? Is this related to an issue/problem? -->
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## Alternatives
+<!-- Can you achieve the same result doing it in an alternative way? Is the alternative considerable? -->
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+## Has the feature been requested before?
+<!-- Please provide a link to the issue. -->
+
+## If the feature request is approved, would you be willing to submit a PR?
+
+- [ ] Yes
+- [ ] No _(Help can be provided if you need assistance submitting a PR)_
+
+## Additional context
+<!-- Add any other context/screenshots/design/POC about the feature request here. -->
