@@ -8,5 +8,10 @@ namespace MHWItemBoxTracker.Config
         {
             return PathFinder.loadJson<ItemBoxTrackerConfig>("plugin.settings.json");
         }
+
+        public static void saveConfig(ItemBoxTrackerConfig config)
+        {
+            PathFinder.saveJson("plugin.settings.json", config);
+        }
     }
 }

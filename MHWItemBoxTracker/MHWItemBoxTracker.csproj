@@ -61,14 +61,17 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-	  <Reference Include="..\HunterPie.Core.dll" Condition="Exists('..\HunterPie.Core.dll')" />
-	  <PackageReference Include="HunterPie.Core" Version="1.0.3-99r5-1.0" Condition="!Exists('..\HunterPie.Core.dll')" />
-	  <Reference Include="..\HunterPie.UI.dll" Condition="Exists('..\HunterPie.UI.dll')" />
-	  <PackageReference Include="HunterPie.UI" Version="1.0.3-99r5-1.0" Condition="!Exists('..\HunterPie.UI.dll')" />
+    <Reference Include="..\HunterPie.Core.dll" Condition="Exists('..\HunterPie.Core.dll')" />
+    <PackageReference Include="HunterPie.Core" Version="1.0.3-99r5-1.0" Condition="!Exists('..\HunterPie.Core.dll')" />
+    <Reference Include="..\HunterPie.UI.dll" Condition="Exists('..\HunterPie.UI.dll')" />
+    <PackageReference Include="HunterPie.UI" Version="1.0.3-99r5-1.0" Condition="!Exists('..\HunterPie.UI.dll')" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigLoader.cs" />
     <Compile Include="Config\ItemConfig.cs" />
+    <Compile Include="GUI\ItemBoxTracker.xaml.cs">
+      <DependentUpon>ItemBoxTracker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="helper\ItemBoxTracker.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -94,6 +97,13 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="GUI\ItemBoxTracker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
