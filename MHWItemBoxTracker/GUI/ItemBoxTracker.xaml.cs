@@ -49,12 +49,9 @@ namespace MHWItemBoxTracker.GUI
         private void SaveSettings()
         {
             var config = ConfigLoader.loadConfig();
-            if (config.overlayPosition == null || config.overlayPosition.Length != 2)
-            {
-                config.overlayPosition = new int[] { 0, 0 };
-            }
-            config.overlayPosition[0] = (int)Left; // - UserSettings.PlayerConfig.Overlay.Position[0];
-            config.overlayPosition[1] = (int)Top; // - UserSettings.PlayerConfig.Overlay.Position[1];
+
+            config.overlay.Position[0] = (int)Left - UserSettings.PlayerConfig.Overlay.Position[0];
+            config.overlay.Position[1] = (int)Top - UserSettings.PlayerConfig.Overlay.Position[1];
 
             ConfigLoader.saveConfig(config);
         }
@@ -67,13 +64,15 @@ namespace MHWItemBoxTracker.GUI
                 {
                     var config = ConfigLoader.loadConfig();
 
-                    Left = config?.overlayPosition?[0] ?? 0; // + UserSettings.PlayerConfig.Overlay.Position[0];
-                    Top = config?.overlayPosition?[1] ?? 0; // + UserSettings.PlayerConfig.Overlay.Position[1];
+                    Left = config.overlay.Position[0] + UserSettings.PlayerConfig.Overlay.Position[0];
+                    Top = config.overlay.Position[1] + UserSettings.PlayerConfig.Overlay.Position[1];
                     WidgetActive = config?.IsEnabled ?? true;
-                    Opacity = 0.6;
+                    Opacity = config.overlay.Opacity;
                 }
                 base.ApplySettings();
             });
+            Debugger.Log($"Theme: {UserSettings.PlayerConfig.HunterPie.Theme}");
+
         }
         private void Dispatch(System.Action function) => Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Render, function);
 
