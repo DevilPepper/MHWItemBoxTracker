@@ -22,9 +22,9 @@ assignees: ''
 ## Relevant code
 <!-- If applicable. Permalink is greatly appreciated (Shift + click to select relevant lines) -->
 <!-- You may also copy relevant lines here for quick reference -->
-<!-- Use syntax highlighting like bash, css, html, javascript, json, yaml -->
+<!-- Use syntax highlighting like bash, pwsh, py, cs, xml, json -->
 <!-- https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers -->
-```javascript
+```cs
 ```
 
 ## Possible Solution
