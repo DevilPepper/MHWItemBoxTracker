@@ -74,6 +74,11 @@ jobs:
         msbuild $env:Project_Name.sln -m /p:Configuration="$env:Configuration,VersionNumber=$version"
       env:
         Configuration: ${{ matrix.configuration }}
+        
+    - name: Generate JSON
+      if: matrix.configuration == 'Release'
+      shell: pwsh
+      run: csi scripts/gen-json-schema.csx
   
     # Upload the builds for next job and debugging
     - name: Upload build artifacts
@@ -101,7 +106,8 @@ jobs:
     - name: Create release with binaries
       run: |
         gh release create $GIT_TAG -t "Release $GIT_TAG" \
-          ${Project_Name}/bin/Release/${Project_Name}.dll
+          ${Project_Name}/bin/Release/${Project_Name}.dll \
+          ${Project_Name}/bin/Release/config.schema.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GIT_TAG: ${{ needs.build.outputs.git_tag }}

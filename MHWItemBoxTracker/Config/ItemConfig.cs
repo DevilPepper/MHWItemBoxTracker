@@ -1,9 +1,13 @@
-﻿namespace MHWItemBoxTracker.Config
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MHWItemBoxTracker.Config
 {
-    class ItemConfig
+    public class ItemConfig
     {
-        public string name { get; set; }
-        public int itemId { get; set; }
-        public int amount { get; set; }
+        public string Name { get; set; }
+        [Required]
+        public int ItemId { get; set; }
+        [Required]
+        public int Amount { get; set; }
     }
 }

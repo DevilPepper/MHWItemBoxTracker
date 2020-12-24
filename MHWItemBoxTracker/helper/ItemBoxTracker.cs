@@ -28,22 +28,22 @@ namespace MHWItemBoxTracker.helper
         {
             if (!player.InHarvestZone) return;
 
-            var items = ConfigLoader.loadConfig().tracking;
+            var items = ConfigLoader.loadConfig().Tracking;
             var box = player.ItemBox;
-            var ids = items.Select(ic => ic.itemId).ToHashSet();
+            var ids = items.Select(ic => ic.ItemId).ToHashSet();
 
             var itemsHeld = box.FindItemsInBox(ids);
             var itemBoxRows = new List<GUI.ItemBoxRow>();
             foreach (ItemConfig item in items)
             {
                 int amountHeld = 0;
-                itemsHeld.TryGetValue(item.itemId, out amountHeld);
+                itemsHeld.TryGetValue(item.ItemId, out amountHeld);
 
                 itemBoxRows.Add(new GUI.ItemBoxRow
                 {
-                    name = item.name,
-                    ratio = $"{amountHeld}/{item.amount}",
-                    progress = 100.0 * amountHeld / item.amount,
+                    name = item.Name,
+                    ratio = $"{amountHeld}/{item.Amount}",
+                    progress = 100.0 * amountHeld / item.Amount,
                 });
             }
             gui?.setItemsToDisplay(itemBoxRows);

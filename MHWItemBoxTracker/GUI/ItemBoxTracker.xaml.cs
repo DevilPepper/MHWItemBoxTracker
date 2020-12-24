@@ -50,8 +50,8 @@ namespace MHWItemBoxTracker.GUI
         {
             var config = ConfigLoader.loadConfig();
 
-            config.overlay.Position[0] = (int)Left - UserSettings.PlayerConfig.Overlay.Position[0];
-            config.overlay.Position[1] = (int)Top - UserSettings.PlayerConfig.Overlay.Position[1];
+            config.Overlay.Position[0] = (int)Left - UserSettings.PlayerConfig.Overlay.Position[0];
+            config.Overlay.Position[1] = (int)Top - UserSettings.PlayerConfig.Overlay.Position[1];
 
             ConfigLoader.saveConfig(config);
         }
@@ -64,10 +64,10 @@ namespace MHWItemBoxTracker.GUI
                 {
                     var config = ConfigLoader.loadConfig();
 
-                    Left = config.overlay.Position[0] + UserSettings.PlayerConfig.Overlay.Position[0];
-                    Top = config.overlay.Position[1] + UserSettings.PlayerConfig.Overlay.Position[1];
+                    Left = config.Overlay.Position[0] + UserSettings.PlayerConfig.Overlay.Position[0];
+                    Top = config.Overlay.Position[1] + UserSettings.PlayerConfig.Overlay.Position[1];
                     WidgetActive = config?.IsEnabled ?? true;
-                    Opacity = config.overlay.Opacity;
+                    Opacity = config.Overlay.Opacity;
                 }
                 base.ApplySettings();
             });
