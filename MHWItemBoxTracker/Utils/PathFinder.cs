@@ -21,5 +21,12 @@ namespace MHWItemBoxTracker.Utils
             var jsonPath = Path.Combine(PathFinder.getPluginPath(), json);
             return JsonConvert.DeserializeObject<T>(File.ReadAllText(jsonPath));
         }
+
+        public static void saveJson<T>(string json, T config)
+        {
+            var jsonPath = Path.Combine(PathFinder.getPluginPath(), json);
+            var jsonStr = JsonConvert.SerializeObject(config, Formatting.Indented);
+            File.WriteAllText(jsonPath, jsonStr);
+        }
     }
 }
