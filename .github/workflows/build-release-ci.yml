@@ -77,8 +77,13 @@ jobs:
         
     - name: Generate JSON
       if: matrix.configuration == 'Release'
-      shell: pwsh
-      run: csi scripts/gen-json-schema.csx
+      run: |
+        nuget install Microsoft.Net.Compilers.Toolset -OutputDirectory packages -Version 3.9.0-2.final
+        CSI="packages/Microsoft.Net.Compilers.Toolset.3.9.0-2.final/tasks/net472/csi.exe"
+        $CSI scripts/gen-json-schema.csx
+      env:
+        NUGET_USERNAME: ${{ github.repository_owner }}
+        NUGET_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
   
     # Upload the builds for next job and debugging
     - name: Upload build artifacts
