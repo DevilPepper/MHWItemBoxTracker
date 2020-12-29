@@ -5,7 +5,7 @@ using HunterPie.Plugins;
 
 namespace MHWItemBoxTracker.Config
 {
-    public class ItemBoxTrackerConfig : PluginSettings
+    public class ItemBoxTrackerConfig
     {
 
         [DisplayName("Items to Track")]

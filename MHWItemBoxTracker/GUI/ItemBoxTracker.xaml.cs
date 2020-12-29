@@ -66,7 +66,7 @@ namespace MHWItemBoxTracker.GUI
 
                     Left = config.Overlay.Position[0] + UserSettings.PlayerConfig.Overlay.Position[0];
                     Top = config.Overlay.Position[1] + UserSettings.PlayerConfig.Overlay.Position[1];
-                    WidgetActive = config?.IsEnabled ?? true;
+                    WidgetActive = config.Overlay.Enabled;
                     Opacity = config.Overlay.Opacity;
                 }
                 base.ApplySettings();
