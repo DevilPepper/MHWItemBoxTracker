@@ -1,4 +1,4 @@
-#r "..\MHWItemBoxTracker\bin\Release\MHWItemBoxTracker.dll"
+#r "MHWItemBoxTracker.dll"
 
 using System.IO;
 

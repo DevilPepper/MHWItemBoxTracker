@@ -2,9 +2,9 @@
 
 namespace MHWItemBoxTracker.Config
 {
-    class ConfigLoader
+    public class ConfigLoader
     {
-        private static string settings = "settings.json";
+        public static string settings = "settings.json";
         public static ItemBoxTrackerConfig loadConfig()
         {
             return PathFinder.loadJson<ItemBoxTrackerConfig>(settings);
