@@ -24,7 +24,7 @@ info.Version = Args[0];
 var update = new PluginInformation.PluginUpdateInformation();
 info.Update = update;
 
-update.MinimumVersion = "1.0.3.995";
+update.MinimumVersion = "1.0.4.0";
 update.UpdateUrl = "https://github.com/SupaStuff/MHWItemBoxTracker/releases/latest/download/";
 
 var hashes = new Dictionary<string, string>();

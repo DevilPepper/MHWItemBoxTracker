@@ -8,7 +8,7 @@ Reducing cognitive overhead by allowing the player to stop looking at the box af
 
 ### Requirements
 
-- [Hunter Pie >= 1.0.3.99](https://github.com/Haato3o/HunterPie)
+- [Hunter Pie >= 1.0.4.0](https://github.com/Haato3o/HunterPie)
 - [.NET Framework >= 4.8](https://dotnet.microsoft.com/download/dotnet-framework/net48)
 
 ### Setup
