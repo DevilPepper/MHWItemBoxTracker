@@ -1,7 +1,0 @@
-{
-    "Name": "MHWItemBoxTracker",
-    "EntryPoint": "Main.cs",
-    "Description": "A HunterPie plugin to items the player is farming",
-    "Author": "Stuff",
-    "Version": "0.0.0"
-}
