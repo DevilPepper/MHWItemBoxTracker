@@ -120,7 +120,9 @@ jobs:
   
     - name: Create release with binaries
       run: |
-        gh release create $GIT_TAG -t "Release $GIT_TAG" \
+        BUILD=$(echo $GIT_TAG | cut -d'.' -f4)
+        [[ $BUILD = 0 ]] && prerelease="" || prerelease="-p"
+        gh release create $GIT_TAG -t "Release $GIT_TAG" $prerelease \
            ItemBoxTracker.zip \
            Modules/ItemBoxTracker/*
       env:
