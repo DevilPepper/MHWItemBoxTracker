@@ -108,13 +108,21 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: Item Tracker Plugin for Hunter Pie Release
+    
+    - name: Zip it
+      run: |
+        mkdir -p Modules/ItemBoxTracker
+        mv ${Project_Name}/bin/Release/${Project_Name}.dll \
+           ${Project_Name}/bin/Release/config.schema.json \
+           ${Project_Name}/bin/Release/module.json \
+           Modules/ItemBoxTracker
+        zip ItemBoxTracker.zip -r Modules
   
     - name: Create release with binaries
       run: |
         gh release create $GIT_TAG -t "Release $GIT_TAG" \
-          ${Project_Name}/bin/Release/${Project_Name}.dll \
-          ${Project_Name}/bin/Release/config.schema.json \
-          ${Project_Name}/bin/Release/module.json
+           ItemBoxTracker.zip \
+           Modules/ItemBoxTracker/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GIT_TAG: ${{ needs.build.outputs.git_tag }}
