@@ -81,6 +81,7 @@ jobs:
         nuget install Microsoft.Net.Compilers.Toolset -OutputDirectory packages -Version 3.9.0-2.final
         CSI="packages/Microsoft.Net.Compilers.Toolset.3.9.0-2.final/tasks/net472/csi.exe"
         $CSI scripts/gen-json-schema.csx
+        $CSI scripts/gen-module-json.csx $git_tag
       env:
         NUGET_USERNAME: ${{ github.repository_owner }}
         NUGET_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
@@ -112,7 +113,8 @@ jobs:
       run: |
         gh release create $GIT_TAG -t "Release $GIT_TAG" \
           ${Project_Name}/bin/Release/${Project_Name}.dll \
-          ${Project_Name}/bin/Release/config.schema.json
+          ${Project_Name}/bin/Release/config.schema.json \
+          ${Project_Name}/bin/Release/module.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GIT_TAG: ${{ needs.build.outputs.git_tag }}
