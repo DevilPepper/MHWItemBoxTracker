@@ -1,14 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <Target Name="BeforeBuild">
-    <Message Text="Updating AssemblyInfo to Version $(VersionNumber)">
-    </Message>
-    <Message Text="Writing to AssemblyInfo files in $(SolutionRoot)">
-    </Message>
-    <AssemblyInfo AssemblyVersion="$(VersionNumber)" AssemblyFileVersion="$(VersionNumber)">
-    </AssemblyInfo>
-  </Target>
+  
+  <!-- Build Configs -->
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -22,6 +16,7 @@
     <WarningLevel>4</WarningLevel>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -31,6 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -39,6 +35,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
+  <!-- Standard lib??? -->
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -56,6 +54,8 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
+
+  <!-- Dependencies -->
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
@@ -64,12 +64,24 @@
       <Version>3.0.13</Version>
     </PackageReference>
   </ItemGroup>
+
+  <!-- Build tools -->
+  <ItemGroup>
+    <PackageReference Include="MSBuild.AssemblyVersion" Version="1.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Nuget OR Local DLLs -->
   <ItemGroup>
     <Reference Include="..\HunterPie.Core.dll" Condition="Exists('..\HunterPie.Core.dll')" />
     <PackageReference Include="HunterPie.Core" Version="1.0.3-99r5-1.0" Condition="!Exists('..\HunterPie.Core.dll')" />
     <Reference Include="..\HunterPie.UI.dll" Condition="Exists('..\HunterPie.UI.dll')" />
     <PackageReference Include="HunterPie.UI" Version="1.0.3-99r5-1.0" Condition="!Exists('..\HunterPie.UI.dll')" />
   </ItemGroup>
+
+  <!-- csproj BS -->
   <ItemGroup>
     <Compile Include="Config\ConfigLoader.cs" />
     <Compile Include="Config\ItemConfig.cs" />
@@ -110,5 +122,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+
+  <!-- Targets (Our targets need to be declared after imports) -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name = "Clean">
+    <RemoveDir Directories="obj;bin" />
+  </Target>
 </Project>
