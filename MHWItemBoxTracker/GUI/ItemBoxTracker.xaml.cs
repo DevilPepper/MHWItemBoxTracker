@@ -24,7 +24,6 @@ namespace MHWItemBoxTracker.GUI
             Dispatch(() =>
             {
                 theList.ItemsSource = itemBoxRows;
-                Debugger.Log(itemBoxRows.Count > 0 ? "Loading Box!!!" : "Hiding Box!!!");
                 WidgetHasContent = (itemBoxRows.Count > 0);
                 ChangeVisibility();
             }
