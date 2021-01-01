@@ -68,11 +68,10 @@ namespace MHWItemBoxTracker.GUI
                     Top = config.Overlay.Position[1] + UserSettings.PlayerConfig.Overlay.Position[1];
                     WidgetActive = config.Overlay.Enabled;
                     Opacity = config.Overlay.Opacity;
+                    // Debugger.Log($"Theme: {UserSettings.PlayerConfig.HunterPie.Theme}");
                 }
                 base.ApplySettings();
             });
-            Debugger.Log($"Theme: {UserSettings.PlayerConfig.HunterPie.Theme}");
-
         }
         private void Dispatch(System.Action function) => Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Render, function);
 
