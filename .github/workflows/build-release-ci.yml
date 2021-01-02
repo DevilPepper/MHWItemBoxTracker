@@ -20,12 +20,9 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-  build:
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
+  version:
     # https://github.com/actions/virtual-environments
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     outputs:
       git_tag: ${{ steps.set_vars.outputs.git_tag }}
@@ -46,6 +43,21 @@ jobs:
 
         echo "git_tag=$bump" >> $GITHUB_ENV
         echo "::set-output name=git_tag::$bump"
+
+  build:
+    needs: version
+    strategy:
+      matrix:
+        configuration:
+          - Debug
+          - Release
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
@@ -68,6 +80,7 @@ jobs:
         msbuild -m /p:"Configuration=$env:Configuration,AssemblyVersionNumber=$version"
       env:
         Configuration: ${{ matrix.configuration }}
+        git_tag: ${{ needs.version.outputs.git_tag }}
         
     - name: Generate JSON
       if: matrix.configuration == 'Release'
@@ -94,7 +107,7 @@ jobs:
         path: ./**/bin/*
 
   publish:
-    needs: build
+    needs: [version, build]
     runs-on: ubuntu-latest
     steps:
 
@@ -135,4 +148,4 @@ jobs:
            Modules/ItemBoxTracker/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GIT_TAG: ${{ needs.build.outputs.git_tag }}
+        GIT_TAG: ${{ needs.version.outputs.git_tag }}
