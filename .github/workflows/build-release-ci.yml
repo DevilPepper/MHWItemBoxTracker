@@ -37,6 +37,8 @@ jobs:
         fetch-depth: 0
     
     - uses: actions/setup-node@v2
+      with:
+        node-version: '10'
 
     - id: set_vars
       run: |
@@ -104,6 +106,8 @@ jobs:
         fetch-depth: 0
 
     - uses: actions/setup-node@v2
+      with:
+        node-version: '10'
 
     - name: Download build artifacts
       uses: actions/download-artifact@v2
