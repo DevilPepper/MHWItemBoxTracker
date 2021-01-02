@@ -35,14 +35,10 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '10'
 
     - id: set_vars
       run: |
-        bump=$(npx standard-version --dry-run | grep -o "\[.*\]")
+        bump=$(npx standard-version --dry-run | grep -o "\[.*\]" -m 1)
         bump=${bump#[}
         bump=${bump%]}
 
@@ -105,10 +101,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '10'
-
     - name: Download build artifacts
       uses: actions/download-artifact@v2
       with:
@@ -118,7 +110,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        npx standard-version
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        npx standard-version --sign
         git push --follow-tags origin master
 
     - name: Zip it
