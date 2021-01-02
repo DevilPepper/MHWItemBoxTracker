@@ -3,8 +3,6 @@ name: Item Tracker CI
 on:
   push:
     branches: [ master ]
-    tags:
-    - 'v*'
 
 env:
   Project_Name: MHWItemBoxTracker
@@ -40,18 +38,12 @@ jobs:
 
     - id: set_vars
       run: |
-        # hacky workaround for the annotated tag push issue
-        GIT_REF=${GITHUB_REF##*/}
-        if [[ $GIT_REF == v* ]]
-        then
-          GIT_TAG=$GIT_REF
-        else
-          GIT_TAG=$(git describe --first-parent --abbrev=0)
-        fi
+        bump=$(npx standard-version --dry-run | grep -o "\[.*\]")
+        bump=${bump#[}
+        bump=${bump%]}
 
-        REV_COUNT=$(git rev-list $GIT_TAG..HEAD --count)
-        echo "git_tag=$GIT_TAG.$REV_COUNT" >> $GITHUB_ENV
-        echo "::set-output name=git_tag::$GIT_TAG.$REV_COUNT"
+        echo "git_tag=$bump" >> $GITHUB_ENV
+        echo "::set-output name=git_tag::$bump"
 
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
@@ -61,7 +53,7 @@ jobs:
       shell: pwsh
       run: |
         cp .github/NuGet.Config .
-        msbuild $env:Project_Name.sln -m /t:Restore /p:Configuration=$env:Configuration
+        msbuild -m /t:Restore
       env:
         Configuration: ${{ matrix.configuration }}
         NUGET_USERNAME: ${{ github.repository_owner }}
@@ -70,8 +62,8 @@ jobs:
     - name: Build the apps
       shell: pwsh
       run: |
-        $version=$env:git_tag.substring(1)
-        msbuild $env:Project_Name.sln -m /p:"Configuration=$env:Configuration,AssemblyVersionNumber=$version"
+        $version="$env:git_tag.0"
+        msbuild -m /p:"Configuration=$env:Configuration,AssemblyVersionNumber=$version"
       env:
         Configuration: ${{ matrix.configuration }}
         
@@ -114,6 +106,14 @@ jobs:
       with:
         name: Item Tracker Plugin for Hunter Pie Release
     
+    - name: Update changelog and bump version
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        npx standard-version
+        git push
+        git push --tag
+
     - name: Zip it
       run: |
         mkdir -p Modules/ItemBoxTracker
@@ -124,12 +124,10 @@ jobs:
            ${RELEASE_DIR}/settings.json \
            Modules/ItemBoxTracker
         zip ItemBoxTracker.zip -r Modules
-  
+
     - name: Create release with binaries
       run: |
-        BUILD=$(echo $GIT_TAG | cut -d'.' -f4)
-        [[ $BUILD = 0 ]] && prerelease="" || prerelease="-p"
-        gh release create $GIT_TAG -t "Release $GIT_TAG" $prerelease \
+        gh release create v$GIT_TAG -t "Release v$GIT_TAG" \
            ItemBoxTracker.zip \
            Modules/ItemBoxTracker/*
       env:
