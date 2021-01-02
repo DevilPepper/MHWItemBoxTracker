@@ -40,7 +40,8 @@ jobs:
 
     - id: set_vars
       run: |
-        bump=$(npx standard-version --dry-run | grep -o "\[.*\]" -m 1)
+        npx standard-version --silent --dry-run | sed '/---/d' > notes.md
+        bump=$(cat notes.md | grep -o "\[.*\]" -m 1)
         bump=${bump#[}
         bump=${bump%]}
 
@@ -77,6 +78,9 @@ jobs:
 
         # copy dlls for scripts to use
         cp ${Project_Name}/bin/Release/*.dll scripts/
+
+        # move release notes to release directory
+        mv notes.md ${Project_Name}/bin/Release/
         
         $CSI scripts/gen-json-schema.csx
         $CSI scripts/gen-module-json.csx
@@ -130,7 +134,7 @@ jobs:
 
     - name: Create release with binaries
       run: |
-        gh release create v$GIT_TAG -t "Release v$GIT_TAG" \
+        gh release create v$GIT_TAG -t "Release v$GIT_TAG" --notes-file ${Project_Name}/bin/Release/notes.md \
            ItemBoxTracker.zip \
            Modules/ItemBoxTracker/*
       env:
