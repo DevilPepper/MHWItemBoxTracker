@@ -111,8 +111,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         npx standard-version
-        git push
-        git push --tag
+        git push --follow-tags origin master
 
     - name: Zip it
       run: |
