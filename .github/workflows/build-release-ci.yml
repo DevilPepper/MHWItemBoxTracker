@@ -65,7 +65,14 @@ jobs:
     - name: Build the apps
       shell: pwsh
       run: |
-        $version="$env:git_tag.0"
+        $PREVIOUS="$(git describe --first-parent --abbrev=0)"
+        if( $(git diff --name-only $PREVIOUS HEAD -- $env:Project_Name/) -ne $null) {
+          $version="$env:git_tag.0"
+        } else {
+          curl -L https://github.com/$env:GITHUB_REPOSITORY/releases/latest/download/module.json -o module.json
+          $version="$($(cat module.json | ConvertFrom-Json -Depth 3).Version)"
+        }
+
         msbuild -m /p:"Configuration=$env:Configuration,AssemblyVersionNumber=$version"
       env:
         Configuration: ${{ matrix.configuration }}
