@@ -121,10 +121,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        wget -nc -q -O Changelog.md https://raw.githubusercontent.com/wiki/$GITHUB_REPOSITORY/Changelog.md || true
+
         git config user.name "Github Actions"
         git config user.email action@github.com
-        npx standard-version
-        git push --follow-tags origin master
+        npx standard-version --infile Changelog.md
+        git reset --soft HEAD~
 
     - name: Zip it
       run: |
@@ -145,3 +147,35 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GIT_TAG: ${{ needs.build.outputs.git_tag }}
+
+    - name: Upload Changelog
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.Project_Name }} Changelog
+        path: Changelog.md
+
+  wiki:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+      with:
+        repository: ${{github.repository}}.wiki
+
+    - name: Download Changelog
+      uses: actions/download-artifact@v2
+      with:
+        name: ${{ env.Project_Name }} Changelog
+
+    - name: Commit changes and push
+      env:
+        GIT_TAG: ${{ needs.build.outputs.git_tag }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config user.name "Github Actions"
+        git config user.email action@github.com
+        git add -A
+        git commit -m "update wiki for $GIT_TAG"
+        git tag -a $GIT_TAG -m "$GIT_TAG"
+        git push --follow-tags origin master
