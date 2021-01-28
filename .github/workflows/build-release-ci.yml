@@ -56,8 +56,6 @@ jobs:
       shell: pwsh
       run: |
         msbuild -m /t:Restore
-      env:
-        Configuration: ${{ matrix.configuration }}
 
     - name: Build the apps
       shell: pwsh
