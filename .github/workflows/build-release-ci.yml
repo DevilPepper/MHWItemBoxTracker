@@ -59,8 +59,6 @@ jobs:
         msbuild -m /t:Restore
       env:
         Configuration: ${{ matrix.configuration }}
-        NUGET_USERNAME: ${{ github.repository_owner }}
-        NUGET_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build the apps
       shell: pwsh
