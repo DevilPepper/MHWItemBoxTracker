@@ -55,7 +55,6 @@ jobs:
     - name: Restore the applications
       shell: pwsh
       run: |
-        cp .github/NuGet.Config .
         msbuild -m /t:Restore
       env:
         Configuration: ${{ matrix.configuration }}
