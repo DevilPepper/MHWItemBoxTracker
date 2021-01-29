@@ -1,0 +1,12 @@
+version: 2
+# Rename as config and move to .github/ when everything is good
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "17:00"
+    timezone: America/New_York
+  open-pull-requests-limit: 10
+  labels:
+  - dependencies
