@@ -93,6 +93,15 @@ jobs:
       env:
         NUGET_USERNAME: ${{ github.repository_owner }}
         NUGET_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Update changelog and bump version
+      run: |
+        wget -nc -q -O Changelog.md https://raw.githubusercontent.com/wiki/$GITHUB_REPOSITORY/Changelog.md || true
+
+        git config user.name "Github Actions"
+        git config user.email action@github.com
+        npx standard-version --infile Changelog.md
+        git reset --soft HEAD~
   
     # Upload the builds for next job and debugging
     - name: Upload build artifacts
@@ -101,6 +110,12 @@ jobs:
         # Don't know if this should be unique to the tag/branch/PR
         name: Item Tracker Plugin for Hunter Pie ${{ matrix.configuration }}
         path: ./**/bin/*
+
+    - name: Upload Changelog
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.Project_Name }} Changelog
+        path: Changelog.md
 
   publish:
     needs: build
@@ -116,17 +131,6 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: Item Tracker Plugin for Hunter Pie Release
-    
-    - name: Update changelog and bump version
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        wget -nc -q -O Changelog.md https://raw.githubusercontent.com/wiki/$GITHUB_REPOSITORY/Changelog.md || true
-
-        git config user.name "Github Actions"
-        git config user.email action@github.com
-        npx standard-version --infile Changelog.md
-        git reset --soft HEAD~
 
     - name: Zip it
       run: |
@@ -147,12 +151,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GIT_TAG: ${{ needs.build.outputs.git_tag }}
-
-    - name: Upload Changelog
-      uses: actions/upload-artifact@v2
-      with:
-        name: ${{ env.Project_Name }} Changelog
-        path: Changelog.md
 
   wiki:
     needs: build
