@@ -58,6 +58,7 @@ jobs:
         NUGET_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
       shell: pwsh
       run: |
+        cp .github/NuGet.Config .
         msbuild -m /t:Restore
 
     - name: Build the apps
