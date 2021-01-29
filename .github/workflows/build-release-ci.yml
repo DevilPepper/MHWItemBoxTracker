@@ -53,6 +53,9 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the applications
+      env:
+        NUGET_USERNAME: ${{ github.repository_owner }}
+        NUGET_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
       shell: pwsh
       run: |
         msbuild -m /t:Restore
