@@ -1,4 +1,5 @@
 version: 2
+# Rename as config and move to .github/ when everything is good
 updates:
 - package-ecosystem: nuget
   directory: "/"
