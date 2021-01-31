@@ -24,7 +24,7 @@ info.Version = typeof(ConfigLoader).Assembly.GetName().Version.ToString();
 var update = new PluginInformation.PluginUpdateInformation();
 info.Update = update;
 
-update.MinimumVersion = "1.0.4.0";
+update.MinimumVersion = "1.0.5.0";
 update.UpdateUrl = "https://github.com/Stuff-Mods/MHWItemBoxTracker/releases/latest/download/";
 
 var hashes = new Dictionary<string, string>();

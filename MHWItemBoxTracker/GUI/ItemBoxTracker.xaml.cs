@@ -1,8 +1,10 @@
 ﻿using HunterPie.GUI;
 using HunterPie.Core;
+using HunterPie.Core.Settings;
 using System.Collections.Generic;
 using System.Windows;
 using MHWItemBoxTracker.Config;
+using MHWItemBoxTracker.Utils;
 using System.Linq;
 using Debugger = HunterPie.Logger.Debugger;
 
@@ -10,78 +12,45 @@ namespace MHWItemBoxTracker.GUI
 {
     public partial class ItemBoxTracker : Widget
     {
-        public ItemBoxTracker()
+        private static string settingsJson = "widget.settings.json";
+        private ItemBoxWidgetSettings widgetSettings {get; set;}
+        public override IWidgetSettings Settings => widgetSettings;
+        public ItemBoxTracker() : base()
         {
             InitializeComponent();
-            BaseWidth = Width;
-            BaseHeight = Height;
-            SetWindowFlags();
+            widgetSettings = PathFinder.loadJson<ItemBoxWidgetSettings>(settingsJson);
             ApplySettings();
         }
 
         public void setItemsToDisplay(List<ItemBoxRow> itemBoxRows)
         {
+            // Debugger.Log($"Theme: {UserSettings.PlayerConfig.HunterPie.Theme}");
+            Debugger.Log($"the fuck?");
             Dispatch(() =>
             {
+                Debugger.Log($"setItemSource: {itemBoxRows}");
                 theList.ItemsSource = itemBoxRows;
+                Debugger.Log($"WidgetHasContent??");
                 WidgetHasContent = (itemBoxRows.Count > 0);
+                Debugger.Log($"ChangeVisibility()");
                 ChangeVisibility();
+                Debugger.Log($"mudda fucca!");
             }
             );
 
         }
 
-
-        public override void EnterWidgetDesignMode()
-        {
+        public override void EnterWidgetDesignMode() {
             base.EnterWidgetDesignMode();
             RemoveWindowTransparencyFlag();
         }
 
-        public override void LeaveWidgetDesignMode()
-        {
+        public override void LeaveWidgetDesignMode() {
             base.LeaveWidgetDesignMode();
             ApplyWindowTransparencyFlag();
-            SaveSettings();
-        }
-
-        private void SaveSettings()
-        {
-            var config = ConfigLoader.loadConfig();
-
-            config.Overlay.Position[0] = (int)Left - UserSettings.PlayerConfig.Overlay.Position[0];
-            config.Overlay.Position[1] = (int)Top - UserSettings.PlayerConfig.Overlay.Position[1];
-
-            ConfigLoader.saveConfig(config);
-        }
-
-        public override void ApplySettings(bool FocusTrigger = false)
-        {
-            Dispatch(() =>
-            {
-                if (!FocusTrigger)
-                {
-                    var config = ConfigLoader.loadConfig();
-
-                    Left = config.Overlay.Position[0] + UserSettings.PlayerConfig.Overlay.Position[0];
-                    Top = config.Overlay.Position[1] + UserSettings.PlayerConfig.Overlay.Position[1];
-                    WidgetActive = config.Overlay.Enabled;
-                    Opacity = config.Overlay.Opacity;
-                    // Debugger.Log($"Theme: {UserSettings.PlayerConfig.HunterPie.Theme}");
-                }
-                base.ApplySettings();
-            });
+            PathFinder.saveJson(settingsJson, widgetSettings);
         }
         private void Dispatch(System.Action function) => Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Render, function);
-
-        private void OnMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
-            {
-                MoveWidget();
-                //SaveSettings();
-            }
-        }
     }
 
     public class ItemBoxRow

@@ -27,6 +27,7 @@ namespace MHWItemBoxTracker
         public void Unload()
         {
             unhookEvents();
+            tracker.unregister();
         }
 
         internal void hookEvents()

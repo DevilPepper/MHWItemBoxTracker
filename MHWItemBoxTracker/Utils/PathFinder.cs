@@ -16,10 +16,14 @@ namespace MHWItemBoxTracker.Utils
             return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
 
-        public static T loadJson<T>(string json)
+        public static T loadJson<T>(string json) where T : new()
         {
             var jsonPath = Path.Combine(PathFinder.getPluginPath(), json);
+            try {
             return JsonConvert.DeserializeObject<T>(File.ReadAllText(jsonPath));
+            } catch (FileNotFoundException ex) {
+                return new T();
+            }
         }
 
         public static void saveJson<T>(string json, T config)

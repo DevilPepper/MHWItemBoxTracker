@@ -53,5 +53,9 @@ namespace MHWItemBoxTracker.helper
         {
             gui?.setItemsToDisplay(new List<GUI.ItemBoxRow>());
         }
+
+        public void unregister() {
+            Overlay.UnregisterWidget(gui);
+        }
     }
 }
