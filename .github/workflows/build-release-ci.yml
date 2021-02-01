@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 env:
-  Project_Name: MHWItemBoxTracker
+  Project_Name: ItemBoxTracker
 
 defaults:
   run:
@@ -136,20 +136,20 @@ jobs:
 
     - name: Zip it
       run: |
-        mkdir -p Modules/ItemBoxTracker
+        mkdir -p Modules/${Project_Name}
         RELEASE_DIR="${Project_Name}/bin/Release"
         mv ${RELEASE_DIR}/${Project_Name}.dll \
            ${RELEASE_DIR}/config.schema.json \
            ${RELEASE_DIR}/module.json \
            ${RELEASE_DIR}/settings.json \
-           Modules/ItemBoxTracker
-        zip ItemBoxTracker.zip -r Modules
+           Modules/${Project_Name}
+        zip ${Project_Name}.zip -r Modules
 
     - name: Create release with binaries
       run: |
         gh release create v$GIT_TAG -t "Release v$GIT_TAG" --notes-file ${Project_Name}/bin/Release/notes.md \
-           ItemBoxTracker.zip \
-           Modules/ItemBoxTracker/*
+           ${Project_Name}.zip \
+           Modules/${Project_Name}/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GIT_TAG: ${{ needs.build.outputs.git_tag }}

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MHWItemBoxTracker", "MHWItemBoxTracker\MHWItemBoxTracker.csproj", "{9F7E4AEB-D719-48DB-A2D7-502C192AAC46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemBoxTracker", "ItemBoxTracker\ItemBoxTracker.csproj", "{9F7E4AEB-D719-48DB-A2D7-502C192AAC46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

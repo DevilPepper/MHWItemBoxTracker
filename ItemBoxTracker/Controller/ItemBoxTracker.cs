@@ -6,7 +6,7 @@ using HunterPie.Core;
 using HunterPie.GUI;
 using MHWItemBoxTracker.Config;
 
-namespace MHWItemBoxTracker.helper
+namespace MHWItemBoxTracker.Controller
 {
     class ItemBoxTracker
     {

@@ -1,4 +1,4 @@
-#r "MHWItemBoxTracker.dll"
+#r "ItemBoxTracker.dll"
 
 using System.Collections.Generic;
 using System.IO;
@@ -8,14 +8,14 @@ using HunterPie.Plugins;
 using MHWItemBoxTracker.Config;
 using Newtonsoft.Json;
 
-var releaseDirectory = "MHWItemBoxTracker/bin/Release";
+var releaseDirectory = "ItemBoxTracker/bin/Release";
 var files = new List<string>() {
-    "MHWItemBoxTracker.dll",
+    "ItemBoxTracker.dll",
     "config.schema.json",
 };
 
 var info = new PluginInformation();
-info.Name = "MHWItemBoxTracker";
+info.Name = "ItemBoxTracker";
 info.EntryPoint = "Main.cs";
 info.Description = "A HunterPie plugin to track items the player is farming";
 info.Author = "Stuff";

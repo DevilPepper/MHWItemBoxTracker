@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core;
 using HunterPie.Plugins;
-using MHWItemBoxTracker.helper;
+using MHWItemBoxTracker;
 using MHWItemBoxTracker.Utils;
 
 namespace MHWItemBoxTracker
@@ -10,7 +10,7 @@ namespace MHWItemBoxTracker
         public string Name { get; set; }
         public string Description { get; set; }
         public Game Context { get; set; }
-        private ItemBoxTracker tracker { get; set; }
+        private Controller.ItemBoxTracker tracker { get; set; }
 
         public void Initialize(Game context)
         {
@@ -20,7 +20,7 @@ namespace MHWItemBoxTracker
             Description = module.Description;
             Context = context;
 
-            tracker = new ItemBoxTracker(context.Player);
+            tracker = new Controller.ItemBoxTracker(context.Player);
             hookEvents();
         }
 

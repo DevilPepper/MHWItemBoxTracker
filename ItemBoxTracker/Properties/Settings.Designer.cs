@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MHWItemBoxTracker.Properties
+namespace ItemBoxTracker.Properties
 {
     
     

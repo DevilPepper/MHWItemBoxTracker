@@ -15,10 +15,10 @@ Reducing cognitive overhead by allowing the player to stop looking at the box af
 
 ### Setup
 
-1. Download [module.json](https://github.com/SupaStuff/MHWItemBoxTracker/releases/latest/download/module.json) to _`<HunterPie>/Modules/ItemBoxTracker`_
-   - Alternatively you can extract [ItemBoxTracker.zip](https://github.com/SupaStuff/MHWItemBoxTracker/releases/latest/download/ItemBoxTracker.zip) to the HunterPie directory
+1. Download [module.json](https://github.com/Stuff-Mods/MHWItemBoxTracker/releases/latest/download/module.json) to _`<HunterPie>/Modules/ItemBoxTracker`_
+   - Alternatively you can extract [ItemBoxTracker.zip](https://github.com/Stuff-Mods/MHWItemBoxTracker/releases/latest/download/ItemBoxTracker.zip) to the HunterPie directory
 2. Let Hunter Pie do its thing
-3. To config the tracker, you can go [here](https://json-editor.github.io/json-editor/) or [here](https://rjsf-team.github.io/react-jsonschema-form/) and copy and paste the contents of [config.schema.json](https://github.com/SupaStuff/MHWItemBoxTracker/releases/latest/download/config.schema.json) into the schema box. Then you can copy the output to _Modules/MHWItemBoxTracker/settings.json_
+3. To config the tracker, you can go [here](https://json-editor.github.io/json-editor/) or [here](https://rjsf-team.github.io/react-jsonschema-form/) and copy and paste the contents of [config.schema.json](https://github.com/Stuff-Mods/MHWItemBoxTracker/releases/latest/download/config.schema.json) into the schema box. Then you can copy the output to _Modules/ItemBoxTracker/settings.json_
    - They both have a bug where Overlay.Position are invalid if you leave them empty, so at least make both coordinates 0 or something.
 
 ## Build
@@ -36,6 +36,6 @@ nuget sources add -name FKnS -source https://nuget.pkg.github.com/ForksKnivesAnd
 Then to build it:
 
 ```bash
-msbuild MHWItemBoxTracker.sln -m /t:Restore
-msbuild MHWItemBoxTracker.sln -m /p:Configuration=Release
+msbuild -m /t:Restore
+msbuild -m /p:Configuration=Release
 ```
