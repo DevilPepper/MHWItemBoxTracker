@@ -16,12 +16,11 @@ namespace MHWItemBoxTracker.Controller
         public ItemBoxTracker(Player player)
         {
             this.player = player;
-            Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background,
-              new Action(() =>
+            Dispatch(() =>
             {
                 gui = new GUI.ItemBoxTracker();
                 Overlay.RegisterWidget(gui);
-            }));
+            });
         }
 
         public void loadItemBox(object source = null, EventArgs e = null)
@@ -46,16 +45,19 @@ namespace MHWItemBoxTracker.Controller
                     progress = 100.0 * amountHeld / item.Amount,
                 });
             }
-            gui?.setItemsToDisplay(itemBoxRows);
+            Dispatch(() => gui.setItemsToDisplay(itemBoxRows));
         }
 
         public void unloadItemBox(object source = null, EventArgs e = null)
         {
-            gui?.setItemsToDisplay(new List<GUI.ItemBoxRow>());
+            Dispatch(() => gui.setItemsToDisplay(new List<GUI.ItemBoxRow>()));
         }
 
         public void unregister() {
-            Overlay.UnregisterWidget(gui);
+            Dispatch(() => Overlay.UnregisterWidget(gui));
         }
+
+        private void Dispatch(System.Action function) =>
+            Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Render, function);
     }
 }

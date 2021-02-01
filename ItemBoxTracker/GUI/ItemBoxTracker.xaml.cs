@@ -25,14 +25,9 @@ namespace MHWItemBoxTracker.GUI
         public void setItemsToDisplay(List<ItemBoxRow> itemBoxRows)
         {
             // Debugger.Log($"Theme: {UserSettings.PlayerConfig.HunterPie.Theme}");
-            Dispatch(() =>
-            {
-                theList.ItemsSource = itemBoxRows;
-                WidgetHasContent = (itemBoxRows.Count > 0);
-                ChangeVisibility();
-            }
-            );
-
+            theList.ItemsSource = itemBoxRows;
+            WidgetHasContent = (itemBoxRows.Count > 0);
+            ChangeVisibility();
         }
 
         public override void EnterWidgetDesignMode() {
@@ -45,7 +40,6 @@ namespace MHWItemBoxTracker.GUI
             ApplyWindowTransparencyFlag();
             PathFinder.saveJson(settingsJson, widgetSettings);
         }
-        private void Dispatch(System.Action function) => Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Render, function);
     }
 
     public class ItemBoxRow
