@@ -96,8 +96,9 @@ jobs:
         NUGET_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Update changelog and bump version
+      shell: pwsh
       run: |
-        wget -nc -q -O Changelog.md https://raw.githubusercontent.com/wiki/$GITHUB_REPOSITORY/Changelog.md || true
+        scripts/download-changelog.ps1
 
         git config user.name "Github Actions"
         git config user.email action@github.com
