@@ -25,16 +25,11 @@ namespace MHWItemBoxTracker.GUI
         public void setItemsToDisplay(List<ItemBoxRow> itemBoxRows)
         {
             // Debugger.Log($"Theme: {UserSettings.PlayerConfig.HunterPie.Theme}");
-            Debugger.Log($"the fuck?");
             Dispatch(() =>
             {
-                Debugger.Log($"setItemSource: {itemBoxRows}");
                 theList.ItemsSource = itemBoxRows;
-                Debugger.Log($"WidgetHasContent??");
                 WidgetHasContent = (itemBoxRows.Count > 0);
-                Debugger.Log($"ChangeVisibility()");
                 ChangeVisibility();
-                Debugger.Log($"mudda fucca!");
             }
             );
 
