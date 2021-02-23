@@ -33,8 +33,8 @@ jobs:
         cp .github/NuGet.Config .
         msbuild -m /t:Restore
 
-    - name: Execute unit tests
-      run: dotnet test
+    # - name: Execute unit tests
+    #   run: dotnet test
 
     # if I had tests, I probably wouldn't need to build...
     - name: Build the apps
