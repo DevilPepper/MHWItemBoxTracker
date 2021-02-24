@@ -5,7 +5,6 @@ update_configs:
   update_schedule: "live"
   ignored_updates:
     - match:
-        dependency_name: "HunterPie.*"
         version_requirement: "*-beta"
   commit_message:
     prefix: "chore"
