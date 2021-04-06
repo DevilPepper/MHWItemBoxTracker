@@ -78,7 +78,7 @@
     <Reference Include="..\HunterPie.Core.dll" Condition="Exists('..\HunterPie.Core.dll')" />
     <PackageReference Include="HunterPie.Core" Version="1.0.5-11-0" Condition="!Exists('..\HunterPie.Core.dll')" />
     <Reference Include="..\HunterPie.UI.dll" Condition="Exists('..\HunterPie.UI.dll')" />
-    <PackageReference Include="HunterPie.UI" Version="1.0.5-9-0" Condition="!Exists('..\HunterPie.UI.dll')" />
+    <PackageReference Include="HunterPie.UI" Version="1.0.5-13-0" Condition="!Exists('..\HunterPie.UI.dll')" />
   </ItemGroup>
 
   <!-- csproj BS -->
