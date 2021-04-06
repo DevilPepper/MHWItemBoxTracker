@@ -3,7 +3,7 @@ registries:
   forksknivesandspoons:
     type: nuget-feed
     url: https://nuget.pkg.github.com/ForksKnivesAndSpoons/index.json
-    token: "${{secrets.FKNS}}"
+    token: "${{secrets.FKnS}}"
 updates:
 - package-ecosystem: nuget
   directory: "/"
