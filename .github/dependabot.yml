@@ -1,0 +1,21 @@
+version: 2
+registries:
+  forksknivesandspoons:
+    type: nuget-feed
+    url: https://nuget.pkg.github.com/ForksKnivesAndSpoons/index.json
+    token: "${{secrets.FKnS}}"
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "17:00"
+    timezone: America/New_York
+  open-pull-requests-limit: 10
+  labels:
+  - dependencies
+  commit-message:
+    prefix: chore
+    include: scope
+  registries:
+  - forksknivesandspoons
