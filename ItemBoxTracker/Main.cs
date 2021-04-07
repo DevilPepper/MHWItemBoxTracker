@@ -15,6 +15,17 @@ namespace MHWItemBoxTracker
         public Game Context { get; set; }
         private Controller.ItemBoxTracker tracker { get; set; }
 
+        // Really bad singleton, but I think it's fine considering
+        // the plugin gets instantiated by HunterPie
+        // and everywhere that uses the singleton is part of this plugin
+        // i.e. plugin is guarenteed to be instantiated
+        private static Main instance = null;
+        public static Main Plugin => instance;
+
+        public Main() {
+            instance = this;
+        }
+
         public void Initialize(Game context)
         {
             var module = PathFinder.loadJson<PluginInformation>("module.json");
