@@ -85,7 +85,6 @@
 
   <!-- csproj BS -->
   <ItemGroup>
-    <Compile Include="Config\ConfigLoader.cs" />
     <Compile Include="Config\ItemBoxWidgetSettings.cs" />
     <Compile Include="Config\ItemConfig.cs" />
     <Compile Include="GUI\ItemBoxTracker.xaml.cs">
