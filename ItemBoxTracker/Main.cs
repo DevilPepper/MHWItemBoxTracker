@@ -28,7 +28,7 @@ namespace MHWItemBoxTracker
 
         public void Initialize(Game context)
         {
-            var module = PathFinder.loadJson<PluginInformation>("module.json");
+            var module = this.LoadJson<PluginInformation>("module.json");
 
             Name = module.Name;
             Description = module.Description;
