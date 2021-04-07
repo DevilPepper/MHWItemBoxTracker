@@ -12,10 +12,7 @@ updates:
     time: "17:00"
     timezone: America/New_York
   ignore:
-    - dependency-name: "HunterPie.UI*"
-      versions: "*-beta"
-    - dependency-name: "HunterPie.Core*"
-      versions: "*-beta"
+    - versions: "*-beta"
   open-pull-requests-limit: 10
   labels:
   - dependencies
