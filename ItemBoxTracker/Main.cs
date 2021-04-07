@@ -1,11 +1,14 @@
-﻿using HunterPie.Core;
+﻿using System.Collections.Generic;
+
+using HunterPie.Core;
 using HunterPie.Plugins;
 using MHWItemBoxTracker;
 using MHWItemBoxTracker.Utils;
+using HunterPie.Settings;
 
 namespace MHWItemBoxTracker
 {
-    public class Main : IPlugin
+    public class Main : IPlugin, ISettingsOwner
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -48,6 +51,11 @@ namespace MHWItemBoxTracker
             player.ItemBox.OnItemBoxUpdate -= tracker.loadItemBox;
 
             tracker.unloadItemBox();
+        }
+
+        public IEnumerable<ISettingsTab> GetSettings(ISettingsBuilder builder) {
+            builder.AddTab(new GUI.Settings());
+            return builder.Value();
         }
     }
 }

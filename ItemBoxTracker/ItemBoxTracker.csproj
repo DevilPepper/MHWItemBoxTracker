@@ -91,6 +91,9 @@
     <Compile Include="GUI\ItemBoxTracker.xaml.cs">
       <DependentUpon>ItemBoxTracker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controller\ItemBoxTracker.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -121,6 +124,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="GUI\ItemBoxTracker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
