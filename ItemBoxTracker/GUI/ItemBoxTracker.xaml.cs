@@ -9,6 +9,9 @@ using System.Linq;
 using HunterPie.Plugins;
 using MHWItemBoxTracker;
 using static MHWItemBoxTracker.Main;
+using static MHWItemBoxTracker.Utils.Dispatcher;
+
+using Newtonsoft.Json;
 
 namespace MHWItemBoxTracker.GUI
 {
@@ -20,8 +23,13 @@ namespace MHWItemBoxTracker.GUI
         public ItemBoxTracker() : base()
         {
             InitializeComponent();
-            widgetSettings = Plugin.LoadJson<ItemBoxWidgetSettings>(settingsJson);
-            ApplySettings();
+            Dispatch(async () => {
+                widgetSettings = await Plugin.LoadJson<ItemBoxWidgetSettings>(settingsJson);
+                Plugin.Log($"Loaded widget settings...{JsonConvert.SerializeObject(widgetSettings)}");
+                Plugin.Log($"Settings: {JsonConvert.SerializeObject(Settings)}");
+
+                ApplySettings();
+            });
         }
 
         public void setItemsToDisplay(List<ItemBoxRow> itemBoxRows)
@@ -40,7 +48,8 @@ namespace MHWItemBoxTracker.GUI
         public override void LeaveWidgetDesignMode() {
             base.LeaveWidgetDesignMode();
             ApplyWindowTransparencyFlag();
-            Plugin.SaveJson(settingsJson, widgetSettings);
+            Plugin.Log($"Saving widget settings...{JsonConvert.SerializeObject(widgetSettings)}");
+            Dispatch(async () => { await Plugin.SaveJson(settingsJson, widgetSettings); });
         }
     }
 
