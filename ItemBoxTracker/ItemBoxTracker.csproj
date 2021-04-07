@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Controller\ItemBoxTracker.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="MainExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,7 +111,6 @@
     </Compile>
     <Compile Include="Config\ItemBoxTrackerConfig.cs" />
     <Compile Include="Utils\JsonSchema.cs" />
-    <Compile Include="Utils\PathFinder.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

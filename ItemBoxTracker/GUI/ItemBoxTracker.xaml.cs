@@ -6,8 +6,9 @@ using System.Windows;
 using MHWItemBoxTracker.Config;
 using MHWItemBoxTracker.Utils;
 using System.Linq;
-// using HunterPie.Plugins;
-// using static MHWItemBoxTracker.Main;
+using HunterPie.Plugins;
+using MHWItemBoxTracker;
+using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.GUI
 {
@@ -19,7 +20,7 @@ namespace MHWItemBoxTracker.GUI
         public ItemBoxTracker() : base()
         {
             InitializeComponent();
-            widgetSettings = PathFinder.loadJson<ItemBoxWidgetSettings>(settingsJson);
+            widgetSettings = Plugin.LoadJson<ItemBoxWidgetSettings>(settingsJson);
             ApplySettings();
         }
 
@@ -39,7 +40,7 @@ namespace MHWItemBoxTracker.GUI
         public override void LeaveWidgetDesignMode() {
             base.LeaveWidgetDesignMode();
             ApplyWindowTransparencyFlag();
-            PathFinder.saveJson(settingsJson, widgetSettings);
+            Plugin.SaveJson(settingsJson, widgetSettings);
         }
     }
 

@@ -6,6 +6,9 @@ using HunterPie.Core;
 using HunterPie.GUI;
 using MHWItemBoxTracker.Config;
 using MHWItemBoxTracker.Utils;
+using HunterPie.Plugins;
+using MHWItemBoxTracker;
+using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.Controller
 {
@@ -29,7 +32,7 @@ namespace MHWItemBoxTracker.Controller
             if (!player.InHarvestZone) return;
 
             // TODO: use Settings.xaml.cs
-            var items = PathFinder.loadJson<ItemBoxTrackerConfig>("settings.json").Tracking;
+            var items = Plugin.LoadJson<ItemBoxTrackerConfig>("settings.json").Tracking;
             var box = player.ItemBox;
             var ids = items.Select(ic => ic.ItemId).ToHashSet();
 
