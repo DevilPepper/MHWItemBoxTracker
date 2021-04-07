@@ -5,6 +5,7 @@ using HunterPie.Plugins;
 using MHWItemBoxTracker;
 using MHWItemBoxTracker.Utils;
 using HunterPie.Settings;
+using static MHWItemBoxTracker.Utils.Dispatcher;
 
 namespace MHWItemBoxTracker
 {
@@ -28,10 +29,11 @@ namespace MHWItemBoxTracker
 
         public void Initialize(Game context)
         {
-            var module = this.LoadJson<PluginInformation>("module.json");
-
-            Name = module.Name;
-            Description = module.Description;
+            Dispatch(async () => {
+                var module = await this.LoadJson<PluginInformation>("module.json");
+                Name = module.Name;
+                Description = module.Description;
+            });
             Context = context;
 
             tracker = new Controller.ItemBoxTracker(context.Player);
