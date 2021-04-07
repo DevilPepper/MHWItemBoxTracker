@@ -8,7 +8,7 @@ using System.Windows.Media;
 using HunterPie.Plugins;
 using HunterPie.UI.Infrastructure;
 using HunterPie.Settings;
-using Debugger = HunterPie.Logger.Debugger;
+using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.GUI
 {
@@ -24,15 +24,15 @@ namespace MHWItemBoxTracker.GUI
         }
 
         public void LoadSettings() {
-            Debugger.Log("Load Settings, mudda fucca");
+            Plugin.Log("Load Settings, mudda fucca");
         }
 
         public void SaveSettings() {
-            Debugger.Log("Save Settings, mudda fucca");
+            Plugin.Log("Save Settings, mudda fucca");
         }
 
         public string ValidateSettings() {
-            Debugger.Log("Nothing here, mudda fucca");
+            Plugin.Log("Nothing here, mudda fucca");
             return null;
         }
     }

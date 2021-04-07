@@ -6,7 +6,8 @@ using System.Windows;
 using MHWItemBoxTracker.Config;
 using MHWItemBoxTracker.Utils;
 using System.Linq;
-using Debugger = HunterPie.Logger.Debugger;
+// using HunterPie.Plugins;
+// using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.GUI
 {

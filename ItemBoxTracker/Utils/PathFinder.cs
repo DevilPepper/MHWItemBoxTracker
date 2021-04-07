@@ -6,19 +6,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using HunterPie.Plugins;
+using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.Utils
 {
     class PathFinder
     {
-        public static string getPluginPath()
-        {
-            return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        }
-
         public static T loadJson<T>(string json) where T : new()
         {
-            var jsonPath = Path.Combine(PathFinder.getPluginPath(), json);
+            var jsonPath = Path.Combine(Plugin.GetPath(), json);
             try {
             return JsonConvert.DeserializeObject<T>(File.ReadAllText(jsonPath));
             } catch (FileNotFoundException) {
@@ -28,7 +25,7 @@ namespace MHWItemBoxTracker.Utils
 
         public static void saveJson<T>(string json, T config)
         {
-            var jsonPath = Path.Combine(PathFinder.getPluginPath(), json);
+            var jsonPath = Path.Combine(Plugin.GetPath(), json);
             var jsonStr = JsonConvert.SerializeObject(config, Formatting.Indented);
             File.WriteAllText(jsonPath, jsonStr);
         }
