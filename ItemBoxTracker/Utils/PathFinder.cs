@@ -21,7 +21,7 @@ namespace MHWItemBoxTracker.Utils
             var jsonPath = Path.Combine(PathFinder.getPluginPath(), json);
             try {
             return JsonConvert.DeserializeObject<T>(File.ReadAllText(jsonPath));
-            } catch (FileNotFoundException ex) {
+            } catch (FileNotFoundException) {
                 return new T();
             }
         }
