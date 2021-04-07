@@ -14,6 +14,7 @@ namespace MHWItemBoxTracker.GUI
 {
     public partial class Settings : UserControl, ISettings {
         
+        public static string fileName = "settings.json";
         public bool IsSettingsChanged => true;
         public string Title => ":D";
         public int MaxLength => 45;
