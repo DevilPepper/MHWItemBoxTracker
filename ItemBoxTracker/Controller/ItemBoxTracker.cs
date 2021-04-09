@@ -7,7 +7,6 @@ using HunterPie.GUI;
 using MHWItemBoxTracker.Config;
 using MHWItemBoxTracker.Utils;
 using HunterPie.Plugins;
-using MHWItemBoxTracker;
 using static MHWItemBoxTracker.Main;
 using static MHWItemBoxTracker.Utils.Dispatcher;
 
