@@ -98,7 +98,6 @@
     </Compile>
     <Compile Include="Controller\ItemBoxTracker.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="MainExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
