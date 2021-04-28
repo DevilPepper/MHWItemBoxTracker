@@ -80,10 +80,10 @@
 
   <!-- Nuget OR Local DLLs -->
   <ItemGroup>
-    <Reference Include="..\HunterPie.Core.dll" Condition="Exists('..\HunterPie.Core.dll')" />
-    <PackageReference Include="HunterPie.Core" Version="1.0.8" Condition="!Exists('..\HunterPie.Core.dll')" />
-    <Reference Include="..\HunterPie.UI.dll" Condition="Exists('..\HunterPie.UI.dll')" />
-    <PackageReference Include="HunterPie.UI" Version="1.0.18" Condition="!Exists('..\HunterPie.UI.dll')" />
+    <PackageReference Include="HunterPie.Core" Version="1.0.8" />
+    <PackageReference Include="HunterPie.UI" Version="1.0.18" />
+    <!-- <Reference Include="..\HunterPie.Core.dll" /> -->
+    <!-- <Reference Include="..\HunterPie.UI.dll" /> -->
   </ItemGroup>
 
   <!-- csproj BS -->
