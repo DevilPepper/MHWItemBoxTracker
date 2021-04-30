@@ -32,6 +32,15 @@ jobs:
       run: |
         cp .github/NuGet.Config .
         msbuild -m /t:Restore
+        
+    - name: Install CSI
+      env:
+        NUGET_USERNAME: ${{ github.repository_owner }}
+        NUGET_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        nuget install Microsoft.Net.Compilers.Toolset -OutputDirectory packages -Version 3.9.0-2.final
+        CSI="packages/Microsoft.Net.Compilers.Toolset.3.9.0-2.final/tasks/net472/csi.exe"
+        echo "CSI=$CSI" >> $GITHUB_ENV
 
     # - name: Execute unit tests
     #   run: dotnet test
@@ -41,3 +50,14 @@ jobs:
       shell: pwsh
       run: |
         msbuild -m /p:"Configuration=$env:configuration,AssemblyVersionNumber=0.0.0.0"
+
+    - name: Test scripts
+      run: |
+
+        # scripts write to release directory...
+        mkdir -p ${Project_Name}/bin/Release/
+
+        # copy dlls for scripts to use
+        cp ${Project_Name}/bin/Debug/*.dll scripts/
+
+        for script in scripts/*.csx; do $CSI $script; done
