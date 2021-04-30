@@ -100,11 +100,7 @@ jobs:
       shell: pwsh
       run: |
         scripts/download-changelog.ps1
-
-        git config user.name "Github Actions"
-        git config user.email action@github.com
-        npx standard-version --infile Changelog.md
-        git reset --soft HEAD~
+        npx standard-version
   
     # Upload the builds for next job and debugging
     - name: Upload build artifacts
