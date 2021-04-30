@@ -7,8 +7,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              d:DesignHeight="450" d:DesignWidth="800"
              mc:Ignorable="d">
-    <StackPanel>
-    <Label Content="🚧" FontSize="128" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Yellow" />
-    <Label Content="WIP... Come back later" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
-    </StackPanel>
+  <TabControl BorderThickness="0">
+    <TabControl.Background>
+      <SolidColorBrush Color="#00000000" Opacity="0"/>
+    </TabControl.Background>
+    <TabItem Header="Always" Width="150" Margin="1 0">
+      <StackPanel>
+
+        <Custom:Switcher Text="Track items in pouch" />
+        <Custom:Switcher Text="Track items in box" />
+        <Custom:Switcher Text="Track craftable items" />
+
+        <GroupBox Header="Items to track"
+                  Foreground="WhiteSmoke"
+                  BorderBrush="{x:Null}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Custom:MinimalButton Text="↕" />
+                    <Custom:ComboBox Label="Item" Width="200" SelectedItem="Red Orb" />
+                    <Custom:TextInput Label="Amount" Width="100" Text="19" />
+                    <Custom:MinimalButton Foreground="Red" Text="✘" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Custom:MinimalButton Text="↕" />
+                    <Custom:ComboBox Label="Item" Width="200" SelectedItem="Potion" />
+                    <Custom:TextInput Label="Amount" Width="100" Text="999" />
+                    <Custom:MinimalButton Foreground="Red" Text="✘" />
+                </StackPanel>
+                <Button Content="Add another" Width="100" HorizontalAlignment="Right" Style="{StaticResource buttons_settings}" />
+            </StackPanel>
+        </GroupBox>
+
+      </StackPanel>
+    </TabItem>
+    <TabItem Header="Village"  Width="150"  Margin="1 0" />
+    <TabItem Header="Quest"  Width="150"  Margin="1 0" />
+  </TabControl>
 </UserControl>
