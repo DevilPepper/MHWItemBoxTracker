@@ -19,7 +19,7 @@ info.Name = "ItemBoxTracker";
 info.EntryPoint = "Main.cs";
 info.Description = "A HunterPie plugin to track items the player is farming";
 info.Author = "Stuff";
-info.Version = typeof(ItemBoxTracker).Assembly.GetName().Version.ToString();
+info.Version = typeof(Settings).Assembly.GetName().Version.ToString();
 
 var update = new PluginInformation.PluginUpdateInformation();
 info.Update = update;
