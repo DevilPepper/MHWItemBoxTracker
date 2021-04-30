@@ -1,5 +1,6 @@
 #r "ItemBoxTracker.dll"
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
@@ -20,6 +21,8 @@ info.EntryPoint = "Main.cs";
 info.Description = "A HunterPie plugin to track items the player is farming";
 info.Author = "Stuff";
 info.Version = typeof(Settings).Assembly.GetName().Version.ToString();
+info.ReleaseDate = DateTime.Now;
+// info.Links = [{"name": "Homepage", "url": "..."}, {"name": "Changelog", "url": "..."}];
 
 var update = new PluginInformation.PluginUpdateInformation();
 info.Update = update;
