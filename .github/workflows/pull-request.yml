@@ -54,10 +54,7 @@ jobs:
     - name: Test scripts
       run: |
 
-        # scripts write to release directory...
-        mkdir -p ${Project_Name}/bin/Release/
-
         # copy dlls for scripts to use
         cp ${Project_Name}/bin/Debug/*.dll scripts/
 
-        for script in scripts/*.csx; do $CSI $script; done
+        for script in scripts/*.csx; do $CSI $script $configuration; done

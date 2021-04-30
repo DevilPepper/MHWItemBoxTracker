@@ -9,7 +9,12 @@ using HunterPie.Plugins;
 using MHWItemBoxTracker.GUI;
 using Newtonsoft.Json;
 
-var releaseDirectory = "ItemBoxTracker/bin/Release";
+var configuration = "Debug";
+if(Args.Count > 0) {
+  configuration = Args[0];
+}
+
+var releaseDirectory = $"ItemBoxTracker/bin/{configuration}";
 var files = new List<string>() {
     "ItemBoxTracker.dll",
     "config.schema.json",

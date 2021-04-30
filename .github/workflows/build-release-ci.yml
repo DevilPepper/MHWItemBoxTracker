@@ -88,9 +88,9 @@ jobs:
         # move release notes to release directory
         mv notes.md ${Project_Name}/bin/Release/
         
-        $CSI scripts/gen-json-schema.csx
-        $CSI scripts/gen-module-json.csx
-        $CSI scripts/gen-settings-json.csx
+        $CSI scripts/gen-json-schema.csx $configuration
+        $CSI scripts/gen-module-json.csx $configuration
+        $CSI scripts/gen-settings-json.csx $configuration
       env:
         NUGET_USERNAME: ${{ github.repository_owner }}
         NUGET_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
