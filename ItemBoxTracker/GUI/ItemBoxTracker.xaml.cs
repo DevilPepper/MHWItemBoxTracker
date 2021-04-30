@@ -24,9 +24,6 @@ namespace MHWItemBoxTracker.GUI
             InitializeComponent();
             Dispatch(async () => {
                 widgetSettings = await Plugin.LoadJson<ItemBoxWidgetSettings>(settingsJson);
-                Plugin.Log($"Loaded widget settings...{JsonConvert.SerializeObject(widgetSettings)}");
-                Plugin.Log($"Settings: {JsonConvert.SerializeObject(Settings)}");
-
                 ApplySettings();
             });
         }
@@ -47,7 +44,6 @@ namespace MHWItemBoxTracker.GUI
         public override void LeaveWidgetDesignMode() {
             base.LeaveWidgetDesignMode();
             ApplyWindowTransparencyFlag();
-            Plugin.Log($"Saving widget settings...{JsonConvert.SerializeObject(widgetSettings)}");
             Dispatch(async () => { await Plugin.SaveJson(settingsJson, widgetSettings); });
         }
     }
