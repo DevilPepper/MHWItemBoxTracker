@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using MHWItemBoxTracker.Config;
+using MHWItemBoxTracker.ViewModels;
 using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.GUI
@@ -18,10 +19,10 @@ namespace MHWItemBoxTracker.GUI
     }
 
     public static new readonly DependencyProperty ContextProperty =
-      DependencyProperty.Register("Context", typeof(TrackingTabConfig), typeof(SettingsTab));
-    public new TrackingTabConfig Context
+      DependencyProperty.Register("Context", typeof(TrackingTabViewModel), typeof(SettingsTab));
+    public new TrackingTabViewModel Context
     {
-      get => (TrackingTabConfig)GetValue(ContextProperty);
+      get => (TrackingTabViewModel)GetValue(ContextProperty);
       set => SetValue(ContextProperty, value);
     }
 

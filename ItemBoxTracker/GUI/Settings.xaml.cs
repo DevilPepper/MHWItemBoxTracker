@@ -9,6 +9,7 @@ using HunterPie.Plugins;
 using HunterPie.UI.Infrastructure;
 using HunterPie.Settings;
 using MHWItemBoxTracker.Config;
+using MHWItemBoxTracker.ViewModels;
 using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.GUI
@@ -18,12 +19,13 @@ namespace MHWItemBoxTracker.GUI
     public static string fileName = "settings.json";
     public bool IsSettingsChanged => true;
         
-    private ItemBoxTrackerConfig Config = new ItemBoxTrackerConfig();
+    private ItemBoxTrackerViewModel vm;
 
     public Settings()
     {
       InitializeComponent();
-      this.DataContext = Config;
+      vm = new ItemBoxTrackerViewModel(new ItemBoxTrackerConfig());
+      this.DataContext = vm;
     }
 
     public void LoadSettings() {
