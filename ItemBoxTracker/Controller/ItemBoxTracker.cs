@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using HunterPie.Core;
 using HunterPie.GUI;
@@ -16,6 +18,7 @@ namespace MHWItemBoxTracker.Controller
     {
         private Player player { get; }
         private GUI.ItemBoxTracker gui;
+        private static SemaphoreSlim locke = new SemaphoreSlim(1,1);
 
         public ItemBoxTracker(Player player)
         {
@@ -31,8 +34,8 @@ namespace MHWItemBoxTracker.Controller
         {
             if (!player.InHarvestZone) return;
             Dispatch(async () => {
-                // TODO: use Settings.xaml.cs
-                var config = await Plugin.LoadJson<ItemBoxTrackerConfig>("settings.json");
+                var config = (await loadSettings()).Always;
+
                 var items = config.Tracking;
                 var box = player.ItemBox;
                 var ids = items.Select(ic => ic.ItemId).ToHashSet();
@@ -62,6 +65,25 @@ namespace MHWItemBoxTracker.Controller
 
         public void unregister() {
             Dispatch(() => Overlay.UnregisterWidget(gui));
+        }
+
+        private async Task<ItemBoxTrackerConfig> loadSettings() {
+          await locke.WaitAsync();
+          try {
+            // TODO: use Settings.xaml.cs
+            var config = await Plugin.LoadJson<ItemBoxTrackerConfig>("settings.json");
+
+            // Not writing a comparer just for this...
+            var oldConfig = await Plugin.LoadJson<DeprecatedItemBoxTrackerConfig>("settings.json");
+            if (oldConfig.Tracking.Count > 0) {
+              config.Always.Tracking = oldConfig.Tracking.ToList();
+              await Plugin.SaveJson<ItemBoxTrackerConfig>("settings.json", config);
+            }
+
+            return config;
+          } finally {
+            locke.Release();
+          }
         }
     }
 }
