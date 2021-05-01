@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="MHWItemBoxTracker.GUI.Settings"
+             xmlns:local="clr-namespace:MHWItemBoxTracker.GUI"
              xmlns:src="clr-namespace:HunterPie.GUI;assembly=HunterPie.UI"
              xmlns:Custom="clr-namespace:HunterPie.GUIControls.Custom_Controls;assembly=HunterPie.UI"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -11,36 +12,16 @@
     <TabControl.Background>
       <SolidColorBrush Color="#00000000" Opacity="0"/>
     </TabControl.Background>
+
     <TabItem Header="Always" Width="150" Margin="1 0">
-      <StackPanel>
-
-        <Custom:Switcher Text="Track items in pouch" />
-        <Custom:Switcher Text="Track items in box" />
-        <Custom:Switcher Text="Track craftable items" />
-
-        <GroupBox Header="Items to track"
-                  Foreground="WhiteSmoke"
-                  BorderBrush="{x:Null}">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Custom:MinimalButton Text="↕" />
-                    <Custom:ComboBox Label="Item" Width="200" SelectedItem="Red Orb" />
-                    <Custom:TextInput Label="Amount" Width="100" Text="19" />
-                    <Custom:MinimalButton Foreground="Red" Text="✘" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Custom:MinimalButton Text="↕" />
-                    <Custom:ComboBox Label="Item" Width="200" SelectedItem="Potion" />
-                    <Custom:TextInput Label="Amount" Width="100" Text="999" />
-                    <Custom:MinimalButton Foreground="Red" Text="✘" />
-                </StackPanel>
-                <Button Content="Add another" Width="100" HorizontalAlignment="Right" Style="{StaticResource buttons_settings}" />
-            </StackPanel>
-        </GroupBox>
-
-      </StackPanel>
+      <local:SettingsTab />
     </TabItem>
-    <TabItem Header="Village"  Width="150"  Margin="1 0" />
-    <TabItem Header="Quest"  Width="150"  Margin="1 0" />
+    <TabItem Header="Village"  Width="150"  Margin="1 0">
+      <local:SettingsTab />
+    </TabItem>
+    <TabItem Header="Quest"  Width="150"  Margin="1 0">
+      <local:SettingsTab />
+    </TabItem>
+
   </TabControl>
 </UserControl>
