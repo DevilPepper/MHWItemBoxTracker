@@ -52,8 +52,6 @@ namespace MHWItemBoxTracker
             player.OnVillageEnter += tracker.loadItemBox;
             player.OnVillageLeave += tracker.unloadItemBox;
             player.ItemBox.OnItemBoxUpdate += tracker.loadItemBox;
-
-            tracker.loadItemBox();
         }
 
         internal void unhookEvents()
