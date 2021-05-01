@@ -7,8 +7,16 @@ namespace MHWItemBoxTracker.Config
 {
     public class ItemBoxTrackerConfig
     {
-        [DisplayName("Items to Track")]
-        [Description("You can find item IDs here: https://github.com/Ezekial711/MonsterHunterWorldModding/wiki/Item-IDs")]
-        public List<ItemConfig> Tracking { get; set; } = new List<ItemConfig>();
+        [DisplayName("Track Always")]
+        [Description("Items to track everywhere")]
+        public TrackingTabConfig Always { get; set; } = new TrackingTabConfig();
+        
+        [DisplayName("Track in Village")]
+        [Description("Items to track only in the village/gathering hub")]
+        public TrackingTabConfig Village { get; set; } = new TrackingTabConfig();
+        
+        [DisplayName("Track in Quest")]
+        [Description("Items to track during a quest/expedition/guiding lands")]
+        public TrackingTabConfig Quest { get; set; } = new TrackingTabConfig();
     }
 }
