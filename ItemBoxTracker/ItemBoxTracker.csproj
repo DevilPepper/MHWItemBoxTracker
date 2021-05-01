@@ -90,8 +90,11 @@
 
   <!-- csproj BS -->
   <ItemGroup>
+    <Compile Include="Config\DeprecatedItemBoxTrackerConfig.cs" />
+    <Compile Include="Config\ItemBoxTrackerConfig.cs" />
     <Compile Include="Config\ItemBoxWidgetSettings.cs" />
     <Compile Include="Config\ItemConfig.cs" />
+    <Compile Include="Config\TrackingTabConfig.cs" />
     <Compile Include="GUI\ItemBoxTracker.xaml.cs">
       <DependentUpon>ItemBoxTracker.xaml</DependentUpon>
     </Compile>
@@ -113,7 +116,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Config\ItemBoxTrackerConfig.cs" />
     <Compile Include="Utils\Dispatcher.cs" />
     <Compile Include="Utils\JsonSchema.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
