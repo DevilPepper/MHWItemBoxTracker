@@ -121,6 +121,11 @@
     </Compile>
     <Compile Include="Utils\Dispatcher.cs" />
     <Compile Include="Utils\JsonSchema.cs" />
+    <Compile Include="Utils\NotifyPropertyChanged.cs" />
+    
+    <Compile Include="ViewModels\ItemBoxTrackerViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="ViewModels\TrackingTabViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
