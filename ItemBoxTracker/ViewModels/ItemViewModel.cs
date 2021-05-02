@@ -10,6 +10,8 @@ namespace MHWItemBoxTracker.ViewModels
     private int itemId;
     private int amount;
 
+    public ItemViewModel() {}
+    
     public ItemViewModel(ItemConfig config) {
       name = config.Name;
       itemId = config.ItemId;
