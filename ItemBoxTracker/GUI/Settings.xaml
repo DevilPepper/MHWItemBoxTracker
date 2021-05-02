@@ -14,13 +14,13 @@
     </TabControl.Background>
 
     <TabItem Header="Always" Width="150" Margin="1 0">
-      <local:SettingsTab />
+      <local:SettingsTab DataContext="{Binding Always}" />
     </TabItem>
     <TabItem Header="Village"  Width="150"  Margin="1 0">
-      <local:SettingsTab />
+      <local:SettingsTab DataContext="{Binding Village}" />
     </TabItem>
     <TabItem Header="Quest"  Width="150"  Margin="1 0">
-      <local:SettingsTab />
+      <local:SettingsTab DataContext="{Binding Quest}" />
     </TabItem>
 
   </TabControl>

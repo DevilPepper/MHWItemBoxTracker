@@ -24,6 +24,10 @@ namespace MHWItemBoxTracker.ViewModels
               .Select(i => new ItemViewModel(i))
               .ToList()
         );
+      
+      if (tracking.Count == 0) {
+        tracking.Add(new ItemViewModel());
+      }
     }
 
     public bool TrackPouch {

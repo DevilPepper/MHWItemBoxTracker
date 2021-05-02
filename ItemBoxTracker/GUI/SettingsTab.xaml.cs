@@ -12,20 +12,9 @@ using static MHWItemBoxTracker.Main;
 namespace MHWItemBoxTracker.GUI
 {
   public partial class SettingsTab : UserControl {
-    public SettingsTab()
+    public SettingsTab() : base()
     {
       InitializeComponent();
-      Items2Track.ItemsSource = Context.Tracking;
     }
-
-    public static new readonly DependencyProperty ContextProperty =
-      DependencyProperty.Register("Context", typeof(TrackingTabViewModel), typeof(SettingsTab));
-    public new TrackingTabViewModel Context
-    {
-      get => (TrackingTabViewModel)GetValue(ContextProperty);
-      set => SetValue(ContextProperty, value);
-    }
-
-
   }
 }

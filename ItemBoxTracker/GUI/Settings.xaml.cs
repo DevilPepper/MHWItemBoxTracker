@@ -11,6 +11,7 @@ using HunterPie.Settings;
 using MHWItemBoxTracker.Config;
 using MHWItemBoxTracker.ViewModels;
 using static MHWItemBoxTracker.Main;
+using Newtonsoft.Json;
 
 namespace MHWItemBoxTracker.GUI
 {
@@ -21,17 +22,19 @@ namespace MHWItemBoxTracker.GUI
         
     private ItemBoxTrackerViewModel vm;
 
-    public Settings()
+    public Settings() : base()
     {
       InitializeComponent();
       vm = new ItemBoxTrackerViewModel(new ItemBoxTrackerConfig());
-      this.DataContext = vm;
+      DataContext = vm;
     }
 
     public void LoadSettings() {
+      Plugin.Log($"Loading Settings: {JsonConvert.SerializeObject(vm.ToConfig(), Formatting.Indented)}");
     }
 
     public void SaveSettings() {
+      Plugin.Log($"Saving Settings: {JsonConvert.SerializeObject(vm.ToConfig(), Formatting.Indented)}");
     }
 
     public string ValidateSettings() {
