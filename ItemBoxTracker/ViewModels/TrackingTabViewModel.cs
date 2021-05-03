@@ -1,15 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using HunterPie.Plugins;
 using MHWItemBoxTracker.Config;
 using MHWItemBoxTracker.Utils;
 
-namespace MHWItemBoxTracker.ViewModels
-{
-  public class TrackingTabViewModel : NotifyPropertyChanged
-  {
+namespace MHWItemBoxTracker.ViewModels {
+  public class TrackingTabViewModel : NotifyPropertyChanged {
     private bool trackPouch;
     private bool trackBox;
     private bool trackCraftable;
@@ -24,7 +19,7 @@ namespace MHWItemBoxTracker.ViewModels
               .Select(i => new ItemViewModel(i))
               .ToList()
         );
-      
+
       if (tracking.Count == 0) {
         tracking.Add(new ItemViewModel());
       }
@@ -34,12 +29,12 @@ namespace MHWItemBoxTracker.ViewModels
       get => trackPouch;
       set => SetField(ref trackPouch, value);
     }
-    
+
     public bool TrackBox {
       get => trackBox;
       set => SetField(ref trackBox, value);
     }
-    
+
     public bool TrackCraftable {
       get => trackCraftable;
       set => SetField(ref trackCraftable, value);
@@ -51,12 +46,14 @@ namespace MHWItemBoxTracker.ViewModels
     }
 
     public TrackingTabConfig ToConfig() {
-      var config = new TrackingTabConfig();
-      config.TrackPouch = trackPouch;
-      config.TrackBox = trackBox;
-      config.TrackCraftable = trackCraftable;
-      config.Tracking = tracking.Select(i => i.ToConfig()).ToList();
-      return config;
+      return new TrackingTabConfig {
+        TrackPouch = trackPouch,
+        TrackBox = trackBox,
+        TrackCraftable = trackCraftable,
+        Tracking = tracking.Select(i => i.ToConfig())
+                           .Where(i => i.ItemId > 0)
+                           .ToList()
+      };
     }
   }
 }

@@ -1,17 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using MHWItemBoxTracker.Config;
+﻿using MHWItemBoxTracker.Config;
 using MHWItemBoxTracker.Utils;
 
-namespace MHWItemBoxTracker.ViewModels
-{
-  public class ItemViewModel : NotifyPropertyChanged
-  {
+namespace MHWItemBoxTracker.ViewModels {
+  public class ItemViewModel : NotifyPropertyChanged {
     private string name;
     private int itemId;
     private int amount;
 
-    public ItemViewModel() {}
-    
+    public ItemViewModel() { }
+
     public ItemViewModel(ItemConfig config) {
       name = config.Name;
       itemId = config.ItemId;
@@ -34,11 +31,11 @@ namespace MHWItemBoxTracker.ViewModels
     }
 
     public ItemConfig ToConfig() {
-      var config = new ItemConfig();
-      config.Name = name;
-      config.ItemId = itemId;
-      config.Amount = amount;
-      return config;
+      return new ItemConfig {
+        Name = name,
+        ItemId = itemId,
+        Amount = amount
+      };
     }
   }
 }

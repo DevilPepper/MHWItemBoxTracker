@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  
+<Project
+    ToolsVersion="15.0"
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import
+      Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
+      Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+
   <!-- Build Configs -->
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -72,7 +76,9 @@
 
   <!-- Build tools -->
   <ItemGroup>
-    <PackageReference Include="MSBuild.AssemblyVersion" Version="1.3.0">
+    <PackageReference
+        Include="MSBuild.AssemblyVersion"
+        Version="1.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -80,8 +86,12 @@
 
   <!-- Nuget OR Local DLLs -->
   <ItemGroup>
-    <PackageReference Include="HunterPie.Core" Version="1.0.8" />
-    <PackageReference Include="HunterPie.UI" Version="1.0.18" />
+    <PackageReference
+        Include="HunterPie.Core"
+        Version="1.0.8" />
+    <PackageReference
+        Include="HunterPie.UI"
+        Version="1.0.18" />
     <!-- <PackageReference Include="HunterPie.Core" Version="0.0.0" /> -->
     <!-- <PackageReference Include="HunterPie.UI" Version="0.0.0" /> -->
     <!-- <Reference Include="..\HunterPie.Core.dll" /> -->
@@ -122,7 +132,7 @@
     <Compile Include="Utils\Dispatcher.cs" />
     <Compile Include="Utils\JsonSchema.cs" />
     <Compile Include="Utils\NotifyPropertyChanged.cs" />
-    
+
     <Compile Include="ViewModels\ItemBoxTrackerViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\TrackingTabViewModel.cs" />
@@ -153,7 +163,7 @@
 
   <!-- Targets (Our targets need to be declared after imports) -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name = "Clean">
+  <Target Name="Clean">
     <RemoveDir Directories="obj;bin" />
   </Target>
 </Project>
