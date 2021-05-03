@@ -1,0 +1,8 @@
+{
+  "xml.format.splitAttributes": true,
+  "files.trimFinalNewlines": true,
+  "omnisharp.disableMSBuildDiagnosticWarning": true,
+  "omnisharp.enableImportCompletion": true,
+  "omnisharp.organizeImportsOnFormat": true,
+  "omnisharp.enableRoslynAnalyzers": true
+}
