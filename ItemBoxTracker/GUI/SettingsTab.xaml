@@ -12,7 +12,12 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
   <UserControl.Resources>
-    <ResourceDictionary Source="ItemDataTemplate.xaml" />
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ButtonOverride.xaml" />
+        <ResourceDictionary Source="ItemDataTemplate.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
   </UserControl.Resources>
 
   <StackPanel>
@@ -57,9 +62,12 @@
                     Label="Amount"
                     Width="100"
                     Text="{Binding Amount, Mode=TwoWay}" />
-                <Custom:MinimalButton
+                <Button
+                    Grid.Column='1'
+                    Style="{StaticResource ButtonOverride}"
                     Foreground="Red"
-                    Text="✘" />
+                    Click="DeleteRow"
+                    Content="✘" />
               </StackPanel>
             </DataTemplate>
           </ListView.ItemTemplate>
@@ -68,6 +76,7 @@
             Content="Add another"
             Width="100"
             HorizontalAlignment="Right"
+            Click="AddRow"
             Style="{StaticResource buttons_settings}" />
       </StackPanel>
     </GroupBox>

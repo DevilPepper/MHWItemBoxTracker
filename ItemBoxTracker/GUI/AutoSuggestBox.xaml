@@ -9,7 +9,14 @@
     Margin="10,0,10,5"
     d:DesignWidth="200">
   <UserControl.Resources>
-    <BooleanToVisibilityConverter x:Key="bool2Visibility" />
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ButtonOverride.xaml" />
+        <ResourceDictionary>
+          <BooleanToVisibilityConverter x:Key="bool2Visibility" />
+        </ResourceDictionary>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
   </UserControl.Resources>
 
   <StackPanel DataContext="{Binding ElementName=AutoSuggest}">
@@ -60,10 +67,12 @@
                 Grid.Column='0'
                 Content="{Binding Selection}"
                 ContentTemplate="{Binding ItemTemplate}" />
-            <TextBlock
+            <Button
                 Grid.Column='1'
-                Text="✘"
-                Foreground="#cc9E9D9D" />
+                Style="{StaticResource ButtonOverride}"
+                Foreground="#cc9E9D9D"
+                Click="ClearSelection"
+                Content="✘" />
           </Grid>
         </Border>
 
