@@ -95,7 +95,6 @@
       <Grid>
         <ListBox
             x:Name="suggestionsList"
-            Visibility="{Binding HasItems, ElementName=suggestionsList, Converter={StaticResource bool2Visibility}}"
             SelectionChanged="SelectionChanged"
             ItemTemplate="{Binding ItemTemplate}" />
 
