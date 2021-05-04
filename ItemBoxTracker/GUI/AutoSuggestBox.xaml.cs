@@ -1,11 +1,14 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace MHWItemBoxTracker.GUI {
   public partial class AutoSuggestBox : UserControl {
+    public ObservableCollection<object> Suggestions { get; } = new ObservableCollection<object>();
     public AutoSuggestBox() {
       InitializeComponent();
+      suggestionsList.ItemsSource = Suggestions;
     }
 
     private void TextChanged(object sender, TextChangedEventArgs e) {
@@ -13,9 +16,10 @@ namespace MHWItemBoxTracker.GUI {
         suggestionsPopup.IsOpen = false;
       } else {
         suggestionsPopup.IsOpen = true;
-        OnTextChanged(suggestionsList, searchInput.Text);
+        OnTextChanged(Suggestions, searchInput.Text);
       }
-      noResults.Visibility = Bool2Visibility(!suggestionsList.HasItems);
+      noResults.Visibility = Bool2Visibility(Suggestions.Count == 0);
+      suggestionsList.Visibility = Bool2Visibility(Suggestions.Count > 0);
     }
 
     private void SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -32,19 +36,20 @@ namespace MHWItemBoxTracker.GUI {
     }
     public void OnEnter(string input) {
       if (!string.IsNullOrEmpty(input)) {
-        OnTextChanged(suggestionsList, input);
-        if (suggestionsList.HasItems) {
+        OnTextChanged(Suggestions, input);
+        if (Suggestions.Count > 0) {
           suggestionsPopup.IsOpen = false;
           suggestionsList.SelectedIndex = 0;
           DisplaySelection();
         }
-        noResults.Visibility = Bool2Visibility(!suggestionsList.HasItems);
+        noResults.Visibility = Bool2Visibility(Suggestions.Count == 0);
+        suggestionsList.Visibility = Bool2Visibility(Suggestions.Count > 0);
       }
     }
 
     private void DisplaySelection() {
       selectionCtrl.Visibility = Visibility.Visible;
-      OnSuggestionChosen(Selection, suggestionsList.SelectedItem as ListBoxItem);
+      OnSuggestionChosen(Selection, suggestionsList.SelectedItem);
       suggestionsList.SelectedIndex = -1;
 
       searchInput.Clear();
@@ -55,9 +60,10 @@ namespace MHWItemBoxTracker.GUI {
       return isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    public event Action<ListBox, string> OnTextChanged = (l, s) => { };
+    public event Action<ObservableCollection<object>, string> OnTextChanged = (l, s) => { };
     public event Action<object> OnClearSelection = o => { };
-    public event Action<object, ListBoxItem> OnSuggestionChosen = (o, l) => { };
+    // TODO Both are same type
+    public event Action<object, object> OnSuggestionChosen = (o, l) => { };
 
     public static readonly DependencyProperty PlaceholderProperty = DependencyProperty.Register(
     "Placeholder", typeof(string), typeof(AutoSuggestBox), new PropertyMetadata("Search..."));

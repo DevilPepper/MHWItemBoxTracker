@@ -57,6 +57,9 @@
                     Placeholder="Search items..."
                     Selection="{Binding DataContext, ElementName=trackedItem, Mode=TwoWay}"
                     ItemTemplate="{StaticResource ItemDataTemplate}"
+                    OnTextChanged="OnTextChanged"
+                    OnSuggestionChosen="OnSuggestionChosen"
+                    OnClearSelection="OnClearSelection"
                     Width="250" />
                 <Custom:TextInput
                     Label="Amount"
