@@ -105,6 +105,9 @@
     <Compile Include="Config\ItemBoxWidgetSettings.cs" />
     <Compile Include="Config\ItemConfig.cs" />
     <Compile Include="Config\TrackingTabConfig.cs" />
+    <Compile Include="GUI\AutoSuggestBox.xaml.cs">
+      <DependentUpon>AutoSuggestBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ItemBoxTracker.xaml.cs">
       <DependentUpon>ItemBoxTracker.xaml</DependentUpon>
     </Compile>
@@ -147,6 +150,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="GUI\AutoSuggestBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\ItemBoxTracker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
