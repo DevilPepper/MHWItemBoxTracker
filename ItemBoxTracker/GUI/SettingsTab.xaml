@@ -11,6 +11,10 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+  <UserControl.Resources>
+    <ResourceDictionary Source="ItemDataTemplate.xaml" />
+  </UserControl.Resources>
+
   <StackPanel>
     <Custom:Switcher
         Text="Track items in pouch"
@@ -38,12 +42,16 @@
           <ListView.ItemTemplate>
             <!-- <DataTemplate x:DataType="vm:ItemViewModel"> -->
             <DataTemplate>
-              <StackPanel Orientation="Horizontal">
+              <StackPanel
+                  Orientation="Horizontal"
+                  x:Name="trackedItem">
                 <Custom:MinimalButton
                     Text="↕"
                     Foreground="#ffbfbfbf" />
                 <local:AutoSuggestBox
                     Placeholder="Search items..."
+                    Selection="{Binding DataContext, ElementName=trackedItem, Mode=TwoWay}"
+                    ItemTemplate="{StaticResource ItemDataTemplate}"
                     Width="250" />
                 <Custom:TextInput
                     Label="Amount"
