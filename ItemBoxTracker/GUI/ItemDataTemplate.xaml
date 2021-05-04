@@ -1,0 +1,35 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DataTemplate x:Key="ItemDataTemplate">
+    <StackPanel Orientation="Horizontal">
+      <StackPanel.ToolTip>
+        <StackPanel Orientation="Horizontal">
+          <TextBlock
+              Foreground="#ffbfbfbf"
+              Padding="5 0"
+              Text="ItemId:" />
+          <TextBlock
+              Foreground="#ffbfbfbf"
+              Padding="5 0"
+              Text="{Binding ItemId}" />
+          <!-- <TextBlock Foreground="#ffbfbfbf" Text="{Binding ItemId, Converter={StaticResource dec2hex}}" /> -->
+        </StackPanel>
+      </StackPanel.ToolTip>
+
+      <TextBlock
+          Text="🚧"
+          Padding="5 0"
+          Foreground="Yellow" />
+
+      <!-- <Image
+          Source="{Binding ItemId, Converter={StaticResource id2icon}}"
+          MaxHeight="30"
+          MaxWidth="30"
+          Padding="5 0" /> -->
+      <TextBlock
+          Text="{Binding Name}"
+          Foreground="#ffbfbfbf" />
+    </StackPanel>
+  </DataTemplate>
+</ResourceDictionary>
