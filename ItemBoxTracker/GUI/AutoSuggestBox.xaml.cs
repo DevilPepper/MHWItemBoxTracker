@@ -28,6 +28,7 @@ namespace MHWItemBoxTracker.GUI {
       selectionCtrl.Visibility = Visibility.Collapsed;
       OnClearSelection(Selection);
       searchInput.IsEnabled = true;
+      searchInput.Focus();
     }
     public void OnEnter(string input) {
       if (!string.IsNullOrEmpty(input)) {
