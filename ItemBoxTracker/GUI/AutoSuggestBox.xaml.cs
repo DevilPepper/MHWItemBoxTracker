@@ -1,12 +1,16 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using HunterPie.Plugins;
+using HunterPie.UI;
 using HunterPie.UI.Infrastructure;
 using MHWItemBoxTracker.Converters;
+using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.GUI {
   public partial class AutoSuggestBox : UserControl {
@@ -99,6 +103,7 @@ namespace MHWItemBoxTracker.GUI {
       OnUpKey = new ArglessRelayCommand(onUpKey);
       InitializeComponent();
       suggestionsList.ItemsSource = Suggestions;
+      Suggestions.CollectionChanged += SuggestionsChanged;
     }
     private ObservableCollection<object> Suggestions { get; } = new ObservableCollection<object>();
     private bool itIsI = false;
@@ -159,6 +164,11 @@ namespace MHWItemBoxTracker.GUI {
       }
     }
 
+    void SuggestionsChanged(object sender, NotifyCollectionChangedEventArgs e) {
+      var isEmpty = Suggestions.Count == 0;
+      suggestionsList.Visibility = isEmpty ? Visibility.Collapsed : Visibility.Visible;
+      noResults.Visibility = isEmpty ? Visibility.Visible : Visibility.Collapsed;
+    }
     private void DisplaySelection() {
       suggestionsPopup.IsOpen = false;
       OnSuggestionChosen(Selection, suggestionsList.SelectedItem);
