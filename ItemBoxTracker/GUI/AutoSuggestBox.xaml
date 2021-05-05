@@ -49,6 +49,12 @@
                 Key="Return"
                 Command="{Binding OnEnter}"
                 CommandParameter="{Binding ElementName=searchInput, Path=Text}" />
+            <KeyBinding
+                Key="Down"
+                Command="{Binding OnDownKey}" />
+            <KeyBinding
+                Key="Up"
+                Command="{Binding OnUpKey}" />
           </TextBox.InputBindings>
         </TextBox>
 
