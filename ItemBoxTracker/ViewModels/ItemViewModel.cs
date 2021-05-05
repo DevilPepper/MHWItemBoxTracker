@@ -30,6 +30,18 @@ namespace MHWItemBoxTracker.ViewModels {
       set => SetField(ref amount, value);
     }
 
+    public override bool Equals(object obj) {
+      if ((obj != null) && GetType().Equals(obj.GetType())) {
+        var Obj = (ItemViewModel)obj;
+        return Obj.ItemId == ItemId;
+      }
+      return false;
+    }
+
+    public override int GetHashCode() {
+      return ItemId;
+    }
+
     public ItemConfig ToConfig() {
       return new ItemConfig {
         Name = name,

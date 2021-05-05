@@ -1,9 +1,12 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using HunterPie.UI.Infrastructure;
+using MHWItemBoxTracker.Converters;
 
 namespace MHWItemBoxTracker.GUI {
   public partial class AutoSuggestBox : UserControl {
@@ -107,8 +110,6 @@ namespace MHWItemBoxTracker.GUI {
         suggestionsPopup.IsOpen = true;
         OnTextChanged(Suggestions, searchInput.Text);
       }
-      noResults.Visibility = Bool2Visibility(Suggestions.Count == 0);
-      suggestionsList.Visibility = Bool2Visibility(Suggestions.Count > 0);
     }
 
     private void SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -118,7 +119,6 @@ namespace MHWItemBoxTracker.GUI {
       itIsI = false;
     }
     private void ClearSelection(object sender, RoutedEventArgs e) {
-      selectionCtrl.Visibility = Visibility.Collapsed;
       OnClearSelection(Selection);
       searchInput.IsEnabled = true;
       searchInput.Focus();
@@ -136,8 +136,6 @@ namespace MHWItemBoxTracker.GUI {
           // triggers OnSelectionChanged, so no need to call DisplaySelection()
           suggestionsList.SelectedIndex = 0;
         }
-        noResults.Visibility = Bool2Visibility(Suggestions.Count == 0);
-        suggestionsList.Visibility = Bool2Visibility(Suggestions.Count > 0);
       }
     }
     private void onDownKey() {
@@ -154,18 +152,20 @@ namespace MHWItemBoxTracker.GUI {
       }
     }
 
+    private void OnLoaded(object sender, RoutedEventArgs e) {
+      var empty = Activator.CreateInstance(Selection.GetType());
+      if (!empty.Equals(Selection)) {
+        searchInput.IsEnabled = false;
+      }
+    }
+
     private void DisplaySelection() {
       suggestionsPopup.IsOpen = false;
-      selectionCtrl.Visibility = Visibility.Visible;
       OnSuggestionChosen(Selection, suggestionsList.SelectedItem);
       suggestionsList.SelectedIndex = -1;
 
-      searchInput.Clear();
       searchInput.IsEnabled = false;
-    }
-
-    private Visibility Bool2Visibility(bool isVisible) {
-      return isVisible ? Visibility.Visible : Visibility.Collapsed;
+      searchInput.Clear();
     }
   }
 }

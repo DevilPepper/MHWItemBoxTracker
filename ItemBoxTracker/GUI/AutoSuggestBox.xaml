@@ -5,15 +5,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:convert="clr-namespace:MHWItemBoxTracker.Converters"
+    xmlns:hp-convert="clr-namespace:HunterPie.UI.Infrastructure.Converters;assembly=HunterPie.UI"
     mc:Ignorable="d"
     Margin="10,0,10,5"
+    Loaded="OnLoaded"
     d:DesignWidth="200">
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ButtonOverride.xaml" />
         <ResourceDictionary>
-          <BooleanToVisibilityConverter x:Key="bool2Visibility" />
+          <hp-convert:LengthToVisibilityConverter
+              WhenEmpty="Hidden"
+              WhenValues="Visible"
+              x:Key="emptyVisible" />
+        </ResourceDictionary>
+        <ResourceDictionary>
+          <hp-convert:BooleanToVisibilityConverter
+              x:Key="InverseBool2Visibility"
+              FalseValue="Visible"
+              TrueValue="Hidden" />
         </ResourceDictionary>
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
@@ -37,7 +49,7 @@
             Grid.Column='0'
             Text="{Binding Placeholder}"
             Foreground="#cc9E9D9D"
-            Visibility="{Binding Text.IsEmpty, ElementName=searchInput, Converter={StaticResource bool2Visibility}}" />
+            Visibility="{Binding Text.IsEmpty, ElementName=searchInput, Converter={hp-convert:BooleanToVisibilityConverter}}" />
         <TextBox
             Grid.Column='0'
             x:Name="searchInput"
@@ -62,8 +74,7 @@
             Grid.Column='0'
             CornerRadius="5"
             Background="#1e5878"
-            Visibility="Collapsed"
-            x:Name="selectionCtrl">
+            Visibility="{Binding IsEnabled, ElementName=searchInput, Converter={StaticResource InverseBool2Visibility}}">
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />
@@ -85,14 +96,14 @@
         <TextBlock
             Grid.Column='1'
             Text="🔎"
-            Visibility="{Binding IsEnabled, ElementName=searchInput, Converter={StaticResource bool2Visibility}}"
+            Visibility="{Binding IsEnabled, ElementName=searchInput, Converter={hp-convert:BooleanToVisibilityConverter}}"
             Foreground="#cc9E9D9D" />
       </Grid>
     </Border>
 
     <Popup
         x:Name="suggestionsPopup"
-        Visibility="{Binding IsOpen, ElementName=suggestionsPopup, Converter={StaticResource bool2Visibility}}"
+        Visibility="{Binding IsOpen, ElementName=suggestionsPopup, Converter={hp-convert:BooleanToVisibilityConverter}}"
         MinWidth="{Binding ActualWidth}"
         MinHeight="30"
         MaxHeight="150"
@@ -101,11 +112,12 @@
       <Grid>
         <ListBox
             x:Name="suggestionsList"
+            Visibility="{Binding Suggestions.Count, Converter={hp-convert:LengthToVisibilityConverter}}"
             SelectionChanged="SelectionChanged"
             ItemTemplate="{Binding ItemTemplate}" />
 
         <TextBlock
-            x:Name="noResults"
+            Visibility="{Binding Suggestions.Count, Converter={StaticResource emptyVisible}}"
             Text="No results..."
             VerticalAlignment="Center"
             Padding="5 0"
