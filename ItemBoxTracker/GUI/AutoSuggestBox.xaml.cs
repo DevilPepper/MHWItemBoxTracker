@@ -5,11 +5,94 @@ using System.Windows.Controls;
 
 namespace MHWItemBoxTracker.GUI {
   public partial class AutoSuggestBox : UserControl {
-    public ObservableCollection<object> Suggestions { get; } = new ObservableCollection<object>();
+    /// <summary>
+    /// Event triggers when the text in the textbox changes (for every change)
+    /// Also triggers when the user submits a search query by hitting Enter.
+    /// <param name="suggestions"/> the ObservableCollection to update with new suggestions
+    /// <param name="input"/> current user input
+    /// <example>
+    /// <code>
+    /// private void OnTextChanged(ObservableCollection<object> suggestions, string input) {
+    ///   var filtered = searchSpace.Where(s => s.Contains(input));
+    ///   suggestions.Clear();
+    ///   foreach (var choice in filtered) {
+    ///     suggestions.Add(choice);
+    ///   }
+    /// }
+    /// </code>
+    /// </example>
+    /// </summary>
+    public event Action<ObservableCollection<object>, string> OnTextChanged = (suggestions, input) => { };
+    /// <summary>
+    /// Event triggers when the user clicks the X on their selection
+    /// <param name="selection"/> the selection view model given as <see cref="Selection" />
+    /// <example>
+    /// <code>
+    /// private void OnClearSelection(object selection) {
+    ///   var Selection = (MyViewModel)selection;
+    ///   makeInvalid(Selection);
+    /// }
+    /// </code>
+    /// </example>
+    /// </summary>
+    public event Action<object> OnClearSelection = selection => { };
+    /// <summary>
+    /// Event triggers when the user chooses a selection.
+    /// Also triggers when the user submits a search query by hitting Enter and there is at least 1 result.
+    /// The top result is sent with this event.
+    /// <param name="selection"/> the selection view model given as <see cref="Selection" />
+    /// <param name="choice"/> the selected list item from the suggestions ObservableCollection. i.e.: the <c>ListItem</c>'s <c>DataContext</c>
+    /// <example>
+    /// <code>
+    /// private void OnSuggestionChosen(object selection, object choice) {
+    ///   var Selection = (MyViewModel)selection;
+    ///   var Choice = (ProbablyTheSameViewModelButDoesNotHaveToBe)choice;
+    ///   DoWhateverYouNeedToMakeSelectionReflectTheChoice(Selection, Choice);
+    /// }
+    /// </code>
+    /// </example>
+    /// </summary>
+    public event Action<object, object> OnSuggestionChosen = (o, l) => { };
+
+    public static readonly DependencyProperty PlaceholderProperty = DependencyProperty.Register(
+    "Placeholder", typeof(string), typeof(AutoSuggestBox), new PropertyMetadata("Search..."));
+    /// <value>
+    /// DependencyProperty <c>Placeholder</c>
+    /// is the desired placeholder text that displays in an empty search box.
+    /// Defaults to "Search..."
+    /// </value>
+    public string Placeholder {
+      get { return (string)GetValue(PlaceholderProperty); }
+      set { SetValue(PlaceholderProperty, value); }
+    }
+    public static readonly DependencyProperty SelectionProperty = DependencyProperty.Register(
+    "Selection", typeof(object), typeof(AutoSuggestBox), new PropertyMetadata(null));
+    /// <value>
+    /// DependencyProperty <c>Selection</c>
+    /// is the viewmodel that will hold the user's selection.
+    /// Default isn't very useful
+    /// </value>
+    public object Selection {
+      get { return (object)GetValue(SelectionProperty); }
+      set { SetValue(SelectionProperty, value); }
+    }
+    public static readonly DependencyProperty ItemTemplateProperty = DependencyProperty.Register(
+    "ItemTemplate", typeof(DataTemplate), typeof(AutoSuggestBox), new PropertyMetadata(default(DataTemplate)));
+    /// <value>
+    /// DependencyProperty <c>ItemTemplate</c>
+    /// is the <c>DataTemplate</c> used to display the individual search results and auto filled selection.
+    /// Default simply uses ToString()
+    /// </value>
+    public string ItemTemplate {
+      get { return (string)GetValue(ItemTemplateProperty); }
+      set { SetValue(ItemTemplateProperty, value); }
+    }
+
     public AutoSuggestBox() {
       InitializeComponent();
       suggestionsList.ItemsSource = Suggestions;
     }
+    private ObservableCollection<object> Suggestions { get; } = new ObservableCollection<object>();
 
     private void TextChanged(object sender, TextChangedEventArgs e) {
       if (string.IsNullOrEmpty(searchInput.Text)) {
@@ -34,7 +117,7 @@ namespace MHWItemBoxTracker.GUI {
       searchInput.IsEnabled = true;
       searchInput.Focus();
     }
-    public void OnEnter(string input) {
+    private void OnEnter(string input) {
       if (!string.IsNullOrEmpty(input)) {
         OnTextChanged(Suggestions, input);
         if (Suggestions.Count > 0) {
@@ -44,6 +127,17 @@ namespace MHWItemBoxTracker.GUI {
         }
         noResults.Visibility = Bool2Visibility(Suggestions.Count == 0);
         suggestionsList.Visibility = Bool2Visibility(Suggestions.Count > 0);
+      }
+    }
+    private void OnDownKey() {
+      var count = Suggestions.Count;
+      if (count > 0 && suggestionsList.SelectedIndex < (count - 1)) {
+        suggestionsList.SelectedIndex++;
+      }
+    }
+    private void OnUpKey() {
+      if (Suggestions.Count > 0 && suggestionsList.SelectedIndex > -1) {
+        suggestionsList.SelectedIndex--;
       }
     }
 
@@ -58,33 +152,6 @@ namespace MHWItemBoxTracker.GUI {
 
     private Visibility Bool2Visibility(bool isVisible) {
       return isVisible ? Visibility.Visible : Visibility.Collapsed;
-    }
-
-    public event Action<ObservableCollection<object>, string> OnTextChanged = (l, s) => { };
-    public event Action<object> OnClearSelection = o => { };
-    // TODO Both are same type
-    public event Action<object, object> OnSuggestionChosen = (o, l) => { };
-
-    public static readonly DependencyProperty PlaceholderProperty = DependencyProperty.Register(
-    "Placeholder", typeof(string), typeof(AutoSuggestBox), new PropertyMetadata("Search..."));
-
-    public string Placeholder {
-      get { return (string)GetValue(PlaceholderProperty); }
-      set { SetValue(PlaceholderProperty, value); }
-    }
-    public static readonly DependencyProperty SelectionProperty = DependencyProperty.Register(
-    "Selection", typeof(object), typeof(AutoSuggestBox), new PropertyMetadata(null));
-
-    public object Selection {
-      get { return (object)GetValue(SelectionProperty); }
-      set { SetValue(SelectionProperty, value); }
-    }
-    public static readonly DependencyProperty ItemTemplateProperty = DependencyProperty.Register(
-    "ItemTemplate", typeof(DataTemplate), typeof(AutoSuggestBox), new PropertyMetadata(default(DataTemplate)));
-
-    public string ItemTemplate {
-      get { return (string)GetValue(ItemTemplateProperty); }
-      set { SetValue(ItemTemplateProperty, value); }
     }
   }
 }
