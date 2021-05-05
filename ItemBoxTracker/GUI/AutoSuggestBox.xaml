@@ -61,6 +61,9 @@
             <KeyBinding
                 Key="Up"
                 Command="{Binding OnUpKey}" />
+            <KeyBinding
+                Key="Escape"
+                Command="{Binding OnEscape}" />
           </TextBox.InputBindings>
         </TextBox>
 

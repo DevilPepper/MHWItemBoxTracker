@@ -101,6 +101,7 @@ namespace MHWItemBoxTracker.GUI {
       OnEnter = new RelayCommand(i => onEnter(i as string));
       OnDownKey = new ArglessRelayCommand(onDownKey);
       OnUpKey = new ArglessRelayCommand(onUpKey);
+      OnEscape = new ArglessRelayCommand(onEscape);
       InitializeComponent();
       suggestionsList.ItemsSource = Suggestions;
       Suggestions.CollectionChanged += SuggestionsChanged;
@@ -132,6 +133,7 @@ namespace MHWItemBoxTracker.GUI {
     public ICommand OnEnter { get; }
     public ICommand OnDownKey { get; }
     public ICommand OnUpKey { get; }
+    public ICommand OnEscape { get; }
     private void onEnter(string input) {
       if (suggestionsList.SelectedIndex >= 0) {
         DisplaySelection();
@@ -155,6 +157,9 @@ namespace MHWItemBoxTracker.GUI {
         itIsI = true;
         suggestionsList.SelectedIndex--;
       }
+    }
+    private void onEscape() {
+      suggestionsPopup.IsOpen = false;
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e) {
