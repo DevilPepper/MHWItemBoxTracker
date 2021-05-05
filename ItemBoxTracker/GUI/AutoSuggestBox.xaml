@@ -16,12 +16,6 @@
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ButtonOverride.xaml" />
         <ResourceDictionary>
-          <hp-convert:LengthToVisibilityConverter
-              WhenEmpty="Hidden"
-              WhenValues="Visible"
-              x:Key="emptyVisible" />
-        </ResourceDictionary>
-        <ResourceDictionary>
           <hp-convert:BooleanToVisibilityConverter
               x:Key="InverseBool2Visibility"
               FalseValue="Visible"
@@ -112,12 +106,13 @@
       <Grid>
         <ListBox
             x:Name="suggestionsList"
-            Visibility="{Binding Suggestions.Count, Converter={hp-convert:LengthToVisibilityConverter}}"
+            Background="{x:Null}"
             SelectionChanged="SelectionChanged"
             ItemTemplate="{Binding ItemTemplate}" />
 
         <TextBlock
-            Visibility="{Binding Suggestions.Count, Converter={StaticResource emptyVisible}}"
+            x:Name="noResults"
+            Background="{x:Null}"
             Text="No results..."
             VerticalAlignment="Center"
             Padding="5 0"
