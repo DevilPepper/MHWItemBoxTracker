@@ -46,7 +46,7 @@
             TextChanged="TextChanged">
           <TextBox.InputBindings>
             <KeyBinding
-                Key="Return"
+                Key="Enter"
                 Command="{Binding OnEnter}"
                 CommandParameter="{Binding ElementName=searchInput, Path=Text}" />
             <KeyBinding

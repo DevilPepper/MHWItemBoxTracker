@@ -2,6 +2,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using HunterPie.UI.Infrastructure;
 
 namespace MHWItemBoxTracker.GUI {
   public partial class AutoSuggestBox : UserControl {
@@ -89,10 +91,14 @@ namespace MHWItemBoxTracker.GUI {
     }
 
     public AutoSuggestBox() {
+      OnEnter = new RelayCommand(i => onEnter(i as string));
+      OnDownKey = new ArglessRelayCommand(onDownKey);
+      OnUpKey = new ArglessRelayCommand(onUpKey);
       InitializeComponent();
       suggestionsList.ItemsSource = Suggestions;
     }
     private ObservableCollection<object> Suggestions { get; } = new ObservableCollection<object>();
+    private bool itIsI = false;
 
     private void TextChanged(object sender, TextChangedEventArgs e) {
       if (string.IsNullOrEmpty(searchInput.Text)) {
@@ -106,10 +112,10 @@ namespace MHWItemBoxTracker.GUI {
     }
 
     private void SelectionChanged(object sender, SelectionChangedEventArgs e) {
-      suggestionsPopup.IsOpen = false;
-      if (suggestionsList.SelectedIndex >= 0) {
+      if (!itIsI && suggestionsList.SelectedIndex >= 0) {
         DisplaySelection();
       }
+      itIsI = false;
     }
     private void ClearSelection(object sender, RoutedEventArgs e) {
       selectionCtrl.Visibility = Visibility.Collapsed;
@@ -117,31 +123,39 @@ namespace MHWItemBoxTracker.GUI {
       searchInput.IsEnabled = true;
       searchInput.Focus();
     }
-    private void OnEnter(string input) {
-      if (!string.IsNullOrEmpty(input)) {
+
+    public ICommand OnEnter { get; }
+    public ICommand OnDownKey { get; }
+    public ICommand OnUpKey { get; }
+    private void onEnter(string input) {
+      if (suggestionsList.SelectedIndex >= 0) {
+        DisplaySelection();
+      } else if (!string.IsNullOrEmpty(input)) {
         OnTextChanged(Suggestions, input);
         if (Suggestions.Count > 0) {
-          suggestionsPopup.IsOpen = false;
+          // triggers OnSelectionChanged, so no need to call DisplaySelection()
           suggestionsList.SelectedIndex = 0;
-          DisplaySelection();
         }
         noResults.Visibility = Bool2Visibility(Suggestions.Count == 0);
         suggestionsList.Visibility = Bool2Visibility(Suggestions.Count > 0);
       }
     }
-    private void OnDownKey() {
+    private void onDownKey() {
       var count = Suggestions.Count;
       if (count > 0 && suggestionsList.SelectedIndex < (count - 1)) {
+        itIsI = true;
         suggestionsList.SelectedIndex++;
       }
     }
-    private void OnUpKey() {
+    private void onUpKey() {
       if (Suggestions.Count > 0 && suggestionsList.SelectedIndex > -1) {
+        itIsI = true;
         suggestionsList.SelectedIndex--;
       }
     }
 
     private void DisplaySelection() {
+      suggestionsPopup.IsOpen = false;
       selectionCtrl.Visibility = Visibility.Visible;
       OnSuggestionChosen(Selection, suggestionsList.SelectedItem);
       suggestionsList.SelectedIndex = -1;
