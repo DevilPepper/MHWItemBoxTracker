@@ -36,6 +36,12 @@
         Foreground="WhiteSmoke"
         BorderBrush="{x:Null}">
       <StackPanel>
+        <Button
+            Content="Add another"
+            Width="100"
+            HorizontalAlignment="Right"
+            Click="AddRow"
+            Style="{StaticResource buttons_settings}" />
         <local:DragAndDropper>
           <local:DragAndDropper.Child>
             <ListView
@@ -50,9 +56,16 @@
                 <!-- <DataTemplate x:DataType="vm:ItemViewModel"> -->
                 <DataTemplate>
                   <StackPanel Orientation="Horizontal">
-                    <Custom:MinimalButton
-                        Text="↕"
-                        Foreground="#ffbfbfbf" />
+                    <Button
+                        Style="{StaticResource ButtonOverride}"
+                        ToolTip="Move up"
+                        Click="MoveUp"
+                        Content="▲" />
+                    <Button
+                        Style="{StaticResource ButtonOverride}"
+                        ToolTip="Move down"
+                        Click="MoveDown"
+                        Content="▼" />
                     <local:AutoSuggestBox
                         Placeholder="Search items..."
                         Selection="{Binding DataContext, RelativeSource={RelativeSource AncestorType=StackPanel}, Mode=TwoWay}"
@@ -63,11 +76,12 @@
                         Width="250" />
                     <Custom:TextInput
                         Label="Amount"
+                        IsEnabled="{Binding ItemId}"
                         Width="100"
                         Text="{Binding Amount, Mode=TwoWay}" />
                     <Button
-                        Grid.Column='1'
                         Style="{StaticResource ButtonOverride}"
+                        ToolTip="Delete row"
                         Foreground="Red"
                         Click="DeleteRow"
                         Content="✘" />
@@ -77,12 +91,6 @@
             </ListView>
           </local:DragAndDropper.Child>
         </local:DragAndDropper>
-        <Button
-            Content="Add another"
-            Width="100"
-            HorizontalAlignment="Right"
-            Click="AddRow"
-            Style="{StaticResource buttons_settings}" />
       </StackPanel>
     </GroupBox>
   </StackPanel>
