@@ -21,6 +21,32 @@
   </UserControl.Resources>
 
   <StackPanel>
+
+
+    <Grid HorizontalAlignment="Center">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <TextBlock
+          Grid.Column="0"
+          Text="🚧"
+          Padding="5 0"
+          Foreground="Yellow"
+          FontSize="32" />
+      <TextBlock
+          Grid.Column="1"
+          Text="This is a WIP. Some settings don't do anything yet. They will soon, though..."
+          Foreground="#cc9E9D9D" />
+      <TextBlock
+          Grid.Column="2"
+          Text="🚧"
+          Padding="5 0"
+          Foreground="Yellow"
+          FontSize="32" />
+    </Grid>
+
     <Custom:Switcher
         Text="Track items in pouch"
         IsEnabled="{Binding TrackPouch, Mode=TwoWay}" />
