@@ -9,7 +9,6 @@ using System.Windows.Input;
 using HunterPie.Plugins;
 using HunterPie.UI;
 using HunterPie.UI.Infrastructure;
-using MHWItemBoxTracker.Converters;
 using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.GUI {
