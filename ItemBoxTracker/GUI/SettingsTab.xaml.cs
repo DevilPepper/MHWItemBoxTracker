@@ -1,17 +1,36 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using HunterPie.Core.Native;
 using HunterPie.Plugins;
-using MHWItemBoxTracker.Config;
+using HunterPie.Utils;
 using MHWItemBoxTracker.ViewModels;
 using Newtonsoft.Json;
 using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.GUI {
   public partial class SettingsTab : UserControl {
+    private List<ItemViewModel> Items = new();
+
     public SettingsTab() : base() {
       InitializeComponent();
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e) {
+      LoadItems();
+    }
+
+    private void LoadItems() {
+      Items = Enumerable
+        .Range(0, GMD.Items.gValuesOffsets.Length)
+        .Select(id => new ItemViewModel {
+          ItemId = id,
+          Name = GMD.GetItemNameById(id)
+        })
+        .ToList();
     }
 
     private void DeleteRow(object sender, RoutedEventArgs e) {
@@ -44,9 +63,17 @@ namespace MHWItemBoxTracker.GUI {
     }
 
     private void OnTextChanged(ObservableCollection<object> suggestions, string input) {
-      // TODO: Filter items from HunterPie based on search
-      // filter out items already in ((TrackingTabViewModel)DataContext).Tracking
+      var Tracking = ((TrackingTabViewModel)DataContext).Tracking;
+      var items = Items
+        .Where(
+          item => CultureInfo.CurrentCulture.CompareInfo
+            .IndexOf(item.Name, input, CompareOptions.IgnoreCase) >= 0)
+        .Where(item => !Tracking.Contains(item));
+
       suggestions.Clear();
+      foreach (var item in items) {
+        suggestions.Add(item);
+      }
     }
     private void OnSuggestionChosen(object selection, object choice) {
       var Selection = (ItemViewModel)selection;

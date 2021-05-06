@@ -23,6 +23,7 @@
           MaxWidth="30"
           Padding="5 0" /> -->
       <TextBlock
+          Padding="5 0"
           Text="{Binding Name}"
           Foreground="#ffbfbfbf" />
     </StackPanel>

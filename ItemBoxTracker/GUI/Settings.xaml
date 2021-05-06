@@ -1,25 +1,38 @@
-﻿<UserControl x:Class="MHWItemBoxTracker.GUI.Settings"
-             xmlns:local="clr-namespace:MHWItemBoxTracker.GUI"
-             xmlns:src="clr-namespace:HunterPie.GUI;assembly=HunterPie.UI"
-             xmlns:Custom="clr-namespace:HunterPie.GUIControls.Custom_Controls;assembly=HunterPie.UI"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             d:DesignHeight="450" d:DesignWidth="800"
-             mc:Ignorable="d">
+﻿<UserControl
+    x:Class="MHWItemBoxTracker.GUI.Settings"
+    xmlns:local="clr-namespace:MHWItemBoxTracker.GUI"
+    xmlns:src="clr-namespace:HunterPie.GUI;assembly=HunterPie.UI"
+    xmlns:Custom="clr-namespace:HunterPie.GUIControls.Custom_Controls;assembly=HunterPie.UI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
   <TabControl BorderThickness="0">
     <TabControl.Background>
-      <SolidColorBrush Color="#00000000" Opacity="0"/>
+      <SolidColorBrush
+          Color="#00000000"
+          Opacity="0" />
     </TabControl.Background>
 
-    <TabItem Header="Always" Width="150" Margin="1 0">
+    <TabItem
+        Header="Always"
+        Width="150"
+        Margin="1 0">
       <local:SettingsTab DataContext="{Binding Always}" />
     </TabItem>
-    <TabItem Header="Village"  Width="150"  Margin="1 0">
+    <TabItem
+        Header="Village"
+        Width="150"
+        Margin="1 0">
       <local:SettingsTab DataContext="{Binding Village}" />
     </TabItem>
-    <TabItem Header="Quest"  Width="150"  Margin="1 0">
+    <TabItem
+        Header="Quest"
+        Width="150"
+        Margin="1 0">
       <local:SettingsTab DataContext="{Binding Quest}" />
     </TabItem>
 
