@@ -17,11 +17,6 @@
         </StackPanel>
       </StackPanel.ToolTip>
 
-      <TextBlock
-          Text="🚧"
-          Padding="5 0"
-          Foreground="Yellow" />
-
       <!-- <Image
           Source="{Binding ItemId, Converter={StaticResource id2icon}}"
           MaxHeight="30"
