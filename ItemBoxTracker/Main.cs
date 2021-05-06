@@ -3,6 +3,7 @@
 using HunterPie.Core;
 using HunterPie.Plugins;
 using HunterPie.Settings;
+using MHWItemBoxTracker.Config;
 using static MHWItemBoxTracker.Utils.Dispatcher;
 
 namespace MHWItemBoxTracker {
@@ -10,8 +11,11 @@ namespace MHWItemBoxTracker {
     public string Name { get; set; }
     public string Description { get; set; }
     public Game Context { get; set; }
+
+    public ItemBoxTrackerConfig Config { get; set; }
     private Controller.ItemBoxTracker tracker { get; set; }
 
+    public static string settings = "settings.json";
     // Really bad singleton, but I think it's fine considering
     // the plugin gets instantiated by HunterPie
     // and everywhere that uses the singleton is part of this plugin
@@ -21,6 +25,9 @@ namespace MHWItemBoxTracker {
 
     public Main() {
       instance = this;
+      Dispatch(async () => {
+        Config = await this.LoadJson<ItemBoxTrackerConfig>(settings);
+      });
     }
 
     public void Initialize(Game context) {
