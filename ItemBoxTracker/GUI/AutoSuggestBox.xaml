@@ -5,8 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:convert="clr-namespace:MHWItemBoxTracker.Converters"
-    xmlns:hp-convert="clr-namespace:HunterPie.UI.Infrastructure.Converters;assembly=HunterPie.UI"
+    xmlns:convert="clr-namespace:HunterPie.UI.Infrastructure.Converters;assembly=HunterPie.UI"
     mc:Ignorable="d"
     Margin="10,0,10,5"
     Loaded="OnLoaded"
@@ -16,7 +15,7 @@
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ButtonOverride.xaml" />
         <ResourceDictionary>
-          <hp-convert:BooleanToVisibilityConverter
+          <convert:BooleanToVisibilityConverter
               x:Key="InverseBool2Visibility"
               FalseValue="Visible"
               TrueValue="Hidden" />
@@ -43,7 +42,7 @@
             Grid.Column='0'
             Text="{Binding Placeholder}"
             Foreground="#cc9E9D9D"
-            Visibility="{Binding Text.IsEmpty, ElementName=searchInput, Converter={hp-convert:BooleanToVisibilityConverter}}" />
+            Visibility="{Binding Text.IsEmpty, ElementName=searchInput, Converter={convert:BooleanToVisibilityConverter}}" />
         <TextBox
             Grid.Column='0'
             x:Name="searchInput"
@@ -93,14 +92,14 @@
         <TextBlock
             Grid.Column='1'
             Text="🔎"
-            Visibility="{Binding IsEnabled, ElementName=searchInput, Converter={hp-convert:BooleanToVisibilityConverter}}"
+            Visibility="{Binding IsEnabled, ElementName=searchInput, Converter={convert:BooleanToVisibilityConverter}}"
             Foreground="#cc9E9D9D" />
       </Grid>
     </Border>
 
     <Popup
         x:Name="suggestionsPopup"
-        Visibility="{Binding IsOpen, ElementName=suggestionsPopup, Converter={hp-convert:BooleanToVisibilityConverter}}"
+        Visibility="{Binding IsOpen, ElementName=suggestionsPopup, Converter={convert:BooleanToVisibilityConverter}}"
         MinWidth="{Binding ActualWidth}"
         MinHeight="30"
         MaxHeight="150"
