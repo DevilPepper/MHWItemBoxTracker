@@ -4,6 +4,7 @@ using HunterPie.Core;
 using HunterPie.Plugins;
 using HunterPie.Settings;
 using MHWItemBoxTracker.Config;
+using MHWItemBoxTracker.Service;
 using static MHWItemBoxTracker.Utils.Dispatcher;
 
 namespace MHWItemBoxTracker {
@@ -12,7 +13,7 @@ namespace MHWItemBoxTracker {
     public string Description { get; set; }
     public Game Context { get; set; }
 
-    public ItemBoxTrackerConfig Config { get; set; }
+    private ConfigService Config = new();
     private Controller.ItemBoxTracker tracker { get; set; }
 
     public static string settings = "settings.json";
@@ -25,20 +26,15 @@ namespace MHWItemBoxTracker {
 
     public Main() {
       instance = this;
-      Dispatch(async () => {
-        Config = await this.LoadJson<ItemBoxTrackerConfig>(settings);
-      });
     }
 
-    public void Initialize(Game context) {
-      Dispatch(async () => {
-        var module = await this.LoadJson<PluginInformation>("module.json");
-        Name = module.Name;
-        Description = module.Description;
-      });
+    public async void Initialize(Game context) {
+      var module = await this.LoadJson<PluginInformation>("module.json");
+      Name = module.Name;
+      Description = module.Description;
       Context = context;
 
-      tracker = new Controller.ItemBoxTracker(context.Player);
+      tracker = new Controller.ItemBoxTracker(context.Player, Config);
       hookEvents();
     }
 
@@ -64,7 +60,7 @@ namespace MHWItemBoxTracker {
     }
 
     public IEnumerable<ISettingsTab> GetSettings(ISettingsBuilder builder) {
-      builder.AddTab(new GUI.Settings());
+      builder.AddTab(new GUI.Settings(Config));
       return builder.Value();
     }
   }
