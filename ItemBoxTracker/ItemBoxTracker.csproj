@@ -108,6 +108,9 @@
     <Compile Include="GUI\AutoSuggestBox.xaml.cs">
       <DependentUpon>AutoSuggestBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\DragAndDropper.xaml.cs">
+      <DependentUpon>DragAndDropper.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ItemBoxTracker.xaml.cs">
       <DependentUpon>ItemBoxTracker.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="GUI\AutoSuggestBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\DragAndDropper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

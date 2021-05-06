@@ -36,45 +36,47 @@
         Foreground="WhiteSmoke"
         BorderBrush="{x:Null}">
       <StackPanel>
-        <ListView
-            ItemsSource="{Binding Tracking, Mode=TwoWay}"
-            BorderThickness="0">
-          <ListView.Background>
-            <SolidColorBrush
-                Color="#00000000"
-                Opacity="0" />
-          </ListView.Background>
-          <ListView.ItemTemplate>
-            <!-- <DataTemplate x:DataType="vm:ItemViewModel"> -->
-            <DataTemplate>
-              <StackPanel
-                  Orientation="Horizontal"
-                  x:Name="trackedItem">
-                <Custom:MinimalButton
-                    Text="↕"
-                    Foreground="#ffbfbfbf" />
-                <local:AutoSuggestBox
-                    Placeholder="Search items..."
-                    Selection="{Binding DataContext, ElementName=trackedItem, Mode=TwoWay}"
-                    ItemTemplate="{StaticResource ItemDataTemplate}"
-                    OnTextChanged="OnTextChanged"
-                    OnSuggestionChosen="OnSuggestionChosen"
-                    OnClearSelection="OnClearSelection"
-                    Width="250" />
-                <Custom:TextInput
-                    Label="Amount"
-                    Width="100"
-                    Text="{Binding Amount, Mode=TwoWay}" />
-                <Button
-                    Grid.Column='1'
-                    Style="{StaticResource ButtonOverride}"
-                    Foreground="Red"
-                    Click="DeleteRow"
-                    Content="✘" />
-              </StackPanel>
-            </DataTemplate>
-          </ListView.ItemTemplate>
-        </ListView>
+        <local:DragAndDropper>
+          <local:DragAndDropper.Child>
+            <ListView
+                ItemsSource="{Binding Tracking, Mode=TwoWay}"
+                BorderThickness="0">
+              <ListView.Background>
+                <SolidColorBrush
+                    Color="#00000000"
+                    Opacity="0" />
+              </ListView.Background>
+              <ListView.ItemTemplate>
+                <!-- <DataTemplate x:DataType="vm:ItemViewModel"> -->
+                <DataTemplate>
+                  <StackPanel Orientation="Horizontal">
+                    <Custom:MinimalButton
+                        Text="↕"
+                        Foreground="#ffbfbfbf" />
+                    <local:AutoSuggestBox
+                        Placeholder="Search items..."
+                        Selection="{Binding DataContext, RelativeSource={RelativeSource AncestorType=StackPanel}, Mode=TwoWay}"
+                        ItemTemplate="{StaticResource ItemDataTemplate}"
+                        OnTextChanged="OnTextChanged"
+                        OnSuggestionChosen="OnSuggestionChosen"
+                        OnClearSelection="OnClearSelection"
+                        Width="250" />
+                    <Custom:TextInput
+                        Label="Amount"
+                        Width="100"
+                        Text="{Binding Amount, Mode=TwoWay}" />
+                    <Button
+                        Grid.Column='1'
+                        Style="{StaticResource ButtonOverride}"
+                        Foreground="Red"
+                        Click="DeleteRow"
+                        Content="✘" />
+                  </StackPanel>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+          </local:DragAndDropper.Child>
+        </local:DragAndDropper>
         <Button
             Content="Add another"
             Width="100"
