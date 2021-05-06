@@ -14,8 +14,11 @@
         Property="BorderThickness"
         Value="0" />
     <Setter
-        Property="Padding"
+        Property="Margin"
         Value="5 0" />
+    <Setter
+        Property="Foreground"
+        Value="#ffbfbfbf" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Button}">
