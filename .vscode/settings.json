@@ -4,5 +4,12 @@
   "omnisharp.disableMSBuildDiagnosticWarning": true,
   "omnisharp.enableImportCompletion": true,
   "omnisharp.organizeImportsOnFormat": true,
-  "omnisharp.enableRoslynAnalyzers": true
+  "omnisharp.enableRoslynAnalyzers": true,
+  "files.exclude": {
+    "**/.vs": true,
+    "**/*.dll": true,
+    "**/bin": true,
+    "**/obj": true,
+    "*/Properties/": true
+  }
 }

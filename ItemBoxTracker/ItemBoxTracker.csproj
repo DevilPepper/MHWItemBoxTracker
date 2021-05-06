@@ -98,13 +98,57 @@
     <!-- <Reference Include="..\HunterPie.UI.dll" /> -->
   </ItemGroup>
 
-  <!-- csproj BS -->
+  <!-- BS that never gets touched -->
   <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <!-- BS source file list -->
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+
     <Compile Include="Config\DeprecatedItemBoxTrackerConfig.cs" />
     <Compile Include="Config\ItemBoxTrackerConfig.cs" />
     <Compile Include="Config\ItemBoxWidgetSettings.cs" />
     <Compile Include="Config\ItemConfig.cs" />
     <Compile Include="Config\TrackingTabConfig.cs" />
+
+    <Compile Include="Controller\ItemBoxTracker.cs" />
+
+    <Compile Include="Service\ConfigService.cs" />
+
+    <Compile Include="Utils\Dispatcher.cs" />
+    <Compile Include="Utils\JsonSchema.cs" />
+    <Compile Include="Utils\NotifyPropertyChanged.cs" />
+
+    <Compile Include="ViewModels\ItemBoxTrackerViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="ViewModels\TrackingTabViewModel.cs" />
+
+  </ItemGroup>
+
+  <!-- XAML Code-Behind -->
+  <ItemGroup>
     <Compile Include="GUI\AutoSuggestBox.xaml.cs">
       <DependentUpon>AutoSuggestBox.xaml</DependentUpon>
     </Compile>
@@ -120,44 +164,11 @@
     <Compile Include="GUI\SettingsTab.xaml.cs">
       <DependentUpon>SettingsTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controller\ItemBoxTracker.cs" />
-    <Compile Include="Main.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Utils\Dispatcher.cs" />
-    <Compile Include="Utils\JsonSchema.cs" />
-    <Compile Include="Utils\NotifyPropertyChanged.cs" />
-
-    <Compile Include="ViewModels\ItemBoxTrackerViewModel.cs" />
-    <Compile Include="ViewModels\ItemViewModel.cs" />
-    <Compile Include="ViewModels\TrackingTabViewModel.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
-  <ItemGroup />
+
+  <!-- XAML -->
   <ItemGroup>
     <Page Include="GUI\AutoSuggestBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\DragAndDropper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,11 +176,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\ItemBoxTracker.xaml">
+    <Page Include="GUI\DragAndDropper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\ItemDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\ItemBoxTracker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

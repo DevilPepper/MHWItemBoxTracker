@@ -7,6 +7,7 @@ using HunterPie.Core;
 using HunterPie.GUI;
 using HunterPie.Plugins;
 using MHWItemBoxTracker.Config;
+using MHWItemBoxTracker.Service;
 using static MHWItemBoxTracker.Main;
 using static MHWItemBoxTracker.Utils.Dispatcher;
 
@@ -14,10 +15,12 @@ namespace MHWItemBoxTracker.Controller {
   class ItemBoxTracker {
     private Player player { get; }
     private GUI.ItemBoxTracker gui;
-    private static readonly SemaphoreSlim locke = new(1, 1);
 
-    public ItemBoxTracker(Player player) {
+    private ConfigService Config;
+
+    public ItemBoxTracker(Player player, ConfigService Config) {
       this.player = player;
+      this.Config = Config;
       Dispatch(() => {
         gui = new GUI.ItemBoxTracker();
         Overlay.RegisterWidget(gui);
@@ -27,7 +30,7 @@ namespace MHWItemBoxTracker.Controller {
     public void loadItemBox(object source = null, EventArgs e = null) {
       if (!player.InHarvestZone) return;
       Dispatch(async () => {
-        var config = (await loadSettings()).Always;
+        var config = (await Config.LoadAsync()).Always;
 
         var items = config.Tracking;
         var box = player.ItemBox;
@@ -56,24 +59,6 @@ namespace MHWItemBoxTracker.Controller {
       Dispatch(() => Overlay.UnregisterWidget(gui));
     }
 
-    private async Task<ItemBoxTrackerConfig> loadSettings() {
-      await locke.WaitAsync();
-      try {
-        // TODO: use Settings.xaml.cs
-        var config = await Plugin.LoadJson<ItemBoxTrackerConfig>("settings.json");
 
-        // Not writing a comparer just for this...
-        var oldConfig = await Plugin.LoadJson<DeprecatedItemBoxTrackerConfig>("settings.json");
-        if (oldConfig.Tracking.Count > 0) {
-          config.Always.Tracking = oldConfig.Tracking.ToList();
-          await Plugin.SaveJson<ItemBoxTrackerConfig>("settings.json", config);
-        }
-
-        return config;
-      }
-      finally {
-        locke.Release();
-      }
-    }
   }
 }
