@@ -6,11 +6,11 @@ using System.IO;
 using System.Security.Cryptography;
 
 using HunterPie.Plugins;
-using MHWItemBoxTracker.GUI;
+using MHWItemBoxTracker;
 using Newtonsoft.Json;
 
 var configuration = "Debug";
-if(Args.Count > 0) {
+if (Args.Count > 0) {
   configuration = Args[0];
 }
 
@@ -25,7 +25,7 @@ info.Name = "ItemBoxTracker";
 info.EntryPoint = "Main.cs";
 info.Description = "A HunterPie plugin to track items the player is farming";
 info.Author = "Stuff";
-info.Version = typeof(Settings).Assembly.GetName().Version.ToString();
+info.Version = typeof(Main).Assembly.GetName().Version.ToString();
 info.ReleaseDate = DateTime.Now;
 // info.Links = [{"name": "Homepage", "url": "..."}, {"name": "Changelog", "url": "..."}];
 
@@ -38,19 +38,19 @@ update.UpdateUrl = "https://github.com/Stuff-Mods/MHWItemBoxTracker/releases/lat
 var hashes = new Dictionary<string, string>();
 update.FileHashes = hashes;
 
-using (var sha = SHA256.Create()){
-    foreach (string file in files) {
-        var stream = File.Open($"{releaseDirectory}/{file}", FileMode.Open);
-        stream.Position = 0;
+using (var sha = SHA256.Create()) {
+  foreach (string file in files) {
+    var stream = File.Open($"{releaseDirectory}/{file}", FileMode.Open);
+    stream.Position = 0;
 
-        var hashBytes = sha.ComputeHash(stream);
-        stream.Close();
+    var hashBytes = sha.ComputeHash(stream);
+    stream.Close();
 
-        var hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
-        hashes.Add(file, hash);
-    }
+    var hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+    hashes.Add(file, hash);
+  }
 }
-hashes.Add(Settings.fileName, "InstallOnly");
+hashes.Add(Main.settings, "InstallOnly");
 
 var json = JsonConvert.SerializeObject(info, Newtonsoft.Json.Formatting.Indented);
 File.WriteAllText($"{releaseDirectory}/module.json", json);
