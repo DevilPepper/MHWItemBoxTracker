@@ -1,18 +1,20 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convert="clr-namespace:MHWItemBoxTracker.Converter">
   <DataTemplate x:Key="ItemDataTemplate">
     <StackPanel Orientation="Horizontal">
       <StackPanel.ToolTip>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel>
           <TextBlock
               Foreground="#ffbfbfbf"
               Padding="5 0"
-              Text="ItemId:" />
+              Text="{Binding ItemId, StringFormat=ItemId: 0x{0:x4}}" />
           <TextBlock
               Foreground="#ffbfbfbf"
-              Padding="5 0"
-              Text="{Binding ItemId}" />
+              Padding="5 5"
+              TextWrapping="Wrap"
+              Text="{Binding ItemId, Converter={convert:ItemIdToDescription}}" />
           <!-- <TextBlock Foreground="#ffbfbfbf" Text="{Binding ItemId, Converter={StaticResource dec2hex}}" /> -->
         </StackPanel>
       </StackPanel.ToolTip>
