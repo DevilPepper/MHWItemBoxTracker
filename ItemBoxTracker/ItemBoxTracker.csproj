@@ -140,7 +140,6 @@
     <Compile Include="Service\ConfigService.cs" />
 
     <Compile Include="Utils\Dispatcher.cs" />
-    <Compile Include="Utils\JsonSchema.cs" />
     <Compile Include="Utils\NotifyPropertyChanged.cs" />
 
     <Compile Include="ViewModels\ItemBoxTrackerViewModel.cs" />

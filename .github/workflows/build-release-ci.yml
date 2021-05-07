@@ -75,7 +75,7 @@ jobs:
         }
 
         msbuild -m /p:"Configuration=$env:Configuration,AssemblyVersionNumber=$version"
-        
+
     - name: Generate JSON
       env:
         NUGET_USERNAME: ${{ github.repository_owner }}
@@ -91,8 +91,7 @@ jobs:
 
         # move release notes to release directory
         mv notes.md ${Project_Name}/bin/Release/
-        
-        $CSI scripts/gen-json-schema.csx $Configuration
+
         $CSI scripts/gen-module-json.csx $Configuration
         $CSI scripts/gen-settings-json.csx $Configuration
 
@@ -101,7 +100,7 @@ jobs:
       run: |
         scripts/download-changelog.ps1
         npx standard-version
-  
+
     # Upload the builds for next job and debugging
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
