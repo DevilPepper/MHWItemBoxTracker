@@ -6,7 +6,7 @@ using System.IO;
 using System.Security.Cryptography;
 
 using HunterPie.Plugins;
-using MHWItemBoxTracker;
+using MHWItemBoxTracker.Service;
 using Newtonsoft.Json;
 
 var configuration = "Debug";
@@ -25,7 +25,7 @@ info.Name = "ItemBoxTracker";
 info.EntryPoint = "Main.cs";
 info.Description = "A HunterPie plugin to track items the player is farming";
 info.Author = "Stuff";
-info.Version = typeof(Main).Assembly.GetName().Version.ToString();
+info.Version = typeof(ConfigService).Assembly.GetName().Version.ToString();
 info.ReleaseDate = DateTime.Now;
 // info.Links = [{"name": "Homepage", "url": "..."}, {"name": "Changelog", "url": "..."}];
 
@@ -50,7 +50,7 @@ using (var sha = SHA256.Create()) {
     hashes.Add(file, hash);
   }
 }
-hashes.Add(Main.settings, "InstallOnly");
+hashes.Add(ConfigService.settings, "InstallOnly");
 
-var json = JsonConvert.SerializeObject(info, Newtonsoft.Json.Formatting.Indented);
+var json = JsonConvert.SerializeObject(info, Formatting.Indented);
 File.WriteAllText($"{releaseDirectory}/module.json", json);

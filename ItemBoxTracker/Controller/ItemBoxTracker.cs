@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using HunterPie.Core;
 using HunterPie.GUI;
-using HunterPie.Plugins;
 using MHWItemBoxTracker.Config;
 using MHWItemBoxTracker.Service;
-using static MHWItemBoxTracker.Main;
 using static MHWItemBoxTracker.Utils.Dispatcher;
 
 namespace MHWItemBoxTracker.Controller {

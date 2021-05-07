@@ -1,9 +1,8 @@
 #r "ItemBoxTracker.dll"
 
 using System.IO;
-
-using MHWItemBoxTracker;
 using MHWItemBoxTracker.Config;
+using MHWItemBoxTracker.Service;
 using Newtonsoft.Json;
 
 // TODO: D.R.Y.
@@ -15,5 +14,5 @@ if (Args.Count > 0) {
 var releaseDirectory = $"ItemBoxTracker/bin/{configuration}";
 
 var settings = new ItemBoxTrackerConfig();
-var json = JsonConvert.SerializeObject(settings, Newtonsoft.Json.Formatting.Indented);
-File.WriteAllText($"{releaseDirectory}/{Main.settings}", json);
+var json = JsonConvert.SerializeObject(settings, Formatting.Indented);
+File.WriteAllText($"{releaseDirectory}/{ConfigService.settings}", json);
