@@ -1,15 +1,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using HunterPie.Plugins;
-using HunterPie.UI;
 using HunterPie.UI.Infrastructure;
-using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.GUI {
   public partial class AutoSuggestBox : UserControl {

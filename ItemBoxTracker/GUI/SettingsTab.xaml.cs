@@ -1,16 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using HunterPie.Core.Native;
-using HunterPie.Plugins;
-using HunterPie.Utils;
 using MHWItemBoxTracker.ViewModels;
-using Newtonsoft.Json;
-using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.GUI {
   public partial class SettingsTab : UserControl {
@@ -49,8 +42,6 @@ namespace MHWItemBoxTracker.GUI {
 
     private void OnTextChanged(ObservableCollection<object> suggestions, string input) {
       var DC = DataContext as TrackingTabViewModel;
-      Plugin.Log($"{DC.Items}");
-      Plugin.Log($"{DC.Items.Count}");
       var items = DC.Items
         .Where(
           item => CultureInfo.CurrentCulture.CompareInfo

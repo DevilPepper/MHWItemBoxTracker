@@ -3,14 +3,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using HunterPie.Core.Native;
-using HunterPie.Plugins;
 using HunterPie.Settings;
 using MHWItemBoxTracker.Config;
 using MHWItemBoxTracker.Service;
 using MHWItemBoxTracker.ViewModels;
-using Newtonsoft.Json;
-using static MHWItemBoxTracker.Main;
-using static MHWItemBoxTracker.Utils.Dispatcher;
 
 namespace MHWItemBoxTracker.GUI {
   public partial class Settings : UserControl, ISettings {
