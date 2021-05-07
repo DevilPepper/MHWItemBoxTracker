@@ -9,6 +9,7 @@ namespace MHWItemBoxTracker.ViewModels {
     private bool trackBox;
     private bool trackCraftable;
     private ObservableCollection<ItemViewModel> tracking;
+    private ObservableCollection<ItemViewModel> items;
 
     public TrackingTabViewModel(TrackingTabConfig config) {
       trackPouch = config.TrackPouch;
@@ -43,6 +44,11 @@ namespace MHWItemBoxTracker.ViewModels {
     public ObservableCollection<ItemViewModel> Tracking {
       get => tracking;
       set => SetField(ref tracking, value);
+    }
+
+    public ObservableCollection<ItemViewModel> Items {
+      get => items;
+      set => SetField(ref items, value);
     }
 
     public TrackingTabConfig ToConfig() {
