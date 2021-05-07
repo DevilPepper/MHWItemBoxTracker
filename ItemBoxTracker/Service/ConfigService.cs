@@ -22,6 +22,7 @@ namespace MHWItemBoxTracker.Service {
           if (oldConfig.Tracking.Count > 0) {
             config.Always.Tracking = oldConfig.Tracking.ToList();
             await Plugin.SaveJson(settings, config);
+            Plugin.Log("Converted settings file to the new format");
           }
           Config = config;
         }
