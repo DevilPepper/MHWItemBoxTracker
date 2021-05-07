@@ -18,7 +18,6 @@ if (Args.Count > 0) {
 var releaseDirectory = $"ItemBoxTracker/bin/{configuration}";
 var files = new List<string>() {
     "ItemBoxTracker.dll",
-    "config.schema.json",
 };
 
 var main = new Main();

@@ -21,11 +21,15 @@ Here's the [Changelog](https://github.com/Stuff-Mods/MHWItemBoxTracker/wiki/Chan
 
 ### Setup
 
-1. Open HunterPie and navigate to `Plugins` and search for `ItemBoxTracker`. Download and restart.
+1. Open HunterPie and navigate to _Plugins_ and search for `ItemBoxTracker`. Download and restart.
    - Alternatively you can extract [ItemBoxTracker.zip](https://github.com/Stuff-Mods/MHWItemBoxTracker/releases/latest/download/ItemBoxTracker.zip) to the HunterPie directory, but why would you?
-2. To config the tracker, you can go [here](https://json-editor.github.io/json-editor/) or [here](https://rjsf-team.github.io/react-jsonschema-form/) and copy and paste the contents of [config.schema.json](https://github.com/Stuff-Mods/MHWItemBoxTracker/releases/latest/download/config.schema.json) into the schema box. Then you can copy the output to _Modules/ItemBoxTracker/settings.json_
-   - They both have a bug where Overlay.Position are invalid if you leave them empty, so at least make both coordinates 0 or something.
-   - Soon, there will be a settings menu where configuration will be intuitive.
+2. In HunterPie, navigate to _Settings->Plugins->ItemBoxTracker_. Should be intuitive.
+   - Add an item by typing its name in the search box and selecting it.
+   - Amount is disabled until there is an item selected.
+   - Hit `Add another` to... add another.
+
+> Note: the switches don't do anything yet and only the **Always** tab is used (only in the village :man_facepalming:).
+> These features will be implemented by ![label: enhancements](https://img.shields.io/badge/-enhancement-%23a2eeef) #24, #25, and #26
 
 ## Build
 
