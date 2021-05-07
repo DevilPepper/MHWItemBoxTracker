@@ -6,6 +6,7 @@ using System.IO;
 using System.Security.Cryptography;
 
 using HunterPie.Plugins;
+using MHWItemBoxTracker;
 using MHWItemBoxTracker.Service;
 using Newtonsoft.Json;
 
@@ -20,10 +21,11 @@ var files = new List<string>() {
     "config.schema.json",
 };
 
+var main = new Main();
 var info = new PluginInformation();
-info.Name = "ItemBoxTracker";
+info.Name = main.Name;
 info.EntryPoint = "Main.cs";
-info.Description = "A HunterPie plugin to track items the player is farming";
+info.Description = main.Description;
 info.Author = "Stuff";
 info.Version = typeof(ConfigService).Assembly.GetName().Version.ToString();
 info.ReleaseDate = DateTime.Now;
