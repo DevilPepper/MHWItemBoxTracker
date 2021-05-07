@@ -1,4 +1,5 @@
-﻿using MHWItemBoxTracker.Config;
+﻿using System.Collections.ObjectModel;
+using MHWItemBoxTracker.Config;
 using MHWItemBoxTracker.Utils;
 
 namespace MHWItemBoxTracker.ViewModels {
@@ -6,11 +7,18 @@ namespace MHWItemBoxTracker.ViewModels {
     private TrackingTabViewModel always;
     private TrackingTabViewModel village;
     private TrackingTabViewModel quest;
+    private ObservableCollection<ItemViewModel> items = new();
 
     public ItemBoxTrackerViewModel(ItemBoxTrackerConfig config) {
-      always = new TrackingTabViewModel(config.Always);
-      village = new TrackingTabViewModel(config.Village);
-      quest = new TrackingTabViewModel(config.Quest);
+      always = new TrackingTabViewModel(config.Always) {
+        Items = Items
+      };
+      village = new TrackingTabViewModel(config.Village) {
+        Items = Items
+      };
+      quest = new TrackingTabViewModel(config.Quest) {
+        Items = Items
+      };
     }
 
     public TrackingTabViewModel Always {
@@ -26,6 +34,11 @@ namespace MHWItemBoxTracker.ViewModels {
     public TrackingTabViewModel Quest {
       get => quest;
       set => SetField(ref quest, value);
+    }
+
+    public ObservableCollection<ItemViewModel> Items {
+      get => items;
+      set => SetField(ref items, value);
     }
 
     public ItemBoxTrackerConfig ToConfig() {
