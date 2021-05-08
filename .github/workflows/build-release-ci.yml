@@ -135,7 +135,6 @@ jobs:
         mkdir -p Modules/${Project_Name}
         RELEASE_DIR="${Project_Name}/bin/Release"
         mv ${RELEASE_DIR}/${Project_Name}.dll \
-           ${RELEASE_DIR}/config.schema.json \
            ${RELEASE_DIR}/module.json \
            ${RELEASE_DIR}/settings.json \
            Modules/${Project_Name}
