@@ -140,6 +140,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
+    <Content Include="svg\**\*.svg" />
   </ItemGroup>
 
   <!-- Targets (Our targets need to be declared after imports) -->

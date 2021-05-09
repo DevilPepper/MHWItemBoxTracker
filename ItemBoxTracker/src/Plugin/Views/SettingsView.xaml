@@ -34,23 +34,23 @@
     </TabControl.Background>
 
     <TabItem
-        Header="Always"
+        Header="Individual"
         Width="150"
         Margin="1 0">
       <local:TrackingTabView DataContext="{Binding Always}" />
     </TabItem>
     <TabItem
-        Header="Village"
+        Header="Wishlist"
         Width="150"
         Margin="1 0">
       <local:TrackingTabView DataContext="{Binding Village}" />
     </TabItem>
-    <TabItem
+    <!-- <TabItem
         Header="Quest"
         Width="150"
         Margin="1 0">
       <local:TrackingTabView DataContext="{Binding Quest}" />
-    </TabItem>
+    </TabItem> -->
 
   </TabControl>
 </UserControl>

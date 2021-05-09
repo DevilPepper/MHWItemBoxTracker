@@ -69,44 +69,63 @@
           </ItemsControl.Background>
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <StackPanel Orientation="Horizontal">
-                <Button
-                    ToolTip="Move up"
-                    Command="{Binding DataContext.MoveUp, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                    CommandParameter="{Binding}"
-                    Content="▲" />
-                <Button
-                    ToolTip="Move down"
-                    Command="{Binding DataContext.MoveDown, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                    CommandParameter="{Binding}"
-                    Content="▼" />
-                <local:AutoSuggestBox
-                    Placeholder="Search items..."
-                    NoResultsText="{Binding DataContext.Items.Count, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={convert:CountToString Zero=Please launch the game to enable this search and then reload this screen once HunterPie has loaded the strings, More=No Results...}}"
-                    Width="250">
-                  <local:AutoSuggestBox.VM>
-                    <MultiBinding Converter="{convert:ItemToViewModel}">
-                      <Binding Mode="TwoWay" />
-                      <Binding
-                          Path="DataContext.Items"
-                          RelativeSource="{RelativeSource AncestorType=UserControl}" />
-                      <Binding
-                          Path="DataContext.Model.Tracking"
-                          RelativeSource="{RelativeSource AncestorType=UserControl}" />
-                    </MultiBinding>
-                  </local:AutoSuggestBox.VM>
-                </local:AutoSuggestBox>
-                <Custom:TextInput
-                    Label="Amount"
-                    IsEnabled="{Binding ItemId}"
-                    Width="100"
-                    Text="{Binding Amount, Mode=TwoWay}" />
-                <Button
-                    ToolTip="Delete row"
-                    Foreground="Red"
-                    Command="{Binding DataContext.DeleteRow, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                    CommandParameter="{Binding}"
-                    Content="✘" />
+              <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                  <Button
+                      ToolTip="Move up"
+                      Command="{Binding DataContext.MoveUp, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                      CommandParameter="{Binding}"
+                      Content="▲" />
+                  <Button
+                      ToolTip="Move down"
+                      Command="{Binding DataContext.MoveDown, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                      CommandParameter="{Binding}"
+                      Content="▼" />
+                  <local:AutoSuggestBox
+                      Placeholder="Search items..."
+                      NoResultsText="{Binding DataContext.Items.Count, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={convert:CountToString Zero=Please launch the game to enable this search and then reload this screen once HunterPie has loaded the strings, More=No Results...}}"
+                      Width="250">
+                    <local:AutoSuggestBox.VM>
+                      <MultiBinding Converter="{convert:ItemToViewModel}">
+                        <Binding Mode="TwoWay" />
+                        <Binding
+                            Path="DataContext.Items"
+                            RelativeSource="{RelativeSource AncestorType=UserControl}" />
+                        <Binding
+                            Path="DataContext.Model.Tracking"
+                            RelativeSource="{RelativeSource AncestorType=UserControl}" />
+                      </MultiBinding>
+                    </local:AutoSuggestBox.VM>
+                  </local:AutoSuggestBox>
+                  <Custom:TextInput
+                      Label="Amount"
+                      IsEnabled="{Binding ItemId}"
+                      Width="100"
+                      Text="{Binding Amount, Mode=TwoWay}" />
+                  <Button
+                      ToolTip="Delete row"
+                      Foreground="Red"
+                      Command="{Binding DataContext.DeleteRow, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                      CommandParameter="{Binding}"
+                      Content="✘" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                  <local:IconCheckbox Text="Track in village">
+                    <local:IconCheckbox.Icon>
+                      <Image Source="svg/village.svg" />
+                    </local:IconCheckbox.Icon>
+                  </local:IconCheckbox>
+                  <local:IconCheckbox Text="Track in quest">
+                    <local:IconCheckbox.Icon>
+                      <Image Source="svg/quest.svg" />
+                    </local:IconCheckbox.Icon>
+                  </local:IconCheckbox>
+                  <local:IconCheckbox Text="Track craftable items">
+                    <local:IconCheckbox.Icon>
+                      <Image Source="svg/mixer.svg" />
+                    </local:IconCheckbox.Icon>
+                  </local:IconCheckbox>
+                </StackPanel>
               </StackPanel>
             </DataTemplate>
           </ItemsControl.ItemTemplate>
