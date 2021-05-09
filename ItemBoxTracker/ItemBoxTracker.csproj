@@ -95,6 +95,9 @@
     <PackageReference
         Include="HunterPie.UI"
         Version="1.0.18" />
+    <PackageReference
+        Include="SharpVectors"
+        Version="1.7.1" />
     <!-- <PackageReference Include="HunterPie.Core" Version="0.0.0" /> -->
     <!-- <PackageReference Include="HunterPie.UI" Version="0.0.0" /> -->
     <!-- <Reference Include="..\HunterPie.Core.dll" /> -->
@@ -141,7 +144,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
 
-    <Content Include="svg\**\*.svg" />
+    <Resource Include="svg\**\*.svg" />
   </ItemGroup>
 
   <!-- Targets (Our targets need to be declared after imports) -->

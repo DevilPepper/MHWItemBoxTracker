@@ -24,17 +24,17 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="89.272928"
-     inkscape:cy="934.56472"
+     inkscape:cx="245.94731"
+     inkscape:cy="571.62437"
      inkscape:document-units="mm"
      inkscape:current-layer="layer2"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="1267"
-     inkscape:window-height="1040"
-     inkscape:window-x="2128"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0" />
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata69">
     <rdf:RDF>
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -51,25 +51,18 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Layer 2">
-    <rect
-       style="fill:#008080;fill-opacity:0.709804;stroke-width:0.388805"
-       id="rect80"
-       width="217.71428"
-       height="310.16165"
-       x="-0.75595242"
-       y="-9.2926149" />
     <path
        id="rect84"
-       style="fill:#000000;fill-opacity:0.709804;stroke-width:0.264583"
+       style="fill:#ff6600;fill-opacity:0.709804;stroke-width:0.264583"
        d="m 62.744045,145.89882 l 11.289614,20.04521 l -1.9013,-23.04754 l 7.680088,21.5633 l 2.086354,-20.02053 l 4.266935,17.62902 l 7.297221,-20.71304 l 5.61266,35.70397 c 2.412503,13.00698 -28.31644,23.44654 -27.511678,4.00904 z"
        sodipodi:nodetypes="cccccccccc" />
     <path
        id="rect86"
-       style="fill:#000000;fill-opacity:0.709804;stroke-width:0.264583"
+       style="fill:#ff6600;fill-opacity:0.709804;stroke-width:0.264583"
        d="m 71.563939,181.06825 l 14.967094,-5.90085 v 16.46485 l 8.552625,13.36348 l -5.226131,2.80466 l -3.326494,-6.27917 v 12.95572 H 76.171815 l 0.502452,-16.93987 l -14.5073,-1.11319 l -2.823995,15.47678 l -5.087258,-1.9673 l -2.672695,-13.63075 l -1.069078,18.17433 h -7.828142 c 9.425888,-11.2748 -24.728748,-52.72073 28.87814,-33.40869 z"
        sodipodi:nodetypes="cccccccccccccccc" />
     <rect
-       style="fill:#000000;fill-opacity:0.709804;stroke-width:0.264583"
+       style="fill:#ff6600;fill-opacity:0.709804;stroke-width:0.264583"
        id="rect92"
        width="11.492589"
        height="41.961315"
@@ -98,6 +91,59 @@
        style="fill:#ff0000;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 93.544333,163.83622 C 86.531031,175.1674 86.531031,175.1674 86.531031,175.1674"
        id="path100" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 76.35119,258.53571 c 33.2619,-3.77976 34.01786,-3.02381 34.01786,-3.02381 L 83.15476,233.58928 l 42.33333,34.01787 l -10.58333,-9.07144 l 12.85119,-10.58333 l -21.92262,17.38689"
+       id="path18" />
+    <ellipse
+       style="fill:#ac9393;fill-opacity:0.709804;stroke-width:0.264583"
+       id="path22"
+       cx="131.15775"
+       cy="271.95389"
+       rx="8.6934547"
+       ry="6.0476155" />
+    <ellipse
+       style="fill:#aa0000;fill-opacity:0.709804;stroke-width:0.264583"
+       id="path24"
+       cx="153.45833"
+       cy="252.48808"
+       rx="2.2678571"
+       ry="0.75595242" />
+    <ellipse
+       style="fill:#aa0000;fill-opacity:0.709804;stroke-width:0.264583"
+       id="path26"
+       cx="158.37202"
+       cy="266.09525"
+       rx="4.9136906"
+       ry="3.0238097" />
+    <ellipse
+       style="fill:#aa0000;fill-opacity:0.709804;stroke-width:0.264583"
+       id="path34"
+       cx="142.875"
+       cy="235.47916"
+       rx="3.7797618"
+       ry="1.1339285" />
+    <ellipse
+       style="fill:#aa0000;fill-opacity:0.709804;stroke-width:0.264583"
+       id="path36"
+       cx="149.3006"
+       cy="281.59229"
+       rx="3.4017856"
+       ry="1.8898809" />
+    <ellipse
+       style="fill:#aa0000;fill-opacity:0.709804;stroke-width:0.264583"
+       id="path38"
+       cx="133.4256"
+       cy="287.63986"
+       rx="1.8898809"
+       ry="3.4017856" />
+    <ellipse
+       style="fill:#aa0000;fill-opacity:0.709804;stroke-width:0.264583"
+       id="path40"
+       cx="141.3631"
+       cy="257.77975"
+       rx="2.2678571"
+       ry="1.5119048" />
   </g>
   <g
      inkscape:label="Layer 1"

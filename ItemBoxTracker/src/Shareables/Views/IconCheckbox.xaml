@@ -1,7 +1,5 @@
 <UserControl
     x:Class="MHWItemBoxTracker.Views.IconCheckbox"
-    xmlns:local="clr-namespace:MHWItemBoxTracker.GUI"
-    xmlns:vm="clr-namespace:MHWItemBoxTracker.ViewModels"
     xmlns:src="clr-namespace:HunterPie.GUI;assembly=HunterPie.UI"
     xmlns:Custom="clr-namespace:HunterPie.GUIControls.Custom_Controls;assembly=HunterPie.UI"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
