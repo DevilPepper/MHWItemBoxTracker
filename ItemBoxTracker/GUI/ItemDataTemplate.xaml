@@ -15,7 +15,6 @@
               Padding="5 5"
               TextWrapping="Wrap"
               Text="{Binding ItemId, Converter={convert:ItemIdToDescription}}" />
-          <!-- <TextBlock Foreground="#ffbfbfbf" Text="{Binding ItemId, Converter={StaticResource dec2hex}}" /> -->
         </StackPanel>
       </StackPanel.ToolTip>
 
