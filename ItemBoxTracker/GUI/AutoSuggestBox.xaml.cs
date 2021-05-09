@@ -68,6 +68,18 @@ namespace MHWItemBoxTracker.GUI {
       get { return (string)GetValue(PlaceholderProperty); }
       set { SetValue(PlaceholderProperty, value); }
     }
+
+    public static readonly DependencyProperty NoResultsProperty = DependencyProperty.Register(
+    "NoResultsText", typeof(string), typeof(AutoSuggestBox), new PropertyMetadata("No Results..."));
+    /// <value>
+    /// DependencyProperty <c>NoResultsText</c>
+    /// is the text to show when there are no results.
+    /// Defaults to "No Results..."
+    /// </value>
+    public string NoResultsText {
+      get { return (string)GetValue(NoResultsProperty); }
+      set { SetValue(NoResultsProperty, value); }
+    }
     public static readonly DependencyProperty SelectionProperty = DependencyProperty.Register(
     "Selection", typeof(object), typeof(AutoSuggestBox), new PropertyMetadata(null));
     /// <value>

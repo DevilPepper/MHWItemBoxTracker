@@ -40,18 +40,20 @@ namespace MHWItemBoxTracker.GUI {
     }
 
     private void LoadItems() {
-      var items = new ObservableCollection<ItemViewModel>(Enumerable
-        .Range(0, GMD.Items.gValuesOffsets.Length / 2)
-        .Select(id => new ItemViewModel {
-          ItemId = id,
-          Name = GMD.GetItemNameById(id)
-        })
-        .Where(item => item.Name != null)
-        .ToList());
+      if (GMD.Items.gValuesOffsets != null) {
+        var items = new ObservableCollection<ItemViewModel>(Enumerable
+          .Range(0, GMD.Items.gValuesOffsets.Length / 2)
+          .Select(id => new ItemViewModel {
+            ItemId = id,
+            Name = GMD.GetItemNameById(id)
+          })
+          .Where(item => item.Name != null)
+          .ToList());
 
-      vm.Items.Clear();
-      foreach (var item in items) {
-        vm.Items.Add(item);
+        vm.Items.Clear();
+        foreach (var item in items) {
+          vm.Items.Add(item);
+        }
       }
     }
   }

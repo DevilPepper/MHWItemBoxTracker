@@ -135,6 +135,7 @@
 
     <Compile Include="Controller\ItemBoxTracker.cs" />
 
+    <Compile Include="Converter\CountToString.cs" />
     <Compile Include="Converter\ItemIdToDescription.cs" />
 
     <Compile Include="Service\ConfigService.cs" />

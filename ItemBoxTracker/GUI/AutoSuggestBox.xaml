@@ -100,7 +100,7 @@
     <Popup
         x:Name="suggestionsPopup"
         Visibility="{Binding IsOpen, ElementName=suggestionsPopup, Converter={convert:BooleanToVisibilityConverter}}"
-        MinWidth="{Binding ActualWidth}"
+        Width="{Binding ActualWidth}"
         MinHeight="30"
         MaxHeight="150"
         StaysOpen="False"
@@ -114,8 +114,9 @@
 
         <TextBlock
             x:Name="noResults"
+            TextWrapping="Wrap"
             Background="{x:Null}"
-            Text="No results..."
+            Text="{Binding NoResultsText}"
             VerticalAlignment="Center"
             Padding="5 0"
             Foreground="#ffbfbfbf" />
