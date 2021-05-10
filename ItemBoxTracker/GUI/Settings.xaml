@@ -11,6 +11,14 @@
     d:DesignWidth="800"
     Loaded="OnLoaded"
     mc:Ignorable="d">
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ItemDataTemplate.xaml" />
+        <ResourceDictionary Source="ButtonOverride.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
   <TabControl BorderThickness="0">
     <TabControl.Background>
       <SolidColorBrush

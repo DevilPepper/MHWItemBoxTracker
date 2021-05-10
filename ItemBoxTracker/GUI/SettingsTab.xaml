@@ -12,17 +12,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-  <UserControl.Resources>
-    <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ButtonOverride.xaml" />
-        <ResourceDictionary Source="ItemDataTemplate.xaml" />
-      </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-  </UserControl.Resources>
-
-  <StackPanel x:Name="settingsTab">
-
+  <StackPanel>
 
     <Grid HorizontalAlignment="Center">
       <Grid.ColumnDefinitions>
@@ -84,12 +74,10 @@
                 <DataTemplate>
                   <StackPanel Orientation="Horizontal">
                     <Button
-                        Style="{StaticResource ButtonOverride}"
                         ToolTip="Move up"
                         Click="MoveUp"
                         Content="▲" />
                     <Button
-                        Style="{StaticResource ButtonOverride}"
                         ToolTip="Move down"
                         Click="MoveDown"
                         Content="▼" />
@@ -107,7 +95,6 @@
                         Width="100"
                         Text="{Binding Amount, Mode=TwoWay}" />
                     <Button
-                        Style="{StaticResource ButtonOverride}"
                         ToolTip="Delete row"
                         Foreground="Red"
                         Click="DeleteRow"

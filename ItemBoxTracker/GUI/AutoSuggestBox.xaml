@@ -12,15 +12,10 @@
     d:DesignWidth="200">
   <UserControl.Resources>
     <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ButtonOverride.xaml" />
-        <ResourceDictionary>
-          <convert:BooleanToVisibilityConverter
-              x:Key="InverseBool2Visibility"
-              FalseValue="Visible"
-              TrueValue="Hidden" />
-        </ResourceDictionary>
-      </ResourceDictionary.MergedDictionaries>
+      <convert:BooleanToVisibilityConverter
+          x:Key="InverseBool2Visibility"
+          FalseValue="Visible"
+          TrueValue="Hidden" />
     </ResourceDictionary>
   </UserControl.Resources>
 
@@ -81,7 +76,6 @@
                 Content="{Binding Selection}" />
             <Button
                 Grid.Column='1'
-                Style="{StaticResource ButtonOverride}"
                 Foreground="#cc9E9D9D"
                 Click="ClearSelection"
                 Content="✘" />
