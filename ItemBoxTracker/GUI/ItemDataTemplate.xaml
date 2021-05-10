@@ -1,8 +1,9 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:data="clr-namespace:MHWItemBoxTracker.ViewModels"
     xmlns:convert="clr-namespace:MHWItemBoxTracker.Converter">
-  <DataTemplate x:Key="ItemDataTemplate">
+  <DataTemplate DataType="{x:Type data:ItemViewModel}">
     <StackPanel Orientation="Horizontal">
       <StackPanel.ToolTip>
         <StackPanel>

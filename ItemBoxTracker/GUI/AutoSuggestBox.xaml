@@ -78,8 +78,7 @@
             </Grid.ColumnDefinitions>
             <ContentControl
                 Grid.Column='0'
-                Content="{Binding Selection}"
-                ContentTemplate="{Binding ItemTemplate}" />
+                Content="{Binding Selection}" />
             <Button
                 Grid.Column='1'
                 Style="{StaticResource ButtonOverride}"
@@ -109,8 +108,7 @@
         <ListBox
             x:Name="suggestionsList"
             Background="{x:Null}"
-            SelectionChanged="SelectionChanged"
-            ItemTemplate="{Binding ItemTemplate}" />
+            SelectionChanged="SelectionChanged" />
 
         <TextBlock
             x:Name="noResults"

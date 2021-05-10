@@ -91,17 +91,6 @@ namespace MHWItemBoxTracker.GUI {
       get { return (object)GetValue(SelectionProperty); }
       set { SetValue(SelectionProperty, value); }
     }
-    public static readonly DependencyProperty ItemTemplateProperty = DependencyProperty.Register(
-    "ItemTemplate", typeof(DataTemplate), typeof(AutoSuggestBox), new PropertyMetadata(default(DataTemplate)));
-    /// <value>
-    /// DependencyProperty <c>ItemTemplate</c>
-    /// is the <c>DataTemplate</c> used to display the individual search results and auto filled selection.
-    /// Default simply uses ToString()
-    /// </value>
-    public string ItemTemplate {
-      get { return (string)GetValue(ItemTemplateProperty); }
-      set { SetValue(ItemTemplateProperty, value); }
-    }
 
     public AutoSuggestBox() {
       OnEnter = new RelayCommand(i => onEnter(i as string));

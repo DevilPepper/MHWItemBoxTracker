@@ -97,7 +97,6 @@
                         Placeholder="Search items..."
                         NoResultsText="{Binding DataContext.Items.Count, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={convert:CountToString Zero=Please launch the game to enable this search and then reload this screen once HunterPie has loaded the strings, More=No Results...}}"
                         Selection="{Binding DataContext, RelativeSource={RelativeSource AncestorType=StackPanel}, Mode=TwoWay}"
-                        ItemTemplate="{StaticResource ItemDataTemplate}"
                         OnTextChanged="OnTextChanged"
                         OnSuggestionChosen="OnSuggestionChosen"
                         OnClearSelection="OnClearSelection"
