@@ -56,9 +56,10 @@ namespace MHWItemBoxTracker.ViewModels {
         TrackPouch = trackPouch,
         TrackBox = trackBox,
         TrackCraftable = trackCraftable,
-        Tracking = tracking.Select(i => i.ToConfig())
-                           .Where(i => i.ItemId > 0)
-                           .ToList()
+        Tracking = new ObservableCollection<ItemConfig>(
+          tracking.Select(i => i.ToConfig())
+                  .Where(i => i.ItemId > 0)
+        )
       };
     }
   }

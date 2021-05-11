@@ -1,4 +1,5 @@
 
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace MHWItemBoxTracker.Service {
           // Not writing a comparer just for this...
           var oldConfig = await Plugin.LoadJson<DeprecatedItemBoxTrackerConfig>(settings);
           if (oldConfig.Tracking.Count > 0) {
-            config.Always.Tracking = oldConfig.Tracking.ToList();
+            config.Always.Tracking = new ObservableCollection<ItemConfig>(oldConfig.Tracking);
             await Plugin.SaveJson(settings, config);
             Plugin.Log("Converted settings file to the new format");
           }
