@@ -72,6 +72,9 @@
     <PackageReference Include="Newtonsoft.Json.Schema">
       <Version>3.0.13</Version>
     </PackageReference>
+    <PackageReference
+        Include="Microsoft.Xaml.Behaviors.Wpf"
+        Version="1.1.31" />
   </ItemGroup>
 
   <!-- Build tools -->
@@ -141,8 +144,10 @@
     <Compile Include="Service\ConfigService.cs" />
 
     <Compile Include="Utils\Dispatcher.cs" />
+    <Compile Include="Utils\Focuser.cs" />
     <Compile Include="Utils\NotifyPropertyChanged.cs" />
 
+    <Compile Include="ViewModels\AutoSuggestBoxViewModel.cs" />
     <Compile Include="ViewModels\ItemBoxTrackerViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\TrackingTabViewModel.cs" />

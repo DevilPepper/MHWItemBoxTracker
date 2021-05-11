@@ -1,13 +1,41 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using HunterPie.UI.Infrastructure;
+using MHWItemBoxTracker.ViewModels;
 
 namespace MHWItemBoxTracker.GUI {
   public partial class AutoSuggestBox : UserControl {
+    public AutoSuggestBoxViewModel VM { get; }
+    public AutoSuggestBox() {
+      InitializeComponent();
+      VM = new AutoSuggestBoxViewModel(
+        (suggestions, input) => OnTextChanged(suggestions, input),
+        (selection, selectedItem) => OnSuggestionChosen(selection, selectedItem)
+      );
+      Root.DataContext = VM;
+    }
+
+    // Couldn't get away from this :(
+    private void ClearSelection(object sender, RoutedEventArgs e) {
+      OnClearSelection(Selection);
+      searchInput.IsEnabled = true;
+      searchInput.Focus();
+    }
+    private void OnLoaded(object sender, RoutedEventArgs e) {
+      var empty = Activator.CreateInstance(Selection.GetType());
+      if (!empty.Equals(Selection)) {
+        searchInput.IsEnabled = false;
+      } else {
+        searchInput.Focus();
+      }
+    }
+
+    private void SelectionChanged(object sender, RoutedEventArgs e) {
+      var theList = sender as ListBox;
+      theList.ScrollIntoView(theList.SelectedItem);
+    }
+
     /// <summary>
     /// Event triggers when the text in the textbox changes (for every change)
     /// Also triggers when the user submits a search query by hitting Enter.
@@ -55,7 +83,7 @@ namespace MHWItemBoxTracker.GUI {
     /// </code>
     /// </example>
     /// </summary>
-    public event Action<object, object> OnSuggestionChosen = (o, l) => { };
+    public event Action<object, object> OnSuggestionChosen = (selection, selectedItem) => { };
 
     public static readonly DependencyProperty PlaceholderProperty = DependencyProperty.Register(
     "Placeholder", typeof(string), typeof(AutoSuggestBox), new PropertyMetadata("Search..."));
@@ -81,7 +109,10 @@ namespace MHWItemBoxTracker.GUI {
       set { SetValue(NoResultsProperty, value); }
     }
     public static readonly DependencyProperty SelectionProperty = DependencyProperty.Register(
-    "Selection", typeof(object), typeof(AutoSuggestBox), new PropertyMetadata(null));
+    "Selection", typeof(object), typeof(AutoSuggestBox), new PropertyMetadata(null, (d, e) => {
+      var control = d as AutoSuggestBox;
+      control.VM.Selection = e.NewValue;
+    }));
     /// <value>
     /// DependencyProperty <c>Selection</c>
     /// is the viewmodel that will hold the user's selection.
@@ -90,92 +121,6 @@ namespace MHWItemBoxTracker.GUI {
     public object Selection {
       get { return (object)GetValue(SelectionProperty); }
       set { SetValue(SelectionProperty, value); }
-    }
-
-    public AutoSuggestBox() {
-      OnEnter = new RelayCommand(i => onEnter(i as string));
-      OnDownKey = new ArglessRelayCommand(onDownKey);
-      OnUpKey = new ArglessRelayCommand(onUpKey);
-      OnEscape = new ArglessRelayCommand(onEscape);
-      InitializeComponent();
-      suggestionsList.ItemsSource = Suggestions;
-      Suggestions.CollectionChanged += SuggestionsChanged;
-    }
-    private ObservableCollection<object> Suggestions { get; } = new ObservableCollection<object>();
-    private bool itIsI = false;
-
-    private void TextChanged(object sender, TextChangedEventArgs e) {
-      if (string.IsNullOrEmpty(searchInput.Text)) {
-        suggestionsPopup.IsOpen = false;
-      } else {
-        suggestionsPopup.IsOpen = true;
-        OnTextChanged(Suggestions, searchInput.Text);
-      }
-    }
-
-    private void SelectionChanged(object sender, SelectionChangedEventArgs e) {
-      if (!itIsI && suggestionsList.SelectedIndex >= 0) {
-        DisplaySelection();
-      }
-      itIsI = false;
-    }
-    private void ClearSelection(object sender, RoutedEventArgs e) {
-      OnClearSelection(Selection);
-      searchInput.IsEnabled = true;
-      searchInput.Focus();
-    }
-
-    public ICommand OnEnter { get; }
-    public ICommand OnDownKey { get; }
-    public ICommand OnUpKey { get; }
-    public ICommand OnEscape { get; }
-    private void onEnter(string input) {
-      if (suggestionsList.SelectedIndex >= 0) {
-        DisplaySelection();
-      } else if (!string.IsNullOrEmpty(input)) {
-        OnTextChanged(Suggestions, input);
-        if (Suggestions.Count > 0) {
-          // triggers OnSelectionChanged, so no need to call DisplaySelection()
-          suggestionsList.SelectedIndex = 0;
-        }
-      }
-    }
-    private void onDownKey() {
-      var count = Suggestions.Count;
-      if (count > 0 && suggestionsList.SelectedIndex < (count - 1)) {
-        itIsI = true;
-        suggestionsList.SelectedIndex++;
-      }
-    }
-    private void onUpKey() {
-      if (Suggestions.Count > 0 && suggestionsList.SelectedIndex > -1) {
-        itIsI = true;
-        suggestionsList.SelectedIndex--;
-      }
-    }
-    private void onEscape() {
-      suggestionsPopup.IsOpen = false;
-    }
-
-    private void OnLoaded(object sender, RoutedEventArgs e) {
-      var empty = Activator.CreateInstance(Selection.GetType());
-      if (!empty.Equals(Selection)) {
-        searchInput.IsEnabled = false;
-      }
-    }
-
-    void SuggestionsChanged(object sender, NotifyCollectionChangedEventArgs e) {
-      var isEmpty = Suggestions.Count == 0;
-      suggestionsList.Visibility = isEmpty ? Visibility.Collapsed : Visibility.Visible;
-      noResults.Visibility = isEmpty ? Visibility.Visible : Visibility.Collapsed;
-    }
-    private void DisplaySelection() {
-      suggestionsPopup.IsOpen = false;
-      OnSuggestionChosen(Selection, suggestionsList.SelectedItem);
-      suggestionsList.SelectedIndex = -1;
-
-      searchInput.IsEnabled = false;
-      searchInput.Clear();
     }
   }
 }

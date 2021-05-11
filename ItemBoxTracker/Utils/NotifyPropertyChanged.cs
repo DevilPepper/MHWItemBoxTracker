@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace MHWItemBoxTracker.Utils {
@@ -14,5 +15,7 @@ namespace MHWItemBoxTracker.Utils {
       OnPropertyChanged(propertyName);
       return true;
     }
+
+    protected string CallerId { get => new StackTrace().GetFrames()[2].GetMethod().Name; }
   }
 }

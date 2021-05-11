@@ -12,20 +12,30 @@
     d:DesignWidth="200">
   <UserControl.Resources>
     <ResourceDictionary>
-      <convert:BooleanToVisibilityConverter
-          x:Key="InverseBool2Visibility"
-          FalseValue="Visible"
-          TrueValue="Hidden" />
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+          <convert:BooleanToVisibilityConverter
+              x:Key="InverseBool2Visibility"
+              FalseValue="Visible"
+              TrueValue="Hidden" />
+        </ResourceDictionary>
+        <ResourceDictionary>
+          <convert:LengthToVisibilityConverter
+              x:Key="EmptyToVisible"
+              WhenEmpty="Visible"
+              WhenValues="Hidden" />
+        </ResourceDictionary>
+      </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </UserControl.Resources>
 
-  <StackPanel DataContext="{Binding ElementName=AutoSuggest}">
+  <StackPanel x:Name="Root">
     <Border
         BorderBrush="#FFABADB3"
         BorderThickness="0 0 0 1"
         Padding="5 0"
         Background="{x:Null}"
-        Width="{Binding ActualWidth}"
+        Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=UserControl}}"
         Height="30">
       <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
@@ -35,20 +45,20 @@
 
         <TextBlock
             Grid.Column='0'
-            Text="{Binding Placeholder}"
+            Text="{Binding Placeholder, RelativeSource={RelativeSource AncestorType=UserControl}}"
             Foreground="#cc9E9D9D"
             Visibility="{Binding Text.IsEmpty, ElementName=searchInput, Converter={convert:BooleanToVisibilityConverter}}" />
         <TextBox
             Grid.Column='0'
+            Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
             x:Name="searchInput"
             BorderThickness="0"
-            Foreground="#ffbfbfbf"
-            TextChanged="TextChanged">
+            Foreground="#ffbfbfbf">
           <TextBox.InputBindings>
             <KeyBinding
                 Key="Enter"
-                Command="{Binding OnEnter}"
-                CommandParameter="{Binding ElementName=searchInput, Path=Text}" />
+                Command="{Binding OnEnter}" />
             <KeyBinding
                 Key="Down"
                 Command="{Binding OnDownKey}" />
@@ -65,7 +75,7 @@
             Grid.Column='0'
             CornerRadius="5"
             Background="#1e5878"
-            Visibility="{Binding IsEnabled, ElementName=searchInput, Converter={StaticResource InverseBool2Visibility}}">
+            Visibility="{Binding IsEnabled, Converter={StaticResource InverseBool2Visibility}}">
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />
@@ -85,32 +95,35 @@
         <TextBlock
             Grid.Column='1'
             Text="🔎"
-            Visibility="{Binding IsEnabled, ElementName=searchInput, Converter={convert:BooleanToVisibilityConverter}}"
+            Visibility="{Binding IsEnabled, Converter={convert:BooleanToVisibilityConverter}}"
             Foreground="#cc9E9D9D" />
       </Grid>
     </Border>
 
     <Popup
-        x:Name="suggestionsPopup"
-        Visibility="{Binding IsOpen, ElementName=suggestionsPopup, Converter={convert:BooleanToVisibilityConverter}}"
-        Width="{Binding ActualWidth}"
+        Visibility="{Binding ShowPopup, Converter={convert:BooleanToVisibilityConverter}}"
+        IsOpen="{Binding ShowPopup}"
+        Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=UserControl}}"
         MinHeight="30"
         MaxHeight="150"
         StaysOpen="False"
         Placement="Bottom">
       <Grid>
         <ListBox
-            x:Name="suggestionsList"
-            Background="{x:Null}"
-            SelectionChanged="SelectionChanged" />
+            ItemsSource="{Binding Suggestions}"
+            SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding Suggestions.Count, Converter={convert:LengthToVisibilityConverter}}"
+            SelectionChanged="SelectionChanged"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            Background="{x:Null}" />
 
         <TextBlock
-            x:Name="noResults"
             TextWrapping="Wrap"
             Background="{x:Null}"
-            Text="{Binding NoResultsText}"
+            Text="{Binding NoResultsText, RelativeSource={RelativeSource AncestorType=UserControl}}"
             VerticalAlignment="Center"
             Padding="5 0"
+            Visibility="{Binding Suggestions.Count, Converter={StaticResource EmptyToVisible}}"
             Foreground="#ffbfbfbf" />
       </Grid>
     </Popup>
