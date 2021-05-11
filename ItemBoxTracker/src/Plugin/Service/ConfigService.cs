@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HunterPie.Plugins;
-using MHWItemBoxTracker.Config;
+using MHWItemBoxTracker.Model;
 using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.Service {

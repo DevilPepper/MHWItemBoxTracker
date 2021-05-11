@@ -1,4 +1,4 @@
-namespace MHWItemBoxTracker.Config {
+namespace MHWItemBoxTracker.Model {
   public class ItemBoxWidgetSettings : HunterPie.Core.Settings.IWidgetSettings {
     public bool Initialize { get; set; } = true;
     public bool Enabled { get; set; } = true;

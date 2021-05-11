@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MHWItemBoxTracker.Config {
+namespace MHWItemBoxTracker.Model {
   public class ItemBoxTrackerConfig {
     [DisplayName("Track Always")]
     [Description("Items to track everywhere")]

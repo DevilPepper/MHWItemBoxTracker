@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace MHWItemBoxTracker.Config {
+namespace MHWItemBoxTracker.Model {
   public class TrackingTabConfig {
     [DisplayName("Track items in pouch")]
     [Description("Enable to count items in your pouch on the progress bars")]

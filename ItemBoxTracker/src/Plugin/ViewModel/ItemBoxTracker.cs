@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HunterPie.Core;
 using HunterPie.GUI;
-using MHWItemBoxTracker.Config;
+using MHWItemBoxTracker.Model;
 using MHWItemBoxTracker.Service;
 using static MHWItemBoxTracker.Utils.Dispatcher;
 

@@ -1,7 +1,7 @@
 #r "ItemBoxTracker.dll"
 
 using System.IO;
-using MHWItemBoxTracker.Config;
+using MHWItemBoxTracker.Model;
 using MHWItemBoxTracker.Service;
 using Newtonsoft.Json;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using MHWItemBoxTracker.Config;
+using MHWItemBoxTracker.Model;
 using MHWItemBoxTracker.Utils;
 
 namespace MHWItemBoxTracker.ViewModels {

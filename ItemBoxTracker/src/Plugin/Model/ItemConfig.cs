@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MHWItemBoxTracker.Config {
+namespace MHWItemBoxTracker.Model {
   public class ItemConfig {
     public string Name { get; set; }
     [Required]

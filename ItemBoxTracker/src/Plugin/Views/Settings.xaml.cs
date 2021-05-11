@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using HunterPie.Core.Native;
 using HunterPie.Settings;
-using MHWItemBoxTracker.Config;
+using MHWItemBoxTracker.Model;
 using MHWItemBoxTracker.Service;
 using MHWItemBoxTracker.ViewModels;
 

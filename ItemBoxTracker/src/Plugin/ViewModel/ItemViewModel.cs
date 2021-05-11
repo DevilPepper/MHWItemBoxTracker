@@ -1,4 +1,4 @@
-﻿using MHWItemBoxTracker.Config;
+﻿using MHWItemBoxTracker.Model;
 using MHWItemBoxTracker.Utils;
 
 namespace MHWItemBoxTracker.ViewModels {
