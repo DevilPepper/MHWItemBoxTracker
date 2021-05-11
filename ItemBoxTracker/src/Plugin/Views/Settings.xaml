@@ -14,8 +14,8 @@
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ItemDataTemplate.xaml" />
-        <ResourceDictionary Source="ButtonOverride.xaml" />
+        <ResourceDictionary Source="../GUI/ItemDataTemplate.xaml" />
+        <ResourceDictionary Source="../GUI/ButtonStyle.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </UserControl.Resources>
