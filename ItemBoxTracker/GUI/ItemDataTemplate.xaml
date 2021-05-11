@@ -10,10 +10,15 @@
           <TextBlock
               Foreground="#ffbfbfbf"
               Padding="5 0"
-              Text="{Binding ItemId, StringFormat=ItemId: 0x{0:x4}}" />
+              TextWrapping="Wrap"
+              Text="{Binding Name}" />
           <TextBlock
               Foreground="#ffbfbfbf"
               Padding="5 5"
+              Text="{Binding ItemId, StringFormat=ItemId: 0x{0:x4}}" />
+          <TextBlock
+              Foreground="#ffbfbfbf"
+              Padding="5 0"
               TextWrapping="Wrap"
               Text="{Binding ItemId, Converter={convert:ItemIdToDescription}}" />
         </StackPanel>
