@@ -16,6 +16,6 @@ namespace MHWItemBoxTracker.Utils {
       return true;
     }
 
-    protected string CallerId { get => new StackTrace().GetFrames()[2].GetMethod().Name; }
+    protected string CallerId { get => $"{new StackTrace().GetFrames()[2].GetMethod().Name} {new StackTrace().GetFrames()[3].GetMethod().Name}"; }
   }
 }

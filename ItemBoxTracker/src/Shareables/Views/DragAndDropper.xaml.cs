@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MHWItemBoxTracker.GUI {
+namespace MHWItemBoxTracker.Views {
   // TODO: revisit this some day
   public partial class DragAndDropper : UserControl {
 

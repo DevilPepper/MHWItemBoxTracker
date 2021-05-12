@@ -1,14 +1,15 @@
 <UserControl
-    x:Class="MHWItemBoxTracker.GUI.AutoSuggestBox"
+    x:Class="MHWItemBoxTracker.Views.AutoSuggestBox"
     x:Name="AutoSuggest"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:b="MHWItemBoxTracker.Behaviors"
     xmlns:convert="clr-namespace:HunterPie.UI.Infrastructure.Converters;assembly=HunterPie.UI"
     mc:Ignorable="d"
     Margin="10,0,10,5"
-    Loaded="OnLoaded"
     d:DesignWidth="200">
   <UserControl.Resources>
     <ResourceDictionary>
@@ -19,17 +20,17 @@
               FalseValue="Visible"
               TrueValue="Hidden" />
         </ResourceDictionary>
-        <ResourceDictionary>
-          <convert:LengthToVisibilityConverter
-              x:Key="EmptyToVisible"
-              WhenEmpty="Visible"
-              WhenValues="Hidden" />
-        </ResourceDictionary>
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </UserControl.Resources>
 
-  <StackPanel x:Name="Root">
+  <StackPanel DataContext="{Binding VM, RelativeSource={RelativeSource AncestorType=UserControl}}">
+    <Behaviors:Interaction.Triggers>
+      <Behaviors:EventTrigger EventName="Loaded">
+        <Behaviors:InvokeCommandAction Command="{Binding OnLoaded}" />
+      </Behaviors:EventTrigger>
+    </Behaviors:Interaction.Triggers>
+
     <Border
         BorderBrush="#FFABADB3"
         BorderThickness="0 0 0 1"
@@ -83,11 +84,11 @@
             </Grid.ColumnDefinitions>
             <ContentControl
                 Grid.Column='0'
-                Content="{Binding Selection}" />
+                Content="{Binding Data}" />
             <Button
                 Grid.Column='1'
                 Foreground="#cc9E9D9D"
-                Click="ClearSelection"
+                Command="{Binding OnClear}"
                 Content="✘" />
           </Grid>
         </Border>
@@ -110,12 +111,18 @@
         Placement="Bottom">
       <Grid>
         <ListBox
-            ItemsSource="{Binding Suggestions}"
-            SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Visibility="{Binding Suggestions.Count, Converter={convert:LengthToVisibilityConverter}}"
-            SelectionChanged="SelectionChanged"
+            ItemsSource="{Binding SuggestionsView}"
+            Visibility="{Binding SuggestionsView.IsEmpty, Converter={StaticResource InverseBool2Visibility}}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            Background="{x:Null}" />
+            SelectionChanged="SelectionChanged"
+            IsSynchronizedWithCurrentItem="True"
+            Background="{x:Null}">
+          <Behaviors:Interaction.Triggers>
+            <Behaviors:EventTrigger EventName="MouseLeftButtonUp">
+              <Behaviors:InvokeCommandAction Command="{Binding OnListSelected}" />
+            </Behaviors:EventTrigger>
+          </Behaviors:Interaction.Triggers>
+        </ListBox>
 
         <TextBlock
             TextWrapping="Wrap"
@@ -123,7 +130,7 @@
             Text="{Binding NoResultsText, RelativeSource={RelativeSource AncestorType=UserControl}}"
             VerticalAlignment="Center"
             Padding="5 0"
-            Visibility="{Binding Suggestions.Count, Converter={StaticResource EmptyToVisible}}"
+            Visibility="{Binding SuggestionsView.IsEmpty, Converter={convert:BooleanToVisibilityConverter}}"
             Foreground="#ffbfbfbf" />
       </Grid>
     </Popup>

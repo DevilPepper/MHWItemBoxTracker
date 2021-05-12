@@ -1,53 +1,35 @@
-﻿using MHWItemBoxTracker.Model;
-using MHWItemBoxTracker.Utils;
 
-namespace MHWItemBoxTracker.ViewModels {
-  public class ItemViewModel : NotifyPropertyChanged {
-    private string name;
-    private int itemId;
-    private int amount;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using MHWItemBoxTracker.Model;
 
-    public ItemViewModel() { }
-
-    public ItemViewModel(ItemConfig config) {
-      name = config.Name;
-      itemId = config.ItemId;
-      amount = config.Amount;
-    }
-
-    public string Name {
-      get => name;
-      set => SetField(ref name, value);
-    }
-
-    public int ItemId {
-      get => itemId;
-      set => SetField(ref itemId, value);
-    }
-
-    public int Amount {
-      get => amount;
-      set => SetField(ref amount, value);
-    }
-
-    public override bool Equals(object obj) {
-      if ((obj != null) && GetType().Equals(obj.GetType())) {
-        var Obj = (ItemViewModel)obj;
-        return Obj.ItemId == ItemId;
+namespace MHWItemBoxTracker.ViewModel {
+  public class ItemViewModel : SearchableViewModel {
+    private ObservableCollection<ItemConfig> currentlySelected;
+    public ObservableCollection<ItemConfig> CurrentlySelected {
+      get => currentlySelected;
+      set {
+        SetField(ref currentlySelected, value);
       }
-      return false;
+    }
+    public ItemViewModel(ItemConfig Data) : base(Data) { }
+
+    public override void SuggestionChosen() {
+      var data = Data as ItemConfig;
+      var selectedItem = SuggestionsView.CurrentItem as ItemConfig;
+      data.ItemId = selectedItem.ItemId;
+      data.Name = selectedItem.Name;
     }
 
-    public override int GetHashCode() {
-      return ItemId;
+    public override bool SuggestionsFilter(object Candidate) {
+      var candidate = Candidate as ItemConfig;
+      return CultureInfo.CurrentCulture.CompareInfo.IndexOf(candidate.Name, SearchQuery, CompareOptions.IgnoreCase) >= 0
+          && !CurrentlySelected.Contains(candidate);
     }
 
-    public ItemConfig ToConfig() {
-      return new ItemConfig {
-        Name = name,
-        ItemId = itemId,
-        Amount = amount
-      };
+    public override void ClearSelection() {
+      var data = Data as ItemConfig;
+      data.ItemId = 0;
     }
   }
 }

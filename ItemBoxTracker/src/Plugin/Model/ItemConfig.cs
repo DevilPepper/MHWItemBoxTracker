@@ -23,5 +23,17 @@ namespace MHWItemBoxTracker.Model {
       get => amount;
       set => SetField(ref amount, value);
     }
+
+    public override bool Equals(object obj) {
+      if ((obj != null) && GetType().Equals(obj.GetType())) {
+        var Obj = (ItemConfig)obj;
+        return Obj.ItemId == ItemId;
+      }
+      return false;
+    }
+
+    public override int GetHashCode() {
+      return ItemId;
+    }
   }
 }

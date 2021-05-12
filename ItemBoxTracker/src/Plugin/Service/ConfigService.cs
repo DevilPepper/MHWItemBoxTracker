@@ -34,10 +34,14 @@ namespace MHWItemBoxTracker.Service {
       }
     }
 
-    public async Task SaveAsync(ItemBoxTrackerConfig config) {
+    public async Task SaveAsync() {
       await locke.WaitAsync();
       try {
-        Config = config;
+        // TODO: Do this clean up better
+        Config.Always.Tracking = new(Config.Always.Tracking.Where(i => i.ItemId > 0));
+        Config.Village.Tracking = new(Config.Village.Tracking.Where(i => i.ItemId > 0));
+        Config.Quest.Tracking = new(Config.Quest.Tracking.Where(i => i.ItemId > 0));
+
         await Plugin.SaveJson(settings, Config);
       } finally {
         locke.Release();

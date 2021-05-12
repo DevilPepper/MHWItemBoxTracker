@@ -1,66 +1,53 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
+using System.Windows.Input;
+using HunterPie.UI.Infrastructure;
 using MHWItemBoxTracker.Model;
 using MHWItemBoxTracker.Utils;
 
-namespace MHWItemBoxTracker.ViewModels {
+namespace MHWItemBoxTracker.ViewModel {
   public class TrackingTabViewModel : NotifyPropertyChanged {
-    private bool trackPouch;
-    private bool trackBox;
-    private bool trackCraftable;
-    private ObservableCollection<ItemViewModel> tracking;
-    private ObservableCollection<ItemViewModel> items;
+    public TrackingTabConfig Model { get; }
+    public ICommand AddRow { get; }
+    public ICommand DeleteRow { get; }
+    public ICommand MoveUp { get; }
+    public ICommand MoveDown { get; }
+    private ObservableCollection<ItemConfig> items;
 
-    public TrackingTabViewModel(TrackingTabConfig config) {
-      trackPouch = config.TrackPouch;
-      trackBox = config.TrackBox;
-      trackCraftable = config.TrackCraftable;
-      tracking = new ObservableCollection<ItemViewModel>(
-        config.Tracking
-              .Select(i => new ItemViewModel(i))
-              .ToList()
-        );
-
-      if (tracking.Count == 0) {
-        tracking.Add(new ItemViewModel());
+    public TrackingTabViewModel(TrackingTabConfig Model) {
+      this.Model = Model;
+      if (Model.Tracking.Count == 0) {
+        Model.Tracking.Add(new());
       }
+
+      AddRow = new ArglessRelayCommand(() => Model.Tracking.Add(new()));
+      DeleteRow = new RelayCommand(item => deleteRow(item as ItemConfig));
+      MoveUp = new RelayCommand(item => moveUp(item as ItemConfig));
+      MoveDown = new RelayCommand(item => moveDown(item as ItemConfig));
     }
 
-    public bool TrackPouch {
-      get => trackPouch;
-      set => SetField(ref trackPouch, value);
-    }
-
-    public bool TrackBox {
-      get => trackBox;
-      set => SetField(ref trackBox, value);
-    }
-
-    public bool TrackCraftable {
-      get => trackCraftable;
-      set => SetField(ref trackCraftable, value);
-    }
-
-    public ObservableCollection<ItemViewModel> Tracking {
-      get => tracking;
-      set => SetField(ref tracking, value);
-    }
-
-    public ObservableCollection<ItemViewModel> Items {
+    public ObservableCollection<ItemConfig> Items {
       get => items;
       set => SetField(ref items, value);
     }
 
-    public TrackingTabConfig ToConfig() {
-      return new TrackingTabConfig {
-        TrackPouch = trackPouch,
-        TrackBox = trackBox,
-        TrackCraftable = trackCraftable,
-        Tracking = new ObservableCollection<ItemConfig>(
-          tracking.Select(i => i.ToConfig())
-                  .Where(i => i.ItemId > 0)
-        )
-      };
+    private void deleteRow(ItemConfig item) {
+      Model.Tracking.Remove(item);
+      if (Model.Tracking.Count == 0) {
+        Model.Tracking.Add(new());
+      }
+    }
+    private void moveUp(ItemConfig item) {
+      var index = Model.Tracking.IndexOf(item);
+      if (index > 0) {
+        Model.Tracking.Move(index, index - 1);
+      }
+    }
+
+    private void moveDown(ItemConfig item) {
+      var index = Model.Tracking.IndexOf(item);
+      if (index < Model.Tracking.Count - 1) {
+        Model.Tracking.Move(index, index + 1);
+      }
     }
   }
 }

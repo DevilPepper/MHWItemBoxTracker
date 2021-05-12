@@ -10,7 +10,7 @@ using static MHWItemBoxTracker.Utils.Dispatcher;
 namespace MHWItemBoxTracker.Controller {
   class ItemBoxTracker {
     private Player player { get; }
-    private GUI.ItemBoxTracker gui;
+    private Views.ItemBoxTrackerView gui;
 
     private ConfigService Config;
 
@@ -18,7 +18,7 @@ namespace MHWItemBoxTracker.Controller {
       this.player = player;
       this.Config = Config;
       Dispatch(() => {
-        gui = new GUI.ItemBoxTracker();
+        gui = new();
         Overlay.RegisterWidget(gui);
       });
     }
@@ -33,11 +33,11 @@ namespace MHWItemBoxTracker.Controller {
         var ids = items.Select(ic => ic.ItemId).ToHashSet();
 
         var itemsHeld = box.FindItemsInBox(ids);
-        var itemBoxRows = new List<GUI.ItemBoxRow>();
+        var itemBoxRows = new List<Views.ItemBoxRow>();
         foreach (ItemConfig item in items) {
           itemsHeld.TryGetValue(item.ItemId, out int amountHeld);
 
-          itemBoxRows.Add(new GUI.ItemBoxRow {
+          itemBoxRows.Add(new Views.ItemBoxRow {
             name = item.Name,
             ratio = $"{amountHeld}/{item.Amount}",
             progress = 100.0 * amountHeld / item.Amount,
@@ -48,7 +48,7 @@ namespace MHWItemBoxTracker.Controller {
     }
 
     public void unloadItemBox(object source = null, EventArgs e = null) {
-      Dispatch(() => gui.setItemsToDisplay(new List<GUI.ItemBoxRow>()));
+      Dispatch(() => gui.setItemsToDisplay(new List<Views.ItemBoxRow>()));
     }
 
     public void unregister() {

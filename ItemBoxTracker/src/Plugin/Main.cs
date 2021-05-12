@@ -3,6 +3,7 @@ using HunterPie.Core;
 using HunterPie.Plugins;
 using HunterPie.Settings;
 using MHWItemBoxTracker.Service;
+using MHWItemBoxTracker.Views;
 
 namespace MHWItemBoxTracker {
   public class Main : IPlugin, ISettingsOwner {
@@ -45,7 +46,7 @@ namespace MHWItemBoxTracker {
     }
 
     public IEnumerable<ISettingsTab> GetSettings(ISettingsBuilder builder) {
-      builder.AddTab(new GUI.Settings(Config));
+      builder.AddTab(new SettingsView(Config));
       return builder.Value();
     }
   }

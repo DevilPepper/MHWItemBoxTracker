@@ -6,12 +6,12 @@ using MHWItemBoxTracker.Model;
 using static MHWItemBoxTracker.Main;
 using static MHWItemBoxTracker.Utils.Dispatcher;
 
-namespace MHWItemBoxTracker.GUI {
-  public partial class ItemBoxTracker : Widget {
+namespace MHWItemBoxTracker.Views {
+  public partial class ItemBoxTrackerView : Widget {
     private static readonly string settingsJson = "widget.settings.json";
     private ItemBoxWidgetSettings widgetSettings { get; set; }
     public override IWidgetSettings Settings => widgetSettings;
-    public ItemBoxTracker() : base() {
+    public ItemBoxTrackerView() : base() {
       InitializeComponent();
       Dispatch(async () => {
         widgetSettings = await Plugin.LoadJson<ItemBoxWidgetSettings>(settingsJson);
