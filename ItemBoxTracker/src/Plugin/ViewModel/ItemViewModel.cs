@@ -5,30 +5,30 @@ using MHWItemBoxTracker.Model;
 
 namespace MHWItemBoxTracker.ViewModel {
   public class ItemViewModel : SearchableViewModel {
-    private ObservableCollection<ItemConfig> currentlySelected;
-    public ObservableCollection<ItemConfig> CurrentlySelected {
+    private ObservableCollection<ItemModel> currentlySelected;
+    public ObservableCollection<ItemModel> CurrentlySelected {
       get => currentlySelected;
       set {
         SetField(ref currentlySelected, value);
       }
     }
-    public ItemViewModel(ItemConfig Data) : base(Data) { }
+    public ItemViewModel(ItemModel Data) : base(Data) { }
 
     public override void SuggestionChosen() {
-      var data = Data as ItemConfig;
-      var selectedItem = SuggestionsView.CurrentItem as ItemConfig;
+      var data = Data as ItemModel;
+      var selectedItem = SuggestionsView.CurrentItem as ItemModel;
       data.ItemId = selectedItem.ItemId;
       data.Name = selectedItem.Name;
     }
 
     public override bool SuggestionsFilter(object Candidate) {
-      var candidate = Candidate as ItemConfig;
+      var candidate = Candidate as ItemModel;
       return CultureInfo.CurrentCulture.CompareInfo.IndexOf(candidate.Name, SearchQuery, CompareOptions.IgnoreCase) >= 0
           && !CurrentlySelected.Contains(candidate);
     }
 
     public override void ClearSelection() {
-      var data = Data as ItemConfig;
+      var data = Data as ItemModel;
       data.ItemId = 0;
     }
   }

@@ -13,9 +13,9 @@ namespace MHWItemBoxTracker.ViewModel {
     private TrackingTabViewModel always;
     private TrackingTabViewModel village;
     private TrackingTabViewModel quest;
-    private ObservableCollection<ItemConfig> items = new();
+    private ObservableCollection<ItemModel> items = new();
 
-    public SettingsViewModel(ItemBoxTrackerConfig Config) {
+    public SettingsViewModel(SettingsModel Config) {
       this.Config = Config;
       LoadItems = new ArglessRelayCommand(LoadItemsFromGMD);
 
@@ -29,14 +29,14 @@ namespace MHWItemBoxTracker.ViewModel {
         Items = Items
       };
     }
-    public ItemBoxTrackerConfig Config { get; }
+    public SettingsModel Config { get; }
     public ICommand LoadItems { get; }
 
     private void LoadItemsFromGMD() {
       if (GMD.Items.gValuesOffsets != null) {
-        var items = new ObservableCollection<ItemConfig>(Enumerable
+        var items = new ObservableCollection<ItemModel>(Enumerable
           .Range(0, GMD.Items.gValuesOffsets.Length / 2)
-          .Select(id => new ItemConfig {
+          .Select(id => new ItemModel {
             ItemId = id,
             Name = GMD.GetItemNameById(id)
           })
@@ -66,7 +66,7 @@ namespace MHWItemBoxTracker.ViewModel {
       set => SetField(ref quest, value);
     }
 
-    public ObservableCollection<ItemConfig> Items {
+    public ObservableCollection<ItemModel> Items {
       get => items;
       set => SetField(ref items, value);
     }

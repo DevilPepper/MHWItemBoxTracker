@@ -9,9 +9,9 @@ using MHWItemBoxTracker.ViewModel;
 namespace MHWItemBoxTracker.Converter {
   public class ItemToViewModel : MarkupExtension, IMultiValueConverter {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
-      var item = values[0] as ItemConfig;
-      var suggestions = values[1] as ObservableCollection<ItemConfig>;
-      var currentlySelected = values[2] as ObservableCollection<ItemConfig>;
+      var item = values[0] as ItemModel;
+      var suggestions = values[1] as ObservableCollection<ItemModel>;
+      var currentlySelected = values[2] as ObservableCollection<ItemModel>;
 
       return new ItemViewModel(item) {
         SuggestionsView = CollectionViewSource.GetDefaultView(suggestions),

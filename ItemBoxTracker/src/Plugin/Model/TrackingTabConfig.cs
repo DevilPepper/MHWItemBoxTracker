@@ -3,11 +3,11 @@ using System.ComponentModel;
 using MHWItemBoxTracker.Utils;
 
 namespace MHWItemBoxTracker.Model {
-  public class TrackingTabConfig : NotifyPropertyChanged {
+  public class TrackingTabModel : NotifyPropertyChanged {
     private bool trackPouch = false;
     private bool trackBox = true;
     private bool trackCraftable = false;
-    private ObservableCollection<ItemConfig> tracking = new();
+    private ObservableCollection<ItemModel> tracking = new();
 
     [DisplayName("Track items in pouch")]
     [Description("Enable to count items in your pouch on the progress bars")]
@@ -31,7 +31,7 @@ namespace MHWItemBoxTracker.Model {
     }
 
     [DisplayName("Items to Track")]
-    public ObservableCollection<ItemConfig> Tracking {
+    public ObservableCollection<ItemModel> Tracking {
       get => tracking;
       set => SetField(ref tracking, value);
     }

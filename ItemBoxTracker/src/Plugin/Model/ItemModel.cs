@@ -2,7 +2,7 @@
 using MHWItemBoxTracker.Utils;
 
 namespace MHWItemBoxTracker.Model {
-  public class ItemConfig : NotifyPropertyChanged {
+  public class ItemModel : NotifyPropertyChanged {
     private string name;
     public int itemId;
     public int amount;
@@ -26,7 +26,7 @@ namespace MHWItemBoxTracker.Model {
 
     public override bool Equals(object obj) {
       if ((obj != null) && GetType().Equals(obj.GetType())) {
-        var Obj = (ItemConfig)obj;
+        var Obj = (ItemModel)obj;
         return Obj.ItemId == ItemId;
       }
       return false;

@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:data="clr-namespace:MHWItemBoxTracker.Model"
     xmlns:convert="clr-namespace:MHWItemBoxTracker.Converter">
-  <DataTemplate DataType="{x:Type data:ItemConfig}">
+  <DataTemplate DataType="{x:Type data:ItemModel}">
     <StackPanel Orientation="Horizontal">
       <StackPanel.ToolTip>
         <StackPanel>

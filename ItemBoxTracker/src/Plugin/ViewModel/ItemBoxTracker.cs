@@ -34,7 +34,7 @@ namespace MHWItemBoxTracker.Controller {
 
         var itemsHeld = box.FindItemsInBox(ids);
         var itemBoxRows = new List<Views.ItemBoxRow>();
-        foreach (ItemConfig item in items) {
+        foreach (ItemModel item in items) {
           itemsHeld.TryGetValue(item.ItemId, out int amountHeld);
 
           itemBoxRows.Add(new Views.ItemBoxRow {

@@ -11,17 +11,17 @@ namespace MHWItemBoxTracker.Service {
   public class ConfigService {
     public static string settings = "settings.json";
     private static readonly SemaphoreSlim locke = new(1, 1);
-    private ItemBoxTrackerConfig Config;
+    private SettingsModel Config;
 
-    public async Task<ItemBoxTrackerConfig> LoadAsync() {
+    public async Task<SettingsModel> LoadAsync() {
       await locke.WaitAsync();
       try {
         if (Config == null) {
-          var config = await Plugin.LoadJson<ItemBoxTrackerConfig>(settings);
+          var config = await Plugin.LoadJson<SettingsModel>(settings);
           // Not writing a comparer just for this...
           var oldConfig = await Plugin.LoadJson<DeprecatedItemBoxTrackerConfig>(settings);
           if (oldConfig.Tracking.Count > 0) {
-            config.Always.Tracking = new ObservableCollection<ItemConfig>(oldConfig.Tracking);
+            config.Always.Tracking = new ObservableCollection<ItemModel>(oldConfig.Tracking);
             await Plugin.SaveJson(settings, config);
             Plugin.Log("Converted settings file to the new format");
           }
