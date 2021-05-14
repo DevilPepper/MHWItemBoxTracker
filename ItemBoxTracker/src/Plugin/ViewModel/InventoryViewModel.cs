@@ -1,5 +1,4 @@
 
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
 using MHWItemBoxTracker.Model;
@@ -13,9 +12,15 @@ namespace MHWItemBoxTracker.ViewModel {
     public InventoryViewModel(InventoryModel Data) {
       this.Data = Data;
       Items = CollectionViewSource.GetDefaultView(Data.Items);
+      Data.PropertyChanged += (sender, e) => {
+        if (e.PropertyName == nameof(Data.InVillage)) {
+          Items?.Refresh();
+        }
+      };
     }
-    public bool InventoryFilter(InventoryItemModel _) {
-      return true;
+    public bool InventoryFilter(InventoryItemModel candidate) {
+      return (candidate.TrackInVillage && Data.InVillage)
+      || (candidate.TrackInQuest && !Data.InVillage);
     }
 
     public ICollectionView Items {

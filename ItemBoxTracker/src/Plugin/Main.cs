@@ -33,16 +33,17 @@ namespace MHWItemBoxTracker {
       Inventory = new(Context, Config);
 
       Dispatcher.Dispatch(async () => {
-        GUI = new(Inventory);
+        GUI = new(await Inventory.LoadAsync());
+        Inventory.Subscribe();
         Overlay.RegisterWidget(GUI);
         await GUI.Initialize();
-        Inventory.Subscribe();
       });
     }
 
     public void Unload() {
-      Inventory.Unsubscribe();
       Dispatcher.Dispatch(() => {
+        Inventory.Unsubscribe();
+        GUI.Unload();
         Overlay.UnregisterWidget(GUI);
       });
     }

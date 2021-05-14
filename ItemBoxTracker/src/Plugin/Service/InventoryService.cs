@@ -1,18 +1,16 @@
 
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HunterPie.Core;
-using HunterPie.Plugins;
 using MHWItemBoxTracker.Model;
-using static MHWItemBoxTracker.Main;
+using MHWItemBoxTracker.Utils;
 
 namespace MHWItemBoxTracker.Service {
   public class InventoryService {
     // TODO: Probably need this
-    private static readonly SemaphoreSlim locke = new(1, 1);
+    // private static readonly SemaphoreSlim locke = new(1, 1);
     private Game Context;
     private ConfigService Config;
     private SettingsModel Settings;
@@ -34,7 +32,7 @@ namespace MHWItemBoxTracker.Service {
       return Data;
     }
 
-    public void Refresh(object source = null, EventArgs e = null) {
+    public void Refresh() {
       var always = Settings.Always.Tracking.Select(i => new InventoryItemModel() {
         Item = i,
         TrackInVillage = true,
@@ -71,6 +69,7 @@ namespace MHWItemBoxTracker.Service {
       }
     }
 
+    // TODO: Probably move these to an event handler class or something
     public void Subscribe() {
       var player = Context.Player;
       player.OnVillageEnter += EnterVillage;
@@ -86,14 +85,22 @@ namespace MHWItemBoxTracker.Service {
       player.ItemBox.OnItemBoxUpdate -= Refresh;
     }
 
-    private void EnterVillage(object source = null, EventArgs e = null) {
-      Data.InVillage = true;
-      Refresh();
+    public void Refresh(object source, EventArgs e) {
+      Dispatcher.Dispatch(Refresh);
     }
 
-    private void LeaveVillage(object source = null, EventArgs e = null) {
-      Data.InVillage = false;
-      Refresh();
+    private void EnterVillage(object source, EventArgs e) {
+      Dispatcher.Dispatch(() => {
+        Data.InVillage = true;
+        Refresh();
+      });
+    }
+
+    private void LeaveVillage(object source, EventArgs e) {
+      Dispatcher.Dispatch(() => {
+        Data.InVillage = false;
+        Refresh();
+      });
     }
   }
 }
