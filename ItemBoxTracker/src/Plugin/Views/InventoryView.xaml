@@ -16,7 +16,12 @@
     Width="350"
     WidgetActive="True">
   <Window.Resources>
-    <ResourceDictionary Source="../GUI/InventoryItemDataTemplate.xaml" />
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../GUI/InventoryItemDataTemplate.xaml" />
+        <ResourceDictionary Source="../GUI/ItemDataTemplate.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
   </Window.Resources>
   <ListBox
       ItemsSource="{Binding Items}"

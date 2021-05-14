@@ -6,12 +6,10 @@
   <DataTemplate DataType="{x:Type data:InventoryItemModel}">
     <Grid Margin="0,2">
       <!--<Image />-->
-      <TextBlock
+
+      <ContentControl
           Grid.Column="0"
-          Text="{Binding Item.Name}"
-          FontSize="14"
-          HorizontalAlignment="Left"
-          Padding="0,0,10,0" />
+          Content="{Binding Item}" />
       <TextBlock
           Grid.Column="1"
           FontSize="14"
