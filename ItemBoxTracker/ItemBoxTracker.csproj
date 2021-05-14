@@ -72,6 +72,9 @@
     <PackageReference Include="Newtonsoft.Json.Schema">
       <Version>3.0.13</Version>
     </PackageReference>
+    <PackageReference
+        Include="Microsoft.Xaml.Behaviors.Wpf"
+        Version="1.1.31" />
   </ItemGroup>
 
   <!-- Build tools -->
@@ -123,78 +126,17 @@
     </None>
   </ItemGroup>
 
-  <!-- BS source file list -->
+  <!-- Actual source files -->
   <ItemGroup>
-    <Compile Include="Main.cs" />
+    <Compile
+        Include="src\**\*.cs"
+        Exclude="src\**\*.xaml.cs" />
 
-    <Compile Include="Config\DeprecatedItemBoxTrackerConfig.cs" />
-    <Compile Include="Config\ItemBoxTrackerConfig.cs" />
-    <Compile Include="Config\ItemBoxWidgetSettings.cs" />
-    <Compile Include="Config\ItemConfig.cs" />
-    <Compile Include="Config\TrackingTabConfig.cs" />
-
-    <Compile Include="Controller\ItemBoxTracker.cs" />
-
-    <Compile Include="Converter\CountToString.cs" />
-    <Compile Include="Converter\ItemIdToDescription.cs" />
-
-    <Compile Include="Service\ConfigService.cs" />
-
-    <Compile Include="Utils\Dispatcher.cs" />
-    <Compile Include="Utils\NotifyPropertyChanged.cs" />
-
-    <Compile Include="ViewModels\ItemBoxTrackerViewModel.cs" />
-    <Compile Include="ViewModels\ItemViewModel.cs" />
-    <Compile Include="ViewModels\TrackingTabViewModel.cs" />
-
-  </ItemGroup>
-
-  <!-- XAML Code-Behind -->
-  <ItemGroup>
-    <Compile Include="GUI\AutoSuggestBox.xaml.cs">
-      <DependentUpon>AutoSuggestBox.xaml</DependentUpon>
+    <Compile Include="src\**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <Compile Include="GUI\DragAndDropper.xaml.cs">
-      <DependentUpon>DragAndDropper.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\ItemBoxTracker.xaml.cs">
-      <DependentUpon>ItemBoxTracker.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\SettingsTab.xaml.cs">
-      <DependentUpon>SettingsTab.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
 
-  <!-- XAML -->
-  <ItemGroup>
-    <Page Include="GUI\AutoSuggestBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\ButtonOverride.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\DragAndDropper.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\ItemDataTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\ItemBoxTracker.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\Settings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\SettingsTab.xaml">
+    <Page Include="src\**\*.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,38 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:data="clr-namespace:MHWItemBoxTracker.Model"
+    xmlns:convert="clr-namespace:MHWItemBoxTracker.Converter">
+  <DataTemplate DataType="{x:Type data:ItemModel}">
+    <StackPanel Orientation="Horizontal">
+      <StackPanel.ToolTip>
+        <StackPanel>
+          <TextBlock
+              Foreground="#ffbfbfbf"
+              Padding="5 0"
+              TextWrapping="Wrap"
+              Text="{Binding Name}" />
+          <TextBlock
+              Foreground="#ffbfbfbf"
+              Padding="5 5"
+              Text="{Binding ItemId, StringFormat=ItemId: 0x{0:x4}}" />
+          <TextBlock
+              Foreground="#ffbfbfbf"
+              Padding="5 0"
+              TextWrapping="Wrap"
+              Text="{Binding ItemId, Converter={convert:ItemIdToDescription}}" />
+        </StackPanel>
+      </StackPanel.ToolTip>
+
+      <!-- <Image
+          Source="{Binding ItemId, Converter={StaticResource id2icon}}"
+          MaxHeight="30"
+          MaxWidth="30"
+          Padding="5 0" /> -->
+      <TextBlock
+          Padding="5 0"
+          Text="{Binding Name}"
+          Foreground="#ffbfbfbf" />
+    </StackPanel>
+  </DataTemplate>
+</ResourceDictionary>
