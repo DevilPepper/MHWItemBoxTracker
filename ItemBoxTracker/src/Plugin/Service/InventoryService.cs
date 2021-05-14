@@ -63,9 +63,12 @@ namespace MHWItemBoxTracker.Service {
       }
       var ids = Data.Items.Select(i => i.Item.ItemId).ToHashSet();
       var box = Context.Player.ItemBox?.FindItemsInBox(ids) ?? new();
+      var pouch = Context.Player.Inventory?.FindItemsAndAmmos(ids).ToDictionary(i => i.ItemId, i => i.Amount);
       foreach (var item in Data.Items) {
-        box.TryGetValue(item.Item.ItemId, out int amountInBox);
-        item.AmountInBox = amountInBox;
+        box.TryGetValue(item.Item.ItemId, out int AmountInBox);
+        pouch.TryGetValue(item.Item.ItemId, out int AmountInPouch);
+        item.AmountInBox = AmountInBox;
+        item.AmountInPouch = AmountInPouch;
       }
     }
 
