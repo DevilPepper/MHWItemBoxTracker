@@ -134,10 +134,12 @@ jobs:
       run: |
         mkdir -p Modules/${Project_Name}
         RELEASE_DIR="${Project_Name}/bin/Release"
-        mv ${RELEASE_DIR}/${Project_Name}.dll \
+        mv ${RELEASE_DIR}/*.dll \
            ${RELEASE_DIR}/module.json \
            ${RELEASE_DIR}/settings.json \
            Modules/${Project_Name}
+        rm Modules/${Project_Name}/HunterPie.*.dll \
+           Modules/${Project_Name}/Newtonsoft.*.dll
         zip ${Project_Name}.zip -r Modules
 
     - name: Create release with binaries
