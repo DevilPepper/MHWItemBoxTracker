@@ -24,6 +24,7 @@ namespace MHWItemBoxTracker.Views {
 
     public async void SaveSettings() {
       await Config.SaveAsync();
+      // TODO: Inventory.Refresh()
     }
 
     public string ValidateSettings() {

@@ -3,12 +3,12 @@ using MHWItemBoxTracker.Utils;
 namespace MHWItemBoxTracker.Model {
   public class InventoryItemModel : NotifyPropertyChanged {
     private ItemModel item = new();
-    private int amountInBox;
-    private int amountInPouch;
-    private int amountCraftable;
-    public bool trackInVillage;
-    public bool trackInQuest;
-    public bool trackCraftable;
+    private int amountInBox = 0;
+    private int amountInPouch = 0;
+    private int amountCraftable = 0;
+    public bool trackInVillage = false;
+    public bool trackInQuest = false;
+    public bool trackCraftable = false;
 
     public ItemModel Item {
       get => item;

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using HunterPie.Core;
+using HunterPie.GUI;
 using HunterPie.Plugins;
 using HunterPie.Settings;
 using MHWItemBoxTracker.Service;
+using MHWItemBoxTracker.Utils;
 using MHWItemBoxTracker.Views;
 
 namespace MHWItemBoxTracker {
@@ -11,8 +13,9 @@ namespace MHWItemBoxTracker {
     public string Description { get; set; } = "A HunterPie plugin to track items the player is farming";
     public Game Context { get; set; }
 
-    private ConfigService Config = new();
-    private Controller.ItemBoxTracker tracker { get; set; }
+    private readonly ConfigService Config = new();
+    private InventoryService Inventory;
+    private InventoryView GUI;
 
     // Really bad singleton, but I think it's fine considering
     // the plugin gets instantiated by HunterPie
@@ -27,22 +30,21 @@ namespace MHWItemBoxTracker {
 
     public void Initialize(Game context) {
       Context = context;
-      tracker = new Controller.ItemBoxTracker(context.Player, Config);
+      Inventory = new(Context, Config);
 
-      var player = Context.Player;
-      player.OnVillageEnter += tracker.loadItemBox;
-      player.OnVillageLeave += tracker.unloadItemBox;
-      player.ItemBox.OnItemBoxUpdate += tracker.loadItemBox;
+      Dispatcher.Dispatch(async () => {
+        GUI = new(Inventory);
+        Overlay.RegisterWidget(GUI);
+        await GUI.Initialize();
+        Inventory.Subscribe();
+      });
     }
 
     public void Unload() {
-      var player = Context.Player;
-      player.OnVillageEnter -= tracker.loadItemBox;
-      player.OnVillageLeave -= tracker.unloadItemBox;
-      player.ItemBox.OnItemBoxUpdate -= tracker.loadItemBox;
-
-      tracker.unloadItemBox();
-      tracker.unregister();
+      Inventory.Unsubscribe();
+      Dispatcher.Dispatch(() => {
+        Overlay.UnregisterWidget(GUI);
+      });
     }
 
     public IEnumerable<ISettingsTab> GetSettings(ISettingsBuilder builder) {

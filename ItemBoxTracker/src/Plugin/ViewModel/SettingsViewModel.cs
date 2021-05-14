@@ -2,11 +2,9 @@
 using System.Linq;
 using System.Windows.Input;
 using HunterPie.Core.Native;
-using HunterPie.Plugins;
 using HunterPie.UI.Infrastructure;
 using MHWItemBoxTracker.Model;
 using MHWItemBoxTracker.Utils;
-using static MHWItemBoxTracker.Main;
 
 namespace MHWItemBoxTracker.ViewModel {
   public class SettingsViewModel : NotifyPropertyChanged {
