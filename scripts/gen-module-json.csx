@@ -15,9 +15,10 @@ if (Args.Count > 0) {
   configuration = Args[0];
 }
 
-var releaseDirectory = $"ItemBoxTracker/bin/{configuration}";
+var buildDirectory = $"ItemBoxTracker/bin/{configuration}";
 var files = new List<string>() {
     "ItemBoxTracker.dll",
+    "Microsoft.Xaml.Behaviors.dll",
 };
 
 var main = new Main();
@@ -41,7 +42,7 @@ update.FileHashes = hashes;
 
 using (var sha = SHA256.Create()) {
   foreach (string file in files) {
-    var stream = File.Open($"{releaseDirectory}/{file}", FileMode.Open);
+    var stream = File.Open($"{buildDirectory}/{file}", FileMode.Open);
     stream.Position = 0;
 
     var hashBytes = sha.ComputeHash(stream);
@@ -54,4 +55,4 @@ using (var sha = SHA256.Create()) {
 hashes.Add(ConfigService.settings, "InstallOnly");
 
 var json = JsonConvert.SerializeObject(info, Formatting.Indented);
-File.WriteAllText($"{releaseDirectory}/module.json", json);
+File.WriteAllText($"{buildDirectory}/module.json", json);
