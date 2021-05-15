@@ -19,6 +19,7 @@ var buildDirectory = $"ItemBoxTracker/bin/{configuration}";
 var files = new List<string>() {
     "ItemBoxTracker.dll",
     "Microsoft.Xaml.Behaviors.dll",
+    "GongSolutions.WPF.DragDrop.dll",
 };
 
 var main = new Main();

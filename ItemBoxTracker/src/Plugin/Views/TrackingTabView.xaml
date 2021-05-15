@@ -5,6 +5,7 @@
     xmlns:src="clr-namespace:HunterPie.GUI;assembly=HunterPie.UI"
     xmlns:Custom="clr-namespace:HunterPie.GUIControls.Custom_Controls;assembly=HunterPie.UI"
     xmlns:convert="clr-namespace:MHWItemBoxTracker.Converter"
+    xmlns:dd="urn:gong-wpf-dragdrop"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -61,7 +62,9 @@
             Style="{StaticResource buttons_settings}" />
         <ItemsControl
             ItemsSource="{Binding Model.Tracking, Mode=TwoWay}"
-            BorderThickness="0">
+            BorderThickness="0"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True">
           <ItemsControl.Background>
             <SolidColorBrush
                 Color="#00000000"
@@ -70,16 +73,10 @@
           <ItemsControl.ItemTemplate>
             <DataTemplate>
               <StackPanel Orientation="Horizontal">
-                <Button
-                    ToolTip="Move up"
-                    Command="{Binding DataContext.MoveUp, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                    CommandParameter="{Binding}"
-                    Content="▲" />
-                <Button
-                    ToolTip="Move down"
-                    Command="{Binding DataContext.MoveDown, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                    CommandParameter="{Binding}"
-                    Content="▼" />
+                <TextBlock
+                    Padding="10 0 5 0"
+                    Text="≡"
+                    Cursor="Hand" />
                 <local:AutoSuggestBox
                     Placeholder="Search items..."
                     NoResultsText="{Binding DataContext.Items.Count, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={convert:CountToString Zero=Please launch the game to enable this search and then reload this screen once HunterPie has loaded the strings, More=No Results...}}"

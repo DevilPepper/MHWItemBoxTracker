@@ -73,7 +73,6 @@
         </TextBox>
 
         <Border
-            Grid.Column='0'
             CornerRadius="5"
             Background="#1e5878"
             Visibility="{Binding IsEnabled, Converter={StaticResource InverseBool2Visibility}}">
