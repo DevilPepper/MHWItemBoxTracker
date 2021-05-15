@@ -103,10 +103,13 @@
                     Text="{Binding Amount, Mode=TwoWay}" />
                 <Button
                     ToolTip="Delete row"
-                    Foreground="Red"
                     Command="{Binding DataContext.DeleteRow, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                    CommandParameter="{Binding}"
-                    Content="✘" />
+                    CommandParameter="{Binding}">
+                  <Image
+                      Source="{StaticResource ICON_REMOVE}"
+                      Width="16"
+                      Height="16" />
+                </Button>
               </StackPanel>
             </DataTemplate>
           </ItemsControl.ItemTemplate>

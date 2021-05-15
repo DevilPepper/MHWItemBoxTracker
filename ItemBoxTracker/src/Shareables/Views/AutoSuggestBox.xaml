@@ -89,7 +89,7 @@
                 Grid.Column='1'
                 Foreground="#cc9E9D9D"
                 Command="{Binding OnClear}"
-                Content="✘" />
+                Content="✕" />
           </Grid>
         </Border>
 
