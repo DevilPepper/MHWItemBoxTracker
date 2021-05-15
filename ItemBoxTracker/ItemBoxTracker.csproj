@@ -145,6 +145,7 @@
     </Page>
 
     <Resource Include="svg\**\*.svg" />
+    <Resource Include="src\**\img\**\*.png" />
   </ItemGroup>
 
   <!-- Targets (Our targets need to be declared after imports) -->

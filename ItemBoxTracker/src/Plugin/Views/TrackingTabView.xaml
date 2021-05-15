@@ -87,31 +87,31 @@
 
                   <local:IconCheckbox Text="Track in village">
                     <local:IconCheckbox.Icon>
-                      <Image Source="{svgc:SvgImage ../../../svg/village.svg}" />
+                      <Image Source="../img/village.png" />
                     </local:IconCheckbox.Icon>
                   </local:IconCheckbox>
 
                   <local:IconCheckbox Text="Track in quest">
                     <local:IconCheckbox.Icon>
-                      <Image Source="{svgc:SvgImage ../../../svg/quest.svg}" />
+                      <Image Source="../img/quest.png" />
                     </local:IconCheckbox.Icon>
                   </local:IconCheckbox>
 
                   <local:IconCheckbox Text="Track craftable items">
                     <local:IconCheckbox.Icon>
-                      <Image Source="{svgc:SvgImage ../../../svg/mixer.svg}" />
+                      <Image Source="../img/craft.png" />
                     </local:IconCheckbox.Icon>
                   </local:IconCheckbox>
 
                   <local:IconCheckbox Text="Track items in box">
                     <local:IconCheckbox.Icon>
-                      <Image Source="{svgc:SvgImage ../../../svg/box.svg}" />
+                      <Image Source="../img/box.png" />
                     </local:IconCheckbox.Icon>
                   </local:IconCheckbox>
 
                   <local:IconCheckbox Text="Track items in pouch">
                     <local:IconCheckbox.Icon>
-                      <Image Source="{svgc:SvgImage ../../../svg/pouch.svg}" />
+                      <Image Source="../img/pouch.png" />
                     </local:IconCheckbox.Icon>
                   </local:IconCheckbox>
 
