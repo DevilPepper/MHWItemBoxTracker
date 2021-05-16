@@ -55,7 +55,7 @@
             IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
             x:Name="searchInput"
             BorderThickness="0"
-            Foreground="#ffbfbfbf">
+            Foreground="White">
           <TextBox.InputBindings>
             <KeyBinding
                 Key="Enter"
@@ -128,8 +128,8 @@
             Background="{x:Null}"
             Text="{Binding NoResultsText, RelativeSource={RelativeSource AncestorType=UserControl}}"
             VerticalAlignment="Center"
-            Padding="5 0"
             Visibility="{Binding SuggestionsView.IsEmpty, Converter={convert:BooleanToVisibilityConverter}}"
+            Padding="5 0"
             Foreground="#ffbfbfbf" />
       </Grid>
     </Popup>

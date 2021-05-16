@@ -4,8 +4,8 @@ using MHWItemBoxTracker.Utils;
 namespace MHWItemBoxTracker.Model {
   public class ItemModel : NotifyPropertyChanged {
     private string name;
-    public int itemId;
-    public int amount;
+    private int itemId;
+    private int amount;
 
     public string Name {
       get => name;
