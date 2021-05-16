@@ -20,7 +20,6 @@
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../GUI/InventoryItemDataTemplate.xaml" />
         <ResourceDictionary Source="../GUI/ItemDataTemplate.xaml" />
-        <ResourceDictionary Source="../GUI/ProgressBarDataTemplate.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Window.Resources>

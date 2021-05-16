@@ -1,3 +1,4 @@
+using HunterPie.UI.Infrastructure.Converters;
 using MHWItemBoxTracker.Model;
 
 namespace MHWItemBoxTracker.Converter {

@@ -3,7 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:data="clr-namespace:MHWItemBoxTracker.Model"
     xmlns:convert="clr-namespace:MHWItemBoxTracker.Converter">
-  <DataTemplate DataType="{x:Type data:AmountsModel}">
+  <DataTemplate
+      x:Key="ProgressBarX3"
+      DataType="{x:Type data:InventoryItemModel}">
     <Grid>
       <ProgressBar
           Minimum="0"
@@ -11,10 +13,10 @@
           Foreground="#A18029">
         <ProgressBar.Value>
           <MultiBinding Converter="{convert:SumOverLast}">
-            <Binding Path="InBox" />
-            <Binding Path="InPouch" />
-            <Binding Path="Craftable" />
-            <Binding Path="Wanted" />
+            <Binding Path="AmountInBox" />
+            <Binding Path="AmountInPouch" />
+            <Binding Path="AmountCraftable" />
+            <Binding Path="Item.Amount" />
           </MultiBinding>
         </ProgressBar.Value>
       </ProgressBar>
@@ -25,9 +27,9 @@
           Foreground="#2981a1">
         <ProgressBar.Value>
           <MultiBinding Converter="{convert:SumOverLast}">
-            <Binding Path="InBox" />
-            <Binding Path="InPouch" />
-            <Binding Path="Wanted" />
+            <Binding Path="AmountInBox" />
+            <Binding Path="AmountInPouch" />
+            <Binding Path="Item.Amount" />
           </MultiBinding>
         </ProgressBar.Value>
       </ProgressBar>
@@ -37,8 +39,8 @@
           Maximum="1">
         <ProgressBar.Value>
           <MultiBinding Converter="{convert:SumOverLast}">
-            <Binding Path="InBox" />
-            <Binding Path="Wanted" />
+            <Binding Path="AmountInBox" />
+            <Binding Path="Item.Amount" />
           </MultiBinding>
         </ProgressBar.Value>
       </ProgressBar>
