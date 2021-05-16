@@ -23,7 +23,7 @@
             Padding="0,0,10,0" />
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="75" />
+          <ColumnDefinition Width="125" />
         </Grid.ColumnDefinitions>
       </Grid>
       <ContentControl Content="{Binding Path=., Converter={convert:InventoryToAmounts}}" />
