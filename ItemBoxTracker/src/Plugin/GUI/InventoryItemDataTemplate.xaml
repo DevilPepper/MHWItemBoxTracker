@@ -4,6 +4,9 @@
     xmlns:data="clr-namespace:MHWItemBoxTracker.Model"
     xmlns:convert="clr-namespace:MHWItemBoxTracker.Converter">
   <DataTemplate DataType="{x:Type data:InventoryItemModel}">
+    <DataTemplate.Resources>
+      <ResourceDictionary Source="ProgressBarDataTemplate.xaml" />
+    </DataTemplate.Resources>
     <StackPanel>
       <Grid Margin="0 5">
         <Grid.Effect>
@@ -26,7 +29,9 @@
           <ColumnDefinition Width="125" />
         </Grid.ColumnDefinitions>
       </Grid>
-      <ContentControl Content="{Binding Path=., Converter={convert:InventoryToAmounts}}" />
+      <ContentControl
+          Content="{Binding Path=.}"
+          ContentTemplate="{StaticResource ProgressBarX3}" />
     </StackPanel>
   </DataTemplate>
 </ResourceDictionary>
