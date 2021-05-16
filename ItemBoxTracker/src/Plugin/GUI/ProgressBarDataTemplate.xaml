@@ -1,0 +1,47 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:data="clr-namespace:MHWItemBoxTracker.Model"
+    xmlns:convert="clr-namespace:MHWItemBoxTracker.Converter">
+  <DataTemplate DataType="{x:Type data:AmountsModel}">
+    <Grid>
+      <ProgressBar
+          Minimum="0"
+          Maximum="1"
+          Foreground="#A18029">
+        <ProgressBar.Value>
+          <MultiBinding Converter="{convert:SumOverLast}">
+            <Binding Path="InBox" />
+            <Binding Path="InPouch" />
+            <Binding Path="Craftable" />
+            <Binding Path="Wanted" />
+          </MultiBinding>
+        </ProgressBar.Value>
+      </ProgressBar>
+      <ProgressBar
+          Minimum="0"
+          Maximum="1"
+          BorderBrush="Transparent"
+          Foreground="#2981a1">
+        <ProgressBar.Value>
+          <MultiBinding Converter="{convert:SumOverLast}">
+            <Binding Path="InBox" />
+            <Binding Path="InPouch" />
+            <Binding Path="Wanted" />
+          </MultiBinding>
+        </ProgressBar.Value>
+      </ProgressBar>
+      <ProgressBar
+          BorderBrush="Transparent"
+          Minimum="0"
+          Maximum="1">
+        <ProgressBar.Value>
+          <MultiBinding Converter="{convert:SumOverLast}">
+            <Binding Path="InBox" />
+            <Binding Path="Wanted" />
+          </MultiBinding>
+        </ProgressBar.Value>
+      </ProgressBar>
+    </Grid>
+  </DataTemplate>
+</ResourceDictionary>

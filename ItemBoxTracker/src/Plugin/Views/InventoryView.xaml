@@ -20,11 +20,19 @@
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../GUI/InventoryItemDataTemplate.xaml" />
         <ResourceDictionary Source="../GUI/ItemDataTemplate.xaml" />
+        <ResourceDictionary Source="../GUI/ProgressBarDataTemplate.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Window.Resources>
-  <ListBox
+  <Window.Background>
+    <SolidColorBrush
+        Color="#00000000"
+        Opacity="0" />
+  </Window.Background>
+  <ItemsControl
+      BorderThickness="0"
       ItemsSource="{Binding Items}"
       HorizontalContentAlignment="Stretch"
+      Background="{x:Null}"
       IsEnabled="False" />
 </src:Widget>
