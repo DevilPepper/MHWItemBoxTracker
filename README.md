@@ -4,7 +4,9 @@ A plugin for hunter pie that lets players track the items they are farming.
 
 Reducing cognitive overhead by allowing the player to stop looking at the box after every quest to find out that they still need 5 more tickets, 1 less than the last time they checked, and stop asking "how many did I need again?"
 
-![Bootleg](https://user-images.githubusercontent.com/5027713/103073631-f05cf680-4595-11eb-9fd8-47546db63873.png)
+![Overlay](https://user-images.githubusercontent.com/5027713/118384904-3b74b600-b5d8-11eb-90d7-5b6794b67526.png)
+
+> The numbers displayed are `pouch | box (+craftable) / wanted`
 
 ## Changelog
 
