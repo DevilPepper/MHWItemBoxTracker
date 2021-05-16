@@ -17,16 +17,10 @@
             Content="{Binding Item}" />
         <TextBlock
             Grid.Column="1"
+            Text="{Binding Path=., Converter={convert:InventoryToAmountsText}}"
             Foreground="#ffbfbfbf"
             HorizontalAlignment="Right"
-            Padding="0,0,10,0">
-          <TextBlock.Text>
-            <MultiBinding StringFormat="{}{0}/{1}">
-              <Binding Path="AmountInBox" />
-              <Binding Path="Item.Amount" />
-            </MultiBinding>
-          </TextBlock.Text>
-        </TextBlock>
+            Padding="0,0,10,0" />
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="75" />

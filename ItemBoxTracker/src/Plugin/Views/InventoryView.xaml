@@ -13,7 +13,7 @@
     ShowInTaskbar="False"
     Topmost="True"
     SizeToContent="Height"
-    Width="250"
+    Width="350"
     WidgetActive="True">
   <Window.Resources>
     <ResourceDictionary>

@@ -7,7 +7,7 @@ namespace MHWItemBoxTracker.Converter {
       var sum = values.Take(size - 1).Sum(x => (int)x);
       var last = (int)values[size - 1];
 
-      return sum * 1f / last;
+      return last != 0 ? sum * 1f / last : 0;
     }
   }
 }

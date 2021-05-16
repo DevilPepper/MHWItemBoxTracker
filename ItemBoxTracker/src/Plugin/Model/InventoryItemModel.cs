@@ -9,6 +9,8 @@ namespace MHWItemBoxTracker.Model {
     public bool trackInVillage = false;
     public bool trackInQuest = false;
     public bool trackCraftable = false;
+    public bool trackBox = false;
+    public bool trackPouch = false;
 
     public ItemModel Item {
       get => item;
@@ -38,6 +40,14 @@ namespace MHWItemBoxTracker.Model {
     public bool TrackCraftable {
       get => trackCraftable;
       set => SetField(ref trackCraftable, value);
+    }
+    public bool TrackBox {
+      get => trackBox;
+      set => SetField(ref trackBox, value);
+    }
+    public bool TrackPouch {
+      get => trackPouch;
+      set => SetField(ref trackPouch, value);
     }
 
     public override bool Equals(object obj) {

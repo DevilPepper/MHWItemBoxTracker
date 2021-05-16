@@ -38,16 +38,22 @@ namespace MHWItemBoxTracker.Service {
         TrackInVillage = true,
         TrackInQuest = true,
         TrackCraftable = Settings.Always.TrackCraftable,
+        TrackBox = Settings.Always.TrackBox,
+        TrackPouch = Settings.Always.TrackPouch,
       });
       var village = Settings.Village.Tracking.Select(i => new InventoryItemModel() {
         Item = i,
         TrackInVillage = true,
         TrackCraftable = Settings.Village.TrackCraftable,
+        TrackBox = Settings.Village.TrackBox,
+        TrackPouch = Settings.Village.TrackPouch,
       });
       var quest = Settings.Quest.Tracking.Select(i => new InventoryItemModel() {
         Item = i,
         TrackInQuest = true,
         TrackCraftable = Settings.Quest.TrackCraftable,
+        TrackBox = Settings.Quest.TrackBox,
+        TrackPouch = Settings.Quest.TrackPouch,
       });
 
       var itemsInSettings = always.Union(village).Union(quest);
@@ -67,8 +73,11 @@ namespace MHWItemBoxTracker.Service {
       foreach (var item in Data.Items) {
         box.TryGetValue(item.Item.ItemId, out int AmountInBox);
         pouch.TryGetValue(item.Item.ItemId, out int AmountInPouch);
-        item.AmountInBox = AmountInBox;
-        item.AmountInPouch = AmountInPouch;
+        // TODO: Get this
+        int AmountCraftable = 0;
+        item.AmountInBox = item.TrackBox ? AmountInBox : 0;
+        item.AmountInPouch = item.TrackPouch ? AmountInPouch : 0;
+        item.AmountCraftable = item.TrackCraftable ? AmountCraftable : 0;
       }
     }
 
