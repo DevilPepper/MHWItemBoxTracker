@@ -30,7 +30,7 @@
         </Grid.ColumnDefinitions>
       </Grid>
       <ContentControl
-          Content="{Binding Path=.}"
+          Content="{Binding}"
           ContentTemplate="{StaticResource ProgressBarX3}" />
     </StackPanel>
   </DataTemplate>
