@@ -1,7 +1,6 @@
 
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using HunterPie.Core;
 using HunterPie.Core.Craft;
@@ -11,8 +10,6 @@ using MHWItemBoxTracker.Utils;
 
 namespace MHWItemBoxTracker.Service {
   public class InventoryService {
-    // TODO: Probably need this
-    // private static readonly SemaphoreSlim locke = new(1, 1);
     private Game Context;
     private ConfigService Config;
     private SettingsModel Settings;
@@ -26,15 +23,13 @@ namespace MHWItemBoxTracker.Service {
     public async Task<InventoryModel> LoadAsync() {
       if (Data == null) {
         Settings = await Config.LoadAsync();
-        Data = new() {
-          InVillage = Context.Player.InHarvestZone,
-        };
+        Data = new();
       }
-      Refresh();
       return Data;
     }
 
     public void Refresh() {
+      Data.InVillage = Context.Player.InHarvestZone;
       var always = Settings.Always.Tracking.Select(i => new InventoryItemModel() {
         Item = i,
         TrackInVillage = true,
@@ -108,35 +103,21 @@ namespace MHWItemBoxTracker.Service {
     // TODO: Probably move these to an event handler class or something
     public void Subscribe() {
       var player = Context.Player;
-      player.OnVillageEnter += EnterVillage;
-      player.OnVillageLeave += LeaveVillage;
+      player.OnVillageEnter += Refresh;
+      player.OnVillageLeave += Refresh;
       player.ItemBox.OnItemBoxUpdate += Refresh;
       // TODO: subscribe to save event?
     }
 
     public void Unsubscribe() {
       var player = Context.Player;
-      player.OnVillageEnter -= EnterVillage;
-      player.OnVillageLeave -= LeaveVillage;
+      player.OnVillageEnter -= Refresh;
+      player.OnVillageLeave -= Refresh;
       player.ItemBox.OnItemBoxUpdate -= Refresh;
     }
 
     public void Refresh(object source, EventArgs e) {
       Dispatcher.Dispatch(Refresh);
-    }
-
-    private void EnterVillage(object source, EventArgs e) {
-      Dispatcher.Dispatch(() => {
-        Data.InVillage = true;
-        Refresh();
-      });
-    }
-
-    private void LeaveVillage(object source, EventArgs e) {
-      Dispatcher.Dispatch(() => {
-        Data.InVillage = false;
-        Refresh();
-      });
     }
   }
 }
