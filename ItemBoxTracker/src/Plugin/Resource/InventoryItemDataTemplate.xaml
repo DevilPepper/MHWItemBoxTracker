@@ -20,10 +20,21 @@
             Content="{Binding Item}" />
         <TextBlock
             Grid.Column="1"
-            Text="{Binding Path=., Converter={convert:InventoryToAmountsText}}"
             Foreground="#ffbfbfbf"
             HorizontalAlignment="Right"
-            Padding="0,0,10,0" />
+            Padding="0,0,10,0">
+          <TextBlock.Text>
+            <MultiBinding Converter="{convert:InventoryToAmountsText}">
+              <Binding Path="AmountInBox" />
+              <Binding Path="AmountInPouch" />
+              <Binding Path="AmountCraftable" />
+              <Binding Path="Item.Amount" />
+              <Binding Path="TrackPouch" />
+              <Binding Path="TrackBox" />
+              <Binding Path="TrackCraftable" />
+            </MultiBinding>
+          </TextBlock.Text>
+        </TextBlock>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="125" />

@@ -1,40 +1,29 @@
-
-using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using HunterPie.Core;
-using HunterPie.Core.Craft;
-using HunterPie.Core.Definitions;
 using MHWItemBoxTracker.Model;
-using MHWItemBoxTracker.Utils;
 
 namespace MHWItemBoxTracker.Service {
   public class InventoryService {
-    // TODO: Probably need this
-    // private static readonly SemaphoreSlim locke = new(1, 1);
-    private Game Context;
+    private HunterPieService HP;
     private ConfigService Config;
     private SettingsModel Settings;
     private InventoryModel Data;
 
-    public InventoryService(Game Context, ConfigService Config) {
-      this.Context = Context;
+    public InventoryService(HunterPieService HP, ConfigService Config) {
+      this.HP = HP;
       this.Config = Config;
     }
 
     public async Task<InventoryModel> LoadAsync() {
       if (Data == null) {
         Settings = await Config.LoadAsync();
-        Data = new() {
-          InVillage = Context.Player.InHarvestZone,
-        };
+        Data = new();
       }
-      Refresh();
       return Data;
     }
 
     public void Refresh() {
+      Data.InVillage = HP.InHarvestZone;
       var always = Settings.Always.Tracking.Select(i => new InventoryItemModel() {
         Item = i,
         TrackInVillage = true,
@@ -69,74 +58,24 @@ namespace MHWItemBoxTracker.Service {
       foreach (var item in add) {
         Data.Items.Add(item);
       }
+
       var ids = Data.Items.Select(i => i.Item.ItemId).ToHashSet();
-      var box = Context.Player.ItemBox?.FindItemsInBox(ids) ?? new();
-      var pouch = Context.Player.Inventory?.FindItemsAndAmmos(ids)?.ToDictionary(i => i.ItemId, i => i.Amount) ?? new();
+      var box = HP.FindItemsInBox(ids);
+      var pouch = HP.FindItemsInPouch(ids);
+      var recipeList = HP.FindRecipes(ids);
+
       foreach (var item in Data.Items) {
-        box.TryGetValue(item.Item.ItemId, out int AmountInBox);
-        pouch.TryGetValue(item.Item.ItemId, out int AmountInPouch);
+        box.TryGetValue(item.Item.ItemId, out var AmountInBox);
+        pouch.TryGetValue(item.Item.ItemId, out var AmountInPouch);
+        recipeList.TryGetValue(item.Item.ItemId, out var recipes);
 
-        var recipes = Recipes.FindRecipes(item.Item.ItemId) ?? new();
-        var materials = recipes
-          .SelectMany(r => r.MaterialsNeeded)
-          .Select(m => m.ItemId)
-          .ToHashSet();
-
-        var pouchCraft = item.TrackPouch
-          ? Context.Player.Inventory?.FindItemsAndAmmos(materials) ?? new sItem[0]
-          : new sItem[0];
-
-        var boxCraft = (item.TrackBox
-          ? Context.Player.ItemBox?.FindItemsInBox(materials) ?? new()
-          : new())
-          .Select(
-            i => new sItem() {
-              ItemId = i.Key,
-              Amount = i.Value,
-            })
-          .ToArray();
-
-        int AmountCraftable = (item.TrackPouch ? recipes.Select(r => r.Calculate(pouchCraft)).Sum() : 0)
-          + (item.TrackBox ? recipes.Select(r => r.Calculate(boxCraft)).Sum() : 0);
+        var AmountCraftable = (item.TrackPouch ? HP.FindCraftableInPouch(recipes) : 0)
+          + (item.TrackBox ? HP.FindCraftableInBox(recipes) : 0);
 
         item.AmountInBox = item.TrackBox ? AmountInBox : 0;
         item.AmountInPouch = item.TrackPouch ? AmountInPouch : 0;
         item.AmountCraftable = item.TrackCraftable ? AmountCraftable : 0;
       }
-    }
-
-    // TODO: Probably move these to an event handler class or something
-    public void Subscribe() {
-      var player = Context.Player;
-      player.OnVillageEnter += EnterVillage;
-      player.OnVillageLeave += LeaveVillage;
-      player.ItemBox.OnItemBoxUpdate += Refresh;
-      // TODO: subscribe to save event?
-    }
-
-    public void Unsubscribe() {
-      var player = Context.Player;
-      player.OnVillageEnter -= EnterVillage;
-      player.OnVillageLeave -= LeaveVillage;
-      player.ItemBox.OnItemBoxUpdate -= Refresh;
-    }
-
-    public void Refresh(object source, EventArgs e) {
-      Dispatcher.Dispatch(Refresh);
-    }
-
-    private void EnterVillage(object source, EventArgs e) {
-      Dispatcher.Dispatch(() => {
-        Data.InVillage = true;
-        Refresh();
-      });
-    }
-
-    private void LeaveVillage(object source, EventArgs e) {
-      Dispatcher.Dispatch(() => {
-        Data.InVillage = false;
-        Refresh();
-      });
     }
   }
 }
