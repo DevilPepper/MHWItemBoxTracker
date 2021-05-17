@@ -106,6 +106,7 @@ namespace MHWItemBoxTracker.Service {
       player.OnVillageEnter += Refresh;
       player.OnVillageLeave += Refresh;
       player.ItemBox.OnItemBoxUpdate += Refresh;
+      player.Inventory.OnInventoryUpdate += Refresh;
       // TODO: subscribe to save event?
     }
 
@@ -114,6 +115,7 @@ namespace MHWItemBoxTracker.Service {
       player.OnVillageEnter -= Refresh;
       player.OnVillageLeave -= Refresh;
       player.ItemBox.OnItemBoxUpdate -= Refresh;
+      player.Inventory.OnInventoryUpdate -= Refresh;
     }
 
     public void Refresh(object source, EventArgs e) {
