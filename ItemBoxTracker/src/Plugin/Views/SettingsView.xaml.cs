@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Controls;
 using HunterPie.Settings;
 using MHWItemBoxTracker.Service;
@@ -24,11 +25,13 @@ namespace MHWItemBoxTracker.Views {
 
     public async void SaveSettings() {
       await Config.SaveAsync();
-      // TODO: Inventory.Refresh()
+      SavedSettings?.Invoke(null, null);
     }
 
     public string ValidateSettings() {
       return null;
     }
+
+    public event EventHandler SavedSettings;
   }
 }

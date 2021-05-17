@@ -19,6 +19,18 @@ namespace MHWItemBoxTracker {
     private InventoryService Inventory;
     private InventoryView GUI;
 
+    private SettingsView settings;
+    private SettingsView Settings {
+      get {
+        lock (Config) {
+          if (settings == null) {
+            settings = new(Config);
+          }
+        }
+        return settings;
+      }
+    }
+
     // Really bad singleton, but I think it's fine considering
     // the plugin gets instantiated by HunterPie
     // and everywhere that uses the singleton is part of this plugin
@@ -37,7 +49,7 @@ namespace MHWItemBoxTracker {
 
       Dispatcher.Dispatch(async () => {
         GUI = new(await Inventory.LoadAsync());
-        Events = new(Context, GUI, Inventory);
+        Events = new(Context, GUI, Inventory, Settings);
         Events.Subscribe();
         Overlay.RegisterWidget(GUI);
         await GUI.Initialize();
@@ -53,7 +65,7 @@ namespace MHWItemBoxTracker {
     }
 
     public IEnumerable<ISettingsTab> GetSettings(ISettingsBuilder builder) {
-      builder.AddTab(new SettingsView(Config));
+      builder.AddTab(Settings);
       return builder.Value();
     }
   }
