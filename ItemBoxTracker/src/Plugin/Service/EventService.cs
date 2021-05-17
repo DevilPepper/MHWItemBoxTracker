@@ -8,10 +8,12 @@ namespace MHWItemBoxTracker.Service {
     private Game Context;
     InventoryView GUI;
     InventoryService Inventory;
-    public EventService(Game Context, InventoryView GUI, InventoryService Inventory) {
+    SettingsView Settings;
+    public EventService(Game Context, InventoryView GUI, InventoryService Inventory, SettingsView Settings) {
       this.Context = Context;
       this.GUI = GUI;
       this.Inventory = Inventory;
+      this.Settings = Settings;
     }
 
     public void Subscribe() {
@@ -22,7 +24,7 @@ namespace MHWItemBoxTracker.Service {
       player.Inventory.OnInventoryUpdate += Refresh;
       player.OnCharacterLogin += ShowWidget;
       player.OnCharacterLogout += HideWidget;
-      // TODO: subscribe to save event?
+      Settings.SavedSettings += Refresh;
     }
 
     public void Unsubscribe() {
@@ -33,6 +35,7 @@ namespace MHWItemBoxTracker.Service {
       player.Inventory.OnInventoryUpdate -= Refresh;
       player.OnCharacterLogin -= ShowWidget;
       player.OnCharacterLogout -= HideWidget;
+      Settings.SavedSettings -= Refresh;
     }
 
     public void Refresh(object source, EventArgs e) {
