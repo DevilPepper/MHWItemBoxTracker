@@ -12,6 +12,13 @@ namespace MHWItemBoxTracker.Views {
     private ItemBoxWidgetSettings widgetSettings { get; set; }
     public override IWidgetSettings Settings => widgetSettings;
     private InventoryViewModel VM;
+    public bool ShouldShow {
+      set {
+        WidgetHasContent = value;
+        ChangeVisibility();
+      }
+    }
+
     public InventoryView(InventoryModel Inventory) : base() {
       InitializeComponent();
       VM = new(Inventory);
@@ -21,14 +28,10 @@ namespace MHWItemBoxTracker.Views {
     public async Task Initialize() {
       widgetSettings = await Plugin.LoadJson<ItemBoxWidgetSettings>(settingsJson);
       ApplySettings();
-
-      WidgetHasContent = true;
-      ChangeVisibility();
     }
 
     public void Unload() {
-      WidgetHasContent = false;
-      ChangeVisibility();
+      ShouldShow = false;
     }
 
     public override void EnterWidgetDesignMode() {

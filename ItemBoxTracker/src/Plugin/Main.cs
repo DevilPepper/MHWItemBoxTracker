@@ -14,6 +14,8 @@ namespace MHWItemBoxTracker {
     public Game Context { get; set; }
 
     private readonly ConfigService Config = new();
+    private EventService Events;
+    private HunterPieService HP;
     private InventoryService Inventory;
     private InventoryView GUI;
 
@@ -30,11 +32,13 @@ namespace MHWItemBoxTracker {
 
     public void Initialize(Game context) {
       Context = context;
-      Inventory = new(Context, Config);
+      HP = new(Context);
+      Inventory = new(HP, Config);
 
       Dispatcher.Dispatch(async () => {
         GUI = new(await Inventory.LoadAsync());
-        Inventory.Subscribe();
+        Events = new(Context, GUI, Inventory);
+        Events.Subscribe();
         Overlay.RegisterWidget(GUI);
         await GUI.Initialize();
       });
@@ -42,7 +46,7 @@ namespace MHWItemBoxTracker {
 
     public void Unload() {
       Dispatcher.Dispatch(() => {
-        Inventory.Unsubscribe();
+        Events.Unsubscribe();
         GUI.Unload();
         Overlay.UnregisterWidget(GUI);
       });
