@@ -30,6 +30,7 @@ info.Description = main.Description;
 info.Author = "Stuff";
 info.Version = typeof(ConfigService).Assembly.GetName().Version.ToString();
 info.ReleaseDate = DateTime.Now;
+info.Dependencies = files.Skip(1).ToArray();
 // info.Links = [{"name": "Homepage", "url": "..."}, {"name": "Changelog", "url": "..."}];
 
 var update = new PluginInformation.PluginUpdateInformation();
