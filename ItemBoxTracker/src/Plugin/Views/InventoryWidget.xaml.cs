@@ -45,5 +45,10 @@ namespace MHWItemBoxTracker.Views {
       base.LeaveWidgetDesignMode();
       await Plugin.SaveJson(settingsJson, widgetSettings);
     }
+
+    public override void ScaleWidget(double newScaleX, double newScaleY) {
+      base.ScaleWidget(newScaleX, newScaleY);
+      contents.LayoutTransform = LayoutTransform;
+    }
   }
 }

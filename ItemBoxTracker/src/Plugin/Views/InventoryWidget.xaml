@@ -9,17 +9,19 @@
     xmlns:convert="clr-namespace:HunterPie.UI.Infrastructure.Converters;assembly=HunterPie.UI"
     xmlns:local="clr-namespace:MHWItemBoxTracker.Views"
     mc:Ignorable="d"
-    ResizeMode="NoResize"
+    ResizeMode="CanResize"
     WindowStyle="None"
     AllowsTransparency="True"
     ShowInTaskbar="False"
     Topmost="True"
-    SizeToContent="Height"
+    SizeToContent="WidthAndHeight"
     Width="350"
     Style="{StaticResource OVERLAY_WIDGET_STYLE}"
     WidgetActive="True">
   <Grid>
-    <local:InventoryView DataContext="{Binding VM}" />
+    <local:InventoryView
+        x:Name="contents"
+        DataContext="{Binding VM}" />
     <TextBlock
         Text="{Binding DesignModeDetails}"
         Visibility="{Binding DesignModeDetailsVisibility}"
