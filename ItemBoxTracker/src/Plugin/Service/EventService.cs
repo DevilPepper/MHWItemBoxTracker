@@ -6,10 +6,10 @@ using MHWItemBoxTracker.Views;
 namespace MHWItemBoxTracker.Service {
   public class EventService {
     private Game Context;
-    InventoryView GUI;
+    InventoryWidget GUI;
     InventoryService Inventory;
     SettingsView Settings;
-    public EventService(Game Context, InventoryView GUI, InventoryService Inventory, SettingsView Settings) {
+    public EventService(Game Context, InventoryWidget GUI, InventoryService Inventory, SettingsView Settings) {
       this.Context = Context;
       this.GUI = GUI;
       this.Inventory = Inventory;

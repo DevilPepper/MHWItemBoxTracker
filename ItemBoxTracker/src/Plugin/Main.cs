@@ -17,7 +17,7 @@ namespace MHWItemBoxTracker {
     private EventService Events;
     private HunterPieService HP;
     private InventoryService Inventory;
-    private InventoryView GUI;
+    private InventoryWidget GUI;
 
     private SettingsView settings;
     private SettingsView Settings {

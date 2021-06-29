@@ -1,0 +1,33 @@
+﻿<src:Widget
+    x:Class="MHWItemBoxTracker.Views.InventoryWidget"
+    xmlns:src="clr-namespace:HunterPie.GUI;assembly=HunterPie.UI"
+    xmlns:Custom="clr-namespace:HunterPie.GUIControls.Custom_Controls;assembly=HunterPie.UI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:convert="clr-namespace:HunterPie.UI.Infrastructure.Converters;assembly=HunterPie.UI"
+    xmlns:local="clr-namespace:MHWItemBoxTracker.Views"
+    mc:Ignorable="d"
+    ResizeMode="CanResize"
+    WindowStyle="None"
+    AllowsTransparency="True"
+    ShowInTaskbar="False"
+    Topmost="True"
+    SizeToContent="WidthAndHeight"
+    Width="350"
+    Style="{StaticResource OVERLAY_WIDGET_STYLE}"
+    WidgetActive="True">
+  <Grid>
+    <local:InventoryView
+        x:Name="contents"
+        DataContext="{Binding VM}" />
+    <TextBlock
+        Text="{Binding DesignModeDetails}"
+        Visibility="{Binding DesignModeDetailsVisibility}"
+        VerticalAlignment="Top"
+        HorizontalAlignment="Left"
+        Width="230"
+        Style="{StaticResource OVERLAY_DESIGN_MODE_DEBUG}" />
+  </Grid>
+</src:Widget>
